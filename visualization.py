@@ -4,6 +4,7 @@ from matplotlib import style
 from mpl_toolkits.mplot3d import Axes3D
 import seaborn as sns
 import pandas as pd
+import textwrap as twp
 
 
 
@@ -38,27 +39,28 @@ def graph_3D(df, ax1: str, ax2: str, ax3: str, lab1 = None,
 
 def demo_graph(var=None, by=None, input_data=None):
     for col in var:
-        input_data.sort_values(by=by, ascending=True, inplace=True)
         fig, ax = plt.subplots(figsize=(15, 10))
         ax.tick_params(axis='both', which='major', labelsize=20)
         sns.set_theme(font_scale=1.2, palette="Set2")
         if np.issubdtype(input_data[col].dtype, np.number):
-            sns.boxplot(ax=ax, data=input_data, y=col, x=by, orient="v")
-            summary = input_data.groupby([by])[col].describe(percentiles=[0.5]).round(2).transpose()
+            dat = input_data.sort_values(by=by, ascending=True)
+            sns.boxplot(ax=ax, data=dat, y=col, x=by, orient="v")
+            summary = dat.groupby([by])[col].describe(percentiles=[0.5]).round(2).transpose()
         else:
-            sns.countplot(ax=ax, data=input_data, x=by,  hue=col)
+            dat = input_data.sort_values(by=[by, col], ascending=True)
+            sns.countplot(ax=ax, data=dat, x=by, hue=col)
             summary = pd.DataFrame()
-            summary['count'] = input_data.groupby([by])[col].value_counts()
-            summary['percent (%)'] = round(input_data.groupby([by])[col].value_counts(normalize=True) * 100, 2)
-            summary = summary.transpose()
-            print(summary)
+            summary['result'] = dat.groupby([by])[col].value_counts().astype(str) + " (" + \
+                                round(dat.groupby([by])[col].value_counts(normalize=True) * 100, 2).astype(str) + "%)"
+            summary = summary.reset_index()
+            summary = summary.pivot(index=col, columns=by)
             plt.legend(loc='upper left')
         ax.set(xlabel=None)
-        plt.table(cellText=summary.values, rowLabels=summary.index, loc='bottom', bbox=[0, -0.3, 1, 0.2],
-                  cellLoc="center")
-        plt.subplots_adjust(left=0.1, bottom=0.25)
+        plt.table(cellText=summary.values, rowLabels=[" ".join(i.split()[:3]) for i in summary.index],
+                  loc='bottom', bbox=[0, -0.3, 1, 0.2], cellLoc="center")
+        plt.subplots_adjust(left=0.2, bottom=0.3)
         plt.ylabel(col, fontsize=16)
-        plt.title(f"Box plot and summary table for {col.title()}", fontsize=30)
+        plt.title(f"Plot and summary table for {col.title()}", fontsize=30)
         plt.show()
 
 
