@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+from operator import itemgetter
 
 def handle_null():
     pass
@@ -55,5 +55,16 @@ def download():
     pass
 
 
-def numeric_to_categorical():
-    pass
+def numeric_to_categorical(df, col: str, bounds, add = False):
+    def group (row, bounds, col):
+        bounds = sorted(bounds, key=itemgetter(0))
+        for i in bounds:
+            if float(row[col]) <= i[0]:
+                return i[1]
+    if add == True:
+        name = col+'_group'
+        df[name] = df.apply(lambda row: group(row, bounds, col), axis=1)
+        return df
+    else:
+        df[col] = df.apply(lambda row: group(row, bounds, col), axis=1)
+        return df
