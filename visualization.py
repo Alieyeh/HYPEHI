@@ -5,11 +5,43 @@ from mpl_toolkits.mplot3d import Axes3D
 import seaborn as sns
 import pandas as pd
 import textwrap as twp
+from sklearn.cluster import OPTICS, cluster_optics_dbscan
+import matplotlib.gridspec as gridspec
+from sklearn.cluster import DBSCAN
 
 
+def cluster_3D(df, cols, type, number, min_sample = 3, eps = 0.5, 
+            lab1 = None, lab2 = None, lab3 = None):
+    if type == 'OPTICS':
+        clusters = OPTICS(min_samples = min_sample).fit(df[cols])
+        df['Clusters'] = clusters.labels_     
+    elif type == 'DBSCAN':
+        clusters = DBSCAN(eps = eps, min_samples = min_sample).fit(df[cols])
+        df['Clusters'] = clusters.labels_
+    else:
 
-def cluster_3D():
-    pass
+        sns.set(style="whitegrid")
+    fig = plt.figure(figsize=(12, 12))
+    ax = fig.add_subplot(111, projection='3d')
+    if not (lab1 is None) and type(lab1) == str:
+        ax.set_xlabel(lab1)
+    else:
+        ax.set_xlabel(col[0])
+    if not (lab2 is None) and type(lab2) == str:
+        ax.set_ylabel(lab2)
+    else:
+        ax.set_ylabel(col[1])
+    if not (lab3 is None) and type(lab3) == str:
+        ax.set_zlabel(lab3)
+    else:
+        ax.set_zlabel(col[2])
+    
+    for s in df.Clusters.unique():
+        ax.scatter(df[col[0]], df[col[1]], df[col[2]],label=s)
+    ax.legend(loc='upper left')
+    fig = plt.figure(figsize=(10,10))
+
+    return fig, ax
 
 
 def cluster_2D():
@@ -34,7 +66,7 @@ def graph_3D(df, ax1: str, ax2: str, ax3: str, lab1 = None,
     else:
         ax.set_zlabel(ax3)
     ax.scatter(df[ax1], df[ax2], df[ax3], color='purple')
-    return ax, fig
+    return fig, ax
 
 
 def demo_graph(var=None, group_by=None, input_data=None):
@@ -75,6 +107,7 @@ def demo_graph(var=None, group_by=None, input_data=None):
         plt.title(f"Plot and summary table for {col.title()}", fontsize=30)
         plt.show()
         # what should I return?
+        #  axis and figure       
 
 
 def longitudinal_graph(y=None, x=None, by=None, input_data=None):
