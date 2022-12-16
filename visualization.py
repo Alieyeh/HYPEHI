@@ -37,24 +37,36 @@ def graph_3D(df, ax1: str, ax2: str, ax3: str, lab1 = None,
     return ax, fig
 
 
-def demo_graph(var=None, by=None, input_data=None):
+def demo_graph(var=None, group_by=None, input_data=None):
     for col in var:
         fig, ax = plt.subplots(figsize=(15, 10))
         ax.tick_params(axis='both', which='major', labelsize=20)
         sns.set_theme(font_scale=1.2, palette="Set2")
-        if np.issubdtype(input_data[col].dtype, np.number):
-            dat = input_data.sort_values(by=by, ascending=True)
-            sns.boxplot(ax=ax, data=dat, y=col, x=by, orient="v")
-            summary = dat.groupby([by])[col].describe(percentiles=[0.5]).round(2).transpose()
+        if group_by is not None:
+            dat = input_data.sort_values(by=[group_by, col], ascending=True)
         else:
-            dat = input_data.sort_values(by=[by, col], ascending=True)
-            sns.countplot(ax=ax, data=dat, x=by, hue=col)
+            dat = input_data.sort_values(by=[col], ascending=True)
+        if np.issubdtype(input_data[col].dtype, np.number):
+            sns.boxplot(ax=ax, data=dat, y=col, x=group_by, orient="v")
+            if group_by is not None:
+                summary = dat.groupby([group_by])[col].describe(percentiles=[0.5]).round(2).transpose()
+            else:
+                summary = dat[col].describe(percentiles=[0.5]).round(2).reset_index().set_index('index')
+        else:
             summary = pd.DataFrame()
-            summary['result'] = dat.groupby([by])[col].value_counts().astype(str) + " (" + \
-                                round(dat.groupby([by])[col].value_counts(normalize=True) * 100, 2).astype(str) + "%)"
-            summary = summary.reset_index()
-            summary = summary.pivot(index=col, columns=by)
-            plt.legend(loc='upper left')
+            if group_by is not None:
+                sns.countplot(ax=ax, data=dat, x=group_by, hue=col)
+                summary['result'] = dat.groupby([group_by])[col].value_counts().astype(str) + " (" + \
+                                    round(dat.groupby([group_by])[col].value_counts(normalize=True) * 100, 2)\
+                                    .astype(str) + "%)"
+                summary = summary.reset_index()
+                summary = summary.pivot(index=col, columns=group_by)
+                plt.legend(loc='upper left')
+            else:
+                sns.countplot(ax=ax, data=dat, x=col, hue=col, dodge=False)
+                plt.xticks([], [])
+                summary['result'] = dat[col].value_counts().astype(str) + " (" + \
+                                    round(dat[col].value_counts(normalize=True) * 100, 2).astype(str) + "%)"
         ax.set(xlabel=None)
         plt.table(cellText=summary.values, rowLabels=[" ".join(i.split()[:3]) for i in summary.index],
                   loc='bottom', bbox=[0, -0.3, 1, 0.2], cellLoc="center")
@@ -62,6 +74,17 @@ def demo_graph(var=None, by=None, input_data=None):
         plt.ylabel(col, fontsize=16)
         plt.title(f"Plot and summary table for {col.title()}", fontsize=30)
         plt.show()
+        # what should I return?
+
+
+def longitudinal_graph(y=None, x=None, by=None, input_data=None):
+    for col in x:
+        fig, ax = plt.subplots(figsize=(15, 10))
+        ax.tick_params(axis='both', which='major', labelsize=20)
+        sns.set_theme(font_scale=1.2, palette="Set2")
+        if np.issubdtype(input_data[col].dtype, np.number):
+            sns.boxplot(ax=ax, data=dat, y=col, x=group_by, orient="v")
+
 
 
 def relation():
