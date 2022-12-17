@@ -20,7 +20,7 @@ def cluster_3D(df, cols, type, number, min_sample = 3, eps = 0.5,
         df['Clusters'] = clusters.labels_
     else:
 
-        sns.set(style="whitegrid")
+    sns.set(style="whitegrid")
     fig = plt.figure(figsize=(12, 12))
     ax = fig.add_subplot(111, projection='3d')
     if not (lab1 is None) and type(lab1) == str:
@@ -132,4 +132,5 @@ def survival_analysis():
     pass
 
 
-
+def boxplot_grid():
+    pass
