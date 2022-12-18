@@ -70,6 +70,41 @@ def graph_3D(df, ax1: str, ax2: str, ax3: str, lab1 = None,
     return fig, ax
 
 
+def f_test(group1, group2):
+    """
+    Return the p-value given two groups' data.
+
+            Parameters
+            ----------
+            group1 : series or list
+                Containing continuous numbers for F-test from group 1.
+            group2 : series or list
+                Containing continuous numbers for F-test from group 2.
+
+            Returns
+            -------
+            p_value : float
+                A number round to 3 decimal places.
+
+            Examples
+            --------
+            >>> a = [0.28, 0.2, 0.26, 0.28, 0.5]
+            >>> b = [0.2, 0.23, 0.26, 0.21, 0.23]
+            >>> f_test(a, b)
+            0.004
+    """
+    x = np.array(group1)
+    y = np.array(group2)
+    if np.var(group2, ddof=1) != 0:
+        f_value = np.var(group1, ddof=1) / np.var(group2, ddof=1)
+        nun = x.size - 1
+        dun = y.size - 1
+        p_value = round(1 - scipy.stats.f.cdf(f_value, nun, dun), 3)
+    else:
+        p_value = np.nan
+    return p_value
+
+
 def demo_graph(var: list, input_data: pd.DataFrame, group_by=None):
     """Return a new matrix of given shape and type, without initializing entries.
 
@@ -138,23 +173,10 @@ def demo_graph(var: list, input_data: pd.DataFrame, group_by=None):
         plt.show()
         return fig, ax
         # what should I return?/ but I have multiple output plots
-        #  axis and figure       
+        #  axis and figure
 
 
-def f_test(group1, group2):
-    x = np.array(group1)
-    y = np.array(group2)
-    if np.var(group2, ddof=1) != 0:
-        f_value = np.var(group1, ddof=1) / np.var(group2, ddof=1)
-        nun = x.size - 1
-        dun = y.size - 1
-        p_value = round(1 - scipy.stats.f.cdf(f_value, nun, dun), 3)
-    else:
-        p_value = np.nan
-    return p_value
-
-
-def longitudinal_graph(outcome, time, group_by, input_data=pd.DataFrame):
+def longitudinal_graph(outcome: list, time, group_by, input_data=pd.DataFrame):
 
     for col in outcome:
         summary = round(input_data.groupby([group_by, time])[col].mean().reset_index(), 2)
