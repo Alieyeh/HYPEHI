@@ -9,6 +9,7 @@ import itertools
 from sklearn.cluster import OPTICS, cluster_optics_dbscan
 import matplotlib.gridspec as gridspec
 from sklearn.cluster import DBSCAN
+from lifelines import KaplanMeierFitter
 
 
 def cluster_3D(df, cols, type, number, min_sample = 3, eps = 0.5, 
@@ -105,29 +106,30 @@ def f_test(group1, group2):
     return p_value
 
 
-def demo_graph(var: list, input_data: pd.DataFrame, group_by=None):
-    """Return a new matrix of given shape and type, without initializing entries.
+def demo_graph(var: list, input_data: pd.DataFrame, group=None):
+    """
+    Show the counts of categorical characteristic variables in each group and combine with a summary table.
+    Show the boxplots of countinous characteristic variables in each group and combine with a smmary table.
 
         Parameters
         ----------
-        var : int or tuple of int
-            Shape of the empty matrix.
-        input_data : data-type, optional
-            Desired output data-type.
-        group_by : {'C', 'F'}, optional
-            Whether to store multi-dimensional data in row-major
-            (C-style) or column-major (Fortran-style) order in
-            memory.
+        var : list
+            List of the characteristic variables. The list can include both categorical and countinous variables,
+            the function can automatically detect its type and then use proper plot.
+        input_data : pd.DataFrame
+            Input dataet name.
+        group : names of variables in input_data, optional
+            Grouping variables that will produce plottings and summary tables with different colors
+            (e.g. treatment group).
 
         Returns
         -------
-        ret : ndarray
-        An array, or list of arrays, each with ``a.ndim >= 1``.
-        Copies are made only if necessary.
+        fig, ax : matplotlib.axes.Axes
+        The matplotlib axes containing the plot and summary table.
 
         See Also
         --------
-        atleast_2d, atleast_3d
+        longitudinal_graph
 
         Examples
         --------
@@ -139,25 +141,25 @@ def demo_graph(var: list, input_data: pd.DataFrame, group_by=None):
         fig, ax = plt.subplots(figsize=(15, 10))
         ax.tick_params(axis='both', which='major', labelsize=20)
         sns.set_theme(font_scale=1.2, palette="Set2")
-        if group_by is not None:
-            dat = input_data.sort_values(by=[group_by, col], ascending=True)
+        if group is not None:
+            dat = input_data.sort_values(by=[group, col], ascending=True)
         else:
             dat = input_data.sort_values(by=[col], ascending=True)
         if np.issubdtype(input_data[col].dtype, np.number):
-            sns.boxplot(ax=ax, data=dat, y=col, x=group_by, orient="v")
-            if group_by is not None:
-                summary = dat.groupby([group_by])[col].describe(percentiles=[0.5]).round(2).transpose()
+            sns.boxplot(ax=ax, data=dat, y=col, x=group, orient="v")
+            if group is not None:
+                summary = dat.groupby([group])[col].describe(percentiles=[0.5]).round(2).transpose()
             else:
                 summary = dat[col].describe(percentiles=[0.5]).round(2).reset_index().set_index('index')
         else:
             summary = pd.DataFrame()
-            if group_by is not None:
-                sns.countplot(ax=ax, data=dat, x=group_by, hue=col)
-                summary['result'] = dat.groupby([group_by])[col].value_counts().astype(str) + " (" + \
-                                    round(dat.groupby([group_by])[col].value_counts(normalize=True) * 100, 2)\
+            if group is not None:
+                sns.countplot(ax=ax, data=dat, x=group, hue=col)
+                summary['result'] = dat.groupby([group])[col].value_counts().astype(str) + " (" + \
+                                    round(dat.groupby([group])[col].value_counts(normalize=True) * 100, 2)\
                                     .astype(str) + "%)"
                 summary = summary.reset_index()
-                summary = summary.pivot(index=col, columns=group_by)
+                summary = summary.pivot(index=col, columns=group)
                 plt.legend(loc='upper left')
             else:
                 sns.countplot(ax=ax, data=dat, x=col, hue=col, dodge=False)
@@ -176,29 +178,29 @@ def demo_graph(var: list, input_data: pd.DataFrame, group_by=None):
         #  axis and figure
 
 
-def longitudinal_graph(outcome: list, time, group_by, input_data=pd.DataFrame):
+def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
 
     for col in outcome:
-        summary = round(input_data.groupby([group_by, time])[col].mean().reset_index(), 2)
+        summary = round(input_data.groupby([group, time])[col].mean().reset_index(), 2)
         fig, ax = plt.subplots(figsize=(15, 10))
         ax.tick_params(axis='both', which='major', labelsize=20)
         sns.set_theme(font_scale=1.2, palette="Set2")
-        sns.lineplot(x=time, y=col, hue=group_by, data=summary)
+        sns.lineplot(x=time, y=col, hue=group, data=summary)
 
         time_group = input_data[time].unique()
-        group = input_data[group_by].unique()
+        group = input_data[group].unique()
         temp = pd.DataFrame()
         for i in time_group:
             for g1, g2 in itertools.combinations(range(len(group)), 2):
-                a = input_data.query(f"{time}=={i} and {group_by}=='{group[g1]}'")[col].transpose()
-                b = input_data.query(f"{time}=={i} and {group_by}=='{group[g2]}'")[col].transpose()
+                a = input_data.query(f"{time}=={i} and {group}=='{group[g1]}'")[col].transpose()
+                b = input_data.query(f"{time}=={i} and {group}=='{group[g2]}'")[col].transpose()
                 p_value = f_test(a, b)
                 row = pd.DataFrame([[i, f"p-value: \n {group[g1]} vs {group[g2]}", p_value]],
                                    columns=["Time", "Compare", col])
                 temp = pd.concat([temp, row])
         temp = temp.pivot_table(index='Compare', columns="Time")
         print(summary)
-        summary = summary.pivot_table(index=group_by, columns=time)
+        summary = summary.pivot_table(index=group, columns=time)
         summary = pd.concat([summary, temp])
         ax.set(xlabel=None)
         plt.table(cellText=summary.values, rowLabels=summary.index, loc='bottom', bbox=[0, -0.5, 1, 0.4], cellLoc="center")
@@ -212,12 +214,15 @@ def relation():
     pass
 
 
-def time_to_death():
-    pass
+def survival_analysis(input_data, time, censor_status, group):
+    group_list = input_data[group].unique()
+    for i in group_list:
+        mask = input_data[group] == i
+        fig, ax = plt.subplots(figsize=(15, 10))
+        KaplanMeierFitter.fit(input_data[censor_status][mask], input_data[time][mask], label=i)
+        KaplanMeierFitter.plot_survival_function(ax=ax, at_risk_counts=True)
 
-
-def survival_analysis():
-    pass
+    plt.title(f"KM plot of {group}")
 
 
 def boxplot_grid():
