@@ -10,8 +10,45 @@ def change_type():
     pass
 
 
-def data_selection(cond=None, keep_col=None, drop_col=None, sort_by=None, merge_data=None,
-                   merge_by=None, merge_keep_col=None, sort_asc=True, rename=None, input_data=None):
+def data_selection(input_data: pd.DataFrame, cond=None, keep_col=None, drop_col=None, sort_by=None, merge_data=None,
+                   merge_by=None, merge_keep_col=None, sort_asc=True, rename=None):
+    """Return a new dataframe of given filter crateria.
+
+            Parameters
+            ----------
+            input_data :
+            cond : int or tuple of int
+                Shape of the empty matrix.
+            keep_col : data-type, optional
+                Desired output data-type.
+            drop_col : {'C', 'F'}, optional
+                Whether to store multidimensional data in row-major
+                (C-style) or column-major (Fortran-style) order in
+                memory.
+            sort_by :
+            merge_data :
+            merge_by :
+            merge_keep_col :
+            sort_asc :
+            rename :
+
+            Returns
+            -------
+            output_data :
+            An array, or list of arrays, each with ``a.ndim >= 1``.
+            Copies are made only if necessary.
+
+            See Also
+            --------
+            atleast_2d, atleast_3d
+
+            Examples
+            --------
+            >>>
+            >>>    # filled with random data
+
+        """
+
     if cond is not None:
         output_data = input_data.query(cond)
     else:
@@ -38,17 +75,32 @@ def data_selection(cond=None, keep_col=None, drop_col=None, sort_by=None, merge_
     return output_data
 
 
-def derive_baseline(input_data=None, chg=None, pchg=None, base_visit=None):
-    baseline = data_selection(keep_col=["USUBJID", "PARAMCD", "AVISITN", "AVAL"], input_data=input_data,
+def derive_baseline(input_data, base_visit, chg=True, pchg=True):
+    baseline = data_selection(keep_col=["USUBJID", "PARAMCD", "AVAL"], input_data=input_data,
                               cond=base_visit, rename={"AVAL":"BASE"})
 
-    input_data = data_selection(input_data=input_data, merge_data=baseline, merge_by=["USUBJID", "PARAMCD"])
+    output_data = data_selection(input_data=input_data, merge_data=baseline, merge_by=["USUBJID", "PARAMCD"])
     if chg:
-        input_data["CHG"] = input_data["AVAL"]-input_data["BASE"]
+        output_data["CHG"] = output_data["AVAL"]-output_data["BASE"]
     if pchg:
-        input_data["PCHG"] = (input_data["AVAL"]-input_data["BASE"])/input_data["BASE"]
+        output_data["PCHG"] = (output_data["AVAL"]-output_data["BASE"])/output_data["BASE"]
 
-    return input_data
+    return output_data
+
+
+def derive_extreme_flag(input_data, by_vars: list, sort_var: list, new_var, mode, value_var=None):
+    if mode.lower() == "last":
+        temp = input_data.sort_values(sort_var).groupby(by_vars).last()
+    elif mode.lower() == "first":
+        temp = input_data.sort_values(sort_var).groupby(by_vars).first()
+    elif mode.lower() == "max":
+        temp = input_data.loc[input_data.sort_values(sort_var).groupby(by_vars)[value_var].idxmax(), :]
+    elif mode.lower() == "min":
+        temp = input_data.loc[input_data.sort_values(sort_var).groupby(by_vars)[value_var].idxmin(), :]
+    temp[new_var] = "Y"
+    output_data = data_selection(input_data, merge_data=temp.reset_index(), merge_by=by_vars+sort_var, merge_keep_col=by_vars+sort_var+new_var.split())
+
+    return output_data
 
 
 def download():
