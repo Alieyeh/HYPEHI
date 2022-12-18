@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from operator import itemgetter
+from datetime import datetime
 
 def handle_null():
     pass
@@ -12,7 +13,8 @@ def change_type():
 
 def data_selection(input_data: pd.DataFrame, cond=None, keep_col=None, drop_col=None, sort_by=None, merge_data=None,
                    merge_by=None, merge_keep_col=None, sort_asc=True, rename=None):
-    """Return a new dataframe of given filter crateria.
+    """
+    Return a new dataframe of given filter crateria.
 
             Parameters
             ----------
@@ -47,7 +49,7 @@ def data_selection(input_data: pd.DataFrame, cond=None, keep_col=None, drop_col=
             >>>
             >>>    # filled with random data
 
-        """
+    """
 
     if cond is not None:
         output_data = input_data.query(cond)
@@ -99,6 +101,28 @@ def derive_extreme_flag(input_data, by_vars: list, sort_var: list, new_var, mode
         temp = input_data.loc[input_data.sort_values(sort_var).groupby(by_vars)[value_var].idxmin(), :]
     temp[new_var] = "Y"
     output_data = data_selection(input_data, merge_data=temp.reset_index(), merge_by=by_vars+sort_var, merge_keep_col=by_vars+sort_var+new_var.split())
+
+    return output_data
+
+
+def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
+    output_data = input_data.astype({start_date: 'datetime64[ns]', end_date: 'datetime64[ns]',
+                                     censor_date: 'datetime64[ns]'})
+    if np.logical_and(output_data[start_date].notnull(), output_data[end_date].notnull()):
+        output_data[new_var] = output_data[end_date] - output_data[start_date]
+        output_data['censor_status'] = 0
+    else:
+        output_data[new_var] = output_data[end_date] - output_data[censor_date]
+        output_data['censor_status'] = 1
+
+    if unit.lower() == 'day':
+        output_data[new_var] = output_data[new_var].days
+    elif unit.lower() == 'week':
+        output_data[new_var] = output_data[new_var].weeks
+    elif unit.lower() == 'month':
+        output_data[new_var] = output_data[new_var].months
+    elif unit.lower() == 'year':
+        output_data[new_var] = output_data[new_var].years
 
     return output_data
 
