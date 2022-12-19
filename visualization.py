@@ -57,8 +57,39 @@ def cluster_3D(df, cols, type, number = None, min_sample = 3, eps = 0.5,
     return fig, ax
 
 
-def cluster_2D():
-    pass
+def cluster_2D(df, cols, type, number, min_sample = 3, eps = 0.5, 
+            lab1 = None, lab2 = None):
+    if type == 'OPTICS':
+        clusters = OPTICS(min_samples = min_sample).fit(df[cols])
+        df['Clusters'] = clusters.labels_     
+    elif type == 'DBSCAN':
+        clusters = DBSCAN(eps = eps, min_samples = min_sample).fit(df[cols])
+        df['Clusters'] = clusters.labels_
+    else:
+        if number is None:
+            number = 15
+            for k in range(1,15):
+                clusters = KMeans(n_clusters=k).fit(df[cols])
+                if clusters.inertia_ < 50:
+                    number = k
+                    break
+        clusters = KMeans(n_clusters=number)fit(df[cols])
+        df['Clusters'] = clusters.labels_
+
+    sns.set(style="whitegrid")
+    fig = plt.figure(figsize=(12, 12))
+    ax = sns.scatterplot(data=X,x="Prftchange",y="Revchange",hue=X['OPTICS'])
+
+    if not (lab1 is None) and type(lab1) == str:
+        ax.set_xlabel(lab1)
+    else:
+        ax.set_xlabel(col[0])
+    if not (lab2 is None) and type(lab2) == str:
+        ax.set_ylabel(lab2)
+    else:
+        ax.set_ylabel(col[1])
+
+    return fig, ax
 
 
 def graph_3D(df, ax1: str, ax2: str, ax3: str, lab1 = None,
