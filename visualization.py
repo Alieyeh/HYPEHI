@@ -7,13 +7,15 @@ import pandas as pd
 import scipy.stats
 import itertools
 from sklearn.cluster import OPTICS, cluster_optics_dbscan
+from sklearn.cluster import DBSCAN, KMeans
 import matplotlib.gridspec as gridspec
-from sklearn.cluster import DBSCAN
 from lifelines import KaplanMeierFitter
 
 
-def cluster_3D(df, cols, type, number, min_sample = 3, eps = 0.5, 
+def cluster_3D(df, cols, type, number = None, min_sample = 3, eps = 0.5, 
             lab1 = None, lab2 = None, lab3 = None):
+    if len(cols) != 3:
+        return 'Wrong number of columns'
     if type == 'OPTICS':
         clusters = OPTICS(min_samples = min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_     
@@ -21,7 +23,16 @@ def cluster_3D(df, cols, type, number, min_sample = 3, eps = 0.5,
         clusters = DBSCAN(eps = eps, min_samples = min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_
     else:
-        pass  # add to make code run, delete it when you see this
+        if number is None:
+            number = 15
+            for k in range(1,15):
+                clusters = KMeans(n_clusters=k).fit(df[cols])
+                if clusters.inertia_ < 50:
+                    number = k
+                    break
+        clusters = KMeans(n_clusters=number)fit(df[cols])
+        df['Clusters'] = clusters.labels_
+
     sns.set(style="whitegrid")
     fig = plt.figure(figsize=(12, 12))
     ax = fig.add_subplot(111, projection='3d')
