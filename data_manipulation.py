@@ -132,7 +132,15 @@ def download():
 
 
 def data_bias():
-    pass
+    nul = df.isna().sum()
+    too_nul = []
+    leng = df.shape[0]
+    i = 0
+    for n in nul:
+    if n > 0.1 * leng:
+        too_nul.append([dat.columns[i], n])
+    i += 1
+    print('columns with too many null values: ', too_nul)
 
 
 def numeric_to_categorical(df, col: str, bounds, add = False):
