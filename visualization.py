@@ -59,6 +59,8 @@ def cluster_3D(df, cols, type, number = None, min_sample = 3, eps = 0.5,
 
 def cluster_2D(df, cols, type, number, min_sample = 3, eps = 0.5, 
             lab1 = None, lab2 = None):
+    if len(cols) != 2:
+        return 'Wrong number of columns'
     if type == 'OPTICS':
         clusters = OPTICS(min_samples = min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_     
