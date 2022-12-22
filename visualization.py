@@ -7,8 +7,9 @@ import pandas as pd
 import scipy.stats
 import itertools
 from sklearn.cluster import OPTICS, cluster_optics_dbscan
-from sklearn.cluster import DBSCAN, KMeans
 import matplotlib.gridspec as gridspec
+from sklearn.cluster import DBSCAN, KMeans
+from matplotlib import cm
 from lifelines import KaplanMeierFitter
 
 
@@ -254,8 +255,39 @@ def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
     return fig, ax
 
 
-def relation():
-    pass
+# type 1 is catagorical, 2 is correlation, anything else is both
+def relation(df, col1 = None, col2 = None, gtype = 3, path = None, 
+            name_chi = 'chiheatmap', name_cor = 'corheatmap'):
+    if col1 is None and col2 is None:
+        if gtype != 2:
+            chi = []
+            cols = df.columns
+            num_cols = df._get_numeric_data().columns
+            cat_cols = list(set(cols) - set(num_cols))
+            for i in cat_cols:
+                for j in cat_cols:
+                    con = pd.crosstab(df[i], df[j]) 
+                    c, p, dof, expected = stats.chi2_contingency(con)
+                    chi.append(round(p,3)) 
+            data = np.array(chi)
+            n = int(np.sqrt(len(data)))
+            data = data.reshape(n, n)
+        
+            fig, ax = plt.subplots(figsize=(14, 14))
+            p = sns.heatmap(data=data, annot=True, fmt='2g', ax=ax,
+                        cmap=cm.YlOrBr, xticklabels=cat_cols, yticklabels=cat_cols)
+
+            if path is not None:
+                fig.savefig(f'{path}/{name_chi}.pdf', format='png', bbox_inches='tight')       
+            plt.show()
+            # pandas.DataFrame(chi, chi_cols, chi_cols)
+            return fig, ax
+        if gtype != 1:
+            plt.figure(figsize = (14, 14))
+            p = sns.heatmap(df.corr(), annot = True)
+            if path is not None:
+                fig.savefig(f'{path}/{name_cor}.pdf', format='png', bbox_inches='tight')       
+            plt.show()
 
 
 def survival_analysis(input_data, time, censor_status, group):
