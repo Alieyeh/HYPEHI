@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from operator import itemgetter
-from datetime import datetime
 
 def handle_null():
     pass
@@ -100,7 +99,8 @@ def derive_extreme_flag(input_data, by_vars: list, sort_var: list, new_var, mode
     elif mode.lower() == "min":
         temp = input_data.loc[input_data.sort_values(sort_var).groupby(by_vars)[value_var].idxmin(), :]
     temp[new_var] = "Y"
-    output_data = data_selection(input_data, merge_data=temp.reset_index(), merge_by=by_vars+sort_var, merge_keep_col=by_vars+sort_var+new_var.split())
+    output_data = data_selection(input_data, merge_data=temp.reset_index(), merge_by=by_vars+sort_var,
+                                 merge_keep_col=by_vars+sort_var+new_var.split())
 
     return output_data
 
@@ -108,21 +108,21 @@ def derive_extreme_flag(input_data, by_vars: list, sort_var: list, new_var, mode
 def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
     output_data = input_data.astype({start_date: 'datetime64[ns]', end_date: 'datetime64[ns]',
                                      censor_date: 'datetime64[ns]'})
-    if np.logical_and(output_data[start_date].notnull(), output_data[end_date].notnull()):
-        output_data[new_var] = output_data[end_date] - output_data[start_date]
-        output_data['censor_status'] = 0
-    else:
-        output_data[new_var] = output_data[end_date] - output_data[censor_date]
-        output_data['censor_status'] = 1
+
+    output_data[new_var] = np.where((output_data[start_date].notnull()) & (output_data[end_date].notnull()),
+                                    output_data[end_date] - output_data[start_date],
+                                    output_data[censor_date] - output_data[start_date])
+    output_data['censor_status'] = np.where((output_data[start_date].notna()) & (output_data[end_date].notna()), 0, 1)
 
     if unit.lower() == 'day':
-        output_data[new_var] = output_data[new_var].days
+        output_data[new_var] = output_data[new_var].dt.days
     elif unit.lower() == 'week':
-        output_data[new_var] = output_data[new_var].weeks
+        output_data[new_var] = round(output_data[new_var].dt.days/7, 2)
     elif unit.lower() == 'month':
-        output_data[new_var] = output_data[new_var].months
+        output_data[new_var] = round(output_data[new_var].dt.days/30, 2)
     elif unit.lower() == 'year':
-        output_data[new_var] = output_data[new_var].years
+        output_data[new_var] = round(output_data[new_var].dt.days/365.25, 2)
+    output_data['unit'] = unit
 
     return output_data
 
@@ -137,9 +137,9 @@ def data_bias():
     leng = df.shape[0]
     i = 0
     for n in nul:
-    if n > 0.1 * leng:
-        too_nul.append([dat.columns[i], n])
-    i += 1
+        if n > 0.1 * leng:
+            too_nul.append([dat.columns[i], n])
+        i += 1
     print('columns with too many null values: ', too_nul)
 
 
