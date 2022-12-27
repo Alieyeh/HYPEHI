@@ -112,7 +112,7 @@ def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
     output_data[new_var] = np.where((output_data[start_date].notnull()) & (output_data[end_date].notnull()),
                                     output_data[end_date] - output_data[start_date],
                                     output_data[censor_date] - output_data[start_date])
-    output_data['censor_status'] = np.where((output_data[start_date].notna()) & (output_data[end_date].notna()), 0, 1)
+    output_data['censor_status'] = np.where((output_data[start_date].notna()) & (output_data[end_date].notna()), 1, 0)
 
     if unit.lower() == 'day':
         output_data[new_var] = output_data[new_var].dt.days
