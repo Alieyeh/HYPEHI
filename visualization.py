@@ -11,9 +11,10 @@ import matplotlib.gridspec as gridspec
 from sklearn.cluster import DBSCAN, KMeans
 from matplotlib import cm
 from lifelines import KaplanMeierFitter
+from lifelines.plotting import add_at_risk_counts
 
 
-def cluster_3D(df, cols, type, number = None, min_sample = 3, eps = 0.5, 
+def cluster_3D(df, cols, type, number = None, min_sample = 3, eps = 0.5,
             lab1 = None, lab2 = None, lab3 = None):
     if len(cols) != 3:
         return 'Wrong number of columns'
@@ -31,7 +32,7 @@ def cluster_3D(df, cols, type, number = None, min_sample = 3, eps = 0.5,
                 if clusters.inertia_ < 50:
                     number = k
                     break
-        clusters = KMeans(n_clusters=number)fit(df[cols])
+        clusters = KMeans(n_clusters=number).fit(df[cols])
         df['Clusters'] = clusters.labels_
 
     sns.set(style="whitegrid")
@@ -76,7 +77,7 @@ def cluster_2D(df, cols, type, number, min_sample = 3, eps = 0.5,
                 if clusters.inertia_ < 50:
                     number = k
                     break
-        clusters = KMeans(n_clusters=number)fit(df[cols])
+        clusters = KMeans(n_clusters=number).fit(df[cols])
         df['Clusters'] = clusters.labels_
 
     sns.set(style="whitegrid")
@@ -182,6 +183,8 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
         >>>    # filled with random data
 
     """
+    fig_list = []
+    ax_list = []
     for col in var:
         fig, ax = plt.subplots(figsize=(15, 10))
         ax.tick_params(axis='both', which='major', labelsize=20)
@@ -201,8 +204,8 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
             if group is not None:
                 sns.countplot(ax=ax, data=dat, x=group, hue=col)
                 summary['result'] = dat.groupby([group])[col].value_counts().astype(str) + " (" + \
-                                    round(dat.groupby([group])[col].value_counts(normalize=True) * 100, 2)\
-                                    .astype(str) + "%)"
+                    round(dat.groupby([group])[col].value_counts(normalize=True) * 100, 2)\
+                    .astype(str) + "%)"
                 summary = summary.reset_index()
                 summary = summary.pivot(index=col, columns=group)
                 plt.legend(loc='upper left')
@@ -210,21 +213,22 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
                 sns.countplot(ax=ax, data=dat, x=col, hue=col, dodge=False)
                 plt.xticks([], [])
                 summary['result'] = dat[col].value_counts().astype(str) + " (" + \
-                                    round(dat[col].value_counts(normalize=True) * 100, 2).astype(str) + "%)"
+                    round(dat[col].value_counts(normalize=True) * 100, 2).astype(str) + "%)"
         ax.set(xlabel=None)
         plt.table(cellText=summary.values, rowLabels=[" ".join(i.split()[:3]) for i in summary.index],
                   loc='bottom', bbox=[0, -0.3, 1, 0.2], cellLoc="center")
         plt.subplots_adjust(left=0.2, bottom=0.3)
         plt.ylabel(col, fontsize=16)
         plt.title(f"Plot and summary table for {col.title()}", fontsize=30)
-        plt.show()
-        return fig, ax
-        # what should I return?/ but I have multiple output plots
-        #  axis and figure
+        fig_list.append(fig)
+        ax_list.append(ax)
+
+    return fig_list, ax_list
 
 
 def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
-
+    fig_list = []
+    ax_list = []
     for col in outcome:
         summary = round(input_data.groupby([group, time])[col].mean().reset_index(), 2)
         fig, ax = plt.subplots(figsize=(15, 10))
@@ -252,7 +256,9 @@ def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
         plt.subplots_adjust(left=0.2, bottom=0.3)
         plt.title(f"Line plot and summary table for {col.title()}", fontsize=30)
         plt.show()
-    return fig, ax
+        fig_list.append(fig)
+        ax_list.append(ax)
+    return fig_list, ax_list
 
 
 # type 1 is catagorical, 2 is correlation, anything else is both
@@ -291,14 +297,26 @@ def relation(df, col1 = None, col2 = None, gtype = 3, path = None,
 
 
 def survival_analysis(input_data, time, censor_status, group):
-    group_list = input_data[group].unique()
+    ana_data = input_data[input_data[time].notnull()]
+    group_list = ana_data.sort_values(by=[group])[group].unique()
+    fig, ax = plt.subplots(figsize=(8, 6))
+    plot = {}
+    count = 1
     for i in group_list:
-        mask = input_data[group] == i
-        fig, ax = plt.subplots(figsize=(15, 10))
-        KaplanMeierFitter.fit(input_data[censor_status][mask], input_data[time][mask], label=i)
-        KaplanMeierFitter.plot_survival_function(ax=ax, at_risk_counts=True)
+        mask = ana_data[group] == i
+        plot['kmf' + str(count)] = KaplanMeierFitter()
+        plot['kmf' + str(count)].fit(ana_data[time][mask], ana_data[censor_status][mask], label=i)
+        plot['kmf' + str(count)].plot_survival_function(ax=ax)
+        count += 1
+        # summary = pd.DataFrame(kmf.median_survival_time_)
 
-    plt.title(f"KM plot of {group}")
+    #add_at_risk_counts([x for x in plot.values()], ax=ax)
+    plt.tight_layout()
+    plt.title(f"Survival of different {group}")
+    plt.show()
+    # plt.table(cellText=summary.values, rowLabels=summary.index, loc='bottom', bbox=[0, -0.5, 1, 0.4], cellLoc="center")
+
+    return fig, ax
 
 
 def boxplot_grid():
