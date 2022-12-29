@@ -311,7 +311,7 @@ def survival_analysis(input_data, time, censor_status, group):
         # summary = pd.DataFrame(kmf.median_survival_time_)
 
     #add_at_risk_counts([x for x in plot.values()], ax=ax)
-    #plt.tight_layout()
+    plt.tight_layout()
     plt.title(f"Survival of different {group}")
     plt.show()
     # plt.table(cellText=summary.values, rowLabels=summary.index, loc='bottom', bbox=[0, -0.5, 1, 0.4], cellLoc="center")
