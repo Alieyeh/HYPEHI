@@ -22,7 +22,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Alieyeh/HYPEHI">
-    <img src="Animated Logo 500x500 px.gif" alt="Logo" width="80" height="80">
+    <img src="Animated Logo 500x500 px.gif" alt="Logo" width="300" height="300">
   </a>
 
   <h3 align="center">HYPEHI</h3>
@@ -30,11 +30,9 @@
   <p align="center">
     Coding for ML and DSc assignment 2. A package to aid in data exploration for health data.
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://github.com/Alieyeh/HYPEHI/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/Alieyeh/HYPEHI/issues">Request Feature</a>
   </p>
 </div>
 
