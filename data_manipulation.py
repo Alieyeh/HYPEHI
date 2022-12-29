@@ -2,8 +2,16 @@ import pandas as pd
 import numpy as np
 from operator import itemgetter
 
-def handle_null():
-    pass
+
+def handle_null(input_data, col, by, impute_type):
+    if impute_type.lower() == 'mean':
+        output_data = input_data[col].fillna(input_data.groupby(by)[col].mean())
+    elif impute_type.lower() == 'min':
+        output_data = input_data[col].fillna(input_data.groupby(by)[col].min())
+    elif impute_type.lower() == 'max':
+        output_data = input_data[col].fillna(input_data.groupby(by)[col].max())
+
+    return output_data
 
 
 def change_type():
@@ -76,15 +84,16 @@ def data_selection(input_data: pd.DataFrame, cond=None, keep_col=None, drop_col=
     return output_data
 
 
-def derive_baseline(input_data, base_visit, chg=True, pchg=True):
-    baseline = data_selection(keep_col=["USUBJID", "PARAMCD", "AVAL"], input_data=input_data,
-                              cond=base_visit, rename={"AVAL":"BASE"})
+def derive_baseline(input_data, base_visit, by: list, value, chg=True, pchg=True, ):
+    combine_col = by + [value]
+    baseline = data_selection(keep_col=combine_col, input_data=input_data,
+                              cond=base_visit, rename={value: "BASE"})
 
-    output_data = data_selection(input_data=input_data, merge_data=baseline, merge_by=["USUBJID", "PARAMCD"])
+    output_data = data_selection(input_data=input_data, merge_data=baseline, merge_by=by)
     if chg:
-        output_data["CHG"] = output_data["AVAL"]-output_data["BASE"]
+        output_data["CHG"] = output_data[value]-output_data["BASE"]
     if pchg:
-        output_data["PCHG"] = (output_data["AVAL"]-output_data["BASE"])/output_data["BASE"]
+        output_data["PCHG"] = (output_data[value]-output_data["BASE"])/output_data["BASE"]
 
     return output_data
 
@@ -112,7 +121,7 @@ def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
     output_data[new_var] = np.where((output_data[start_date].notnull()) & (output_data[end_date].notnull()),
                                     output_data[end_date] - output_data[start_date],
                                     output_data[censor_date] - output_data[start_date])
-    output_data['censor_status'] = np.where((output_data[start_date].notna()) & (output_data[end_date].notna()), 1, 0)
+    output_data['censor_status'] = np.where((output_data[start_date].notnull()) & (output_data[end_date].notnull()), 1, 0)
 
     if unit.lower() == 'day':
         output_data[new_var] = output_data[new_var].dt.days
