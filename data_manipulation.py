@@ -156,16 +156,30 @@ def download():
     pass
 
 
-def data_bias():
+def check_bias(df, col = None, real_dist = None, marg = 5):
     nul = df.isna().sum()
     too_nul = []
     leng = df.shape[0]
     i = 0
     for n in nul:
-        if n > 0.1 * leng:
+        if n >= 0.1 * leng:
             too_nul.append([dat.columns[i], n])
         i += 1
     print('columns with too many null values: ', too_nul)
+    if real_dist is not None and col is not None:
+        count = df[col].value_counts(ascending=False).rename_axis(
+            'vals').reset_index(name='dist')
+        count.index.name = 'Index'
+        count['dist'] = count['dist']*100/len(df)
+        skew = []
+        for i in range(0,len(real_dist)):
+            dist = count.loc[count['vals'] == real_dist[i][0]]
+            real = real_dist[i][1]
+            ours = dist['dist'].values[0]
+            print(str(ours) + " "+ str(real))
+            if ours > (real + marg) or ours < (real - marg):
+                skew.append(dist)
+        print(skew)
 
 
 def numeric_to_categorical(df, col: str, bounds, add = False):
