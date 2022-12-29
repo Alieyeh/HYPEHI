@@ -14,8 +14,24 @@ def handle_null(input_data, col, by, impute_type):
     return output_data
 
 
-def change_type():
-    pass
+def change_type(df, col, col_type):
+    if col_type == str:
+        df[col] = df[col].apply(lambda x: str(x))
+    elif col_type == int:
+        if type(df[col]) == str:
+            df[col] = df[col].apply(lambda x: int(x.replace(',','')
+                                                .replace(' ','')))
+        else:
+            df[col] = df[col].apply(lambda x: int(x))
+    elif col_type == float:
+        if type(df[col]) == str:
+            df[col] = df[col].apply(lambda x: float(x.replace(',','')
+                                                    .replace(' ','')))
+        else:
+            df[col] = df[col].apply(lambda x: float(x))
+    else:
+        print('Type unsupported')
+    return df
 
 
 def data_selection(input_data: pd.DataFrame, cond=None, keep_col=None, drop_col=None, sort_by=None, merge_data=None,
