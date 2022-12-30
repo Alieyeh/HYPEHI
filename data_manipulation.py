@@ -152,8 +152,28 @@ def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
     return output_data
 
 
-def download():
-    pass
+def read(path, source, sheet_name = None, table = False, sql = None, con = None):
+    df = None
+    if source == 'csv':
+        df = pd.read_csv(path)   
+    elif source == 'tsv':
+        df = pd.read_csv(path, sep='\t')    
+    elif source == 'excel':
+        if sheet_name is None:
+            df = pd.read_excel(path)  
+        else:
+            df = pd.read_excel(io=path, sheet_name = sheet_name)
+    elif source == 'json':
+        df = pd.read_json(path)
+    elif source == 'html':
+        df = pd.read_html(path)
+    elif source == 'xml':
+        df = pd.read_spss(path)
+    elif source = 'sql' and name is not None and con is not None:
+        pandas.read_sql(sql, con)
+    else: 
+        print("Source type not supported")
+    return df
 
 
 def check_bias(df, col = None, real_dist = None, marg = 5):
