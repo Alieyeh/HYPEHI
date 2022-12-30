@@ -372,5 +372,31 @@ def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
     return fig, ax
 
 
-def boxplot_grid():
-    pass
+def boxplot_grid(df, col1 = None, col2 = None, col3 = None):
+    if col1 is None and col2 is None:
+        cols = df.columns
+        num_cols = df._get_numeric_data().columns
+        cat_cols = list(set(cols) - set(num_cols))
+        sizex = int(math.sqrt(len(num_cols)))
+        marg = (len(num_cols) - (sizex*sizex))/sizex 
+        if (marg).is_integer():
+            sizey = sizex + int(marg)
+        else:
+            sizey = sizex + int(marg) + 1
+        plt.style.use('ggplot')
+        fig, axes = plt.subplots(sizey, sizex, figsize = (20,20))
+        for i in range(len(num_cols)):
+            sns.boxplot(df[num_cols[i]], ax=axes.flat[i])
+            axes.flat[i].title.set_text(num_cols[i])
+        fig.tight_layout()
+        return fig, axes
+    elif col1 is not None and col2 is not None and col3 is not None:
+        ordered = sorted(df[col1].unique())
+        wrap = int(math.sqrt(len(ordered)))
+        g = sns.FacetGrid(df,col=col1,col_order=ordered,col_wrap=wrap)
+        g.map(sns.boxplot,col2,col3,palette='muted')
+        for ax in g.axes.flatten(): 
+            ax.tick_params(labelbottom=True)
+        plt.tight_layout()
+        plt.show()
+        return g
