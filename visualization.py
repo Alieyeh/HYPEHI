@@ -11,7 +11,6 @@ import matplotlib.gridspec as gridspec
 from sklearn.cluster import DBSCAN, KMeans
 from matplotlib import cm
 from lifelines import KaplanMeierFitter
-from lifelines.plotting import add_at_risk_counts
 
 
 def cluster_3D(df, cols, type, number = None, min_sample = 3, eps = 0.5,
@@ -154,24 +153,24 @@ def f_test(group1, group2):
 
 def demo_graph(var: list, input_data: pd.DataFrame, group=None):
     """
-    Show the counts of categorical characteristic variables in each group and combine with a summary table.
-    Show the boxplots of countinous characteristic variables in each group and combine with a smmary table.
+    Show the count of categorical characteristic variables in each group and combine with a summary table.
+    Show the boxplot of countinous characteristic variables in each group and combine with a smmary table.
 
         Parameters
         ----------
         var : list
-            List of the characteristic variables. The list can include both categorical and countinous variables,
-            the function can automatically detect its type and then use proper plot.
+            List of the characteristic variables. The list can include both categorical and countinous variables.
+            The function can automatically detect its type and then use proper plot.
         input_data : pd.DataFrame
-            Input dataet name.
+            Input dataset name.
         group : names of variables in input_data, optional
             Grouping variables that will produce plottings and summary tables with different colors
             (e.g. treatment group).
 
         Returns
         -------
-        fig, ax : matplotlib.axes.Axes
-        The matplotlib axes containing the plot and summary table.
+        tuple (fig_list, ax_list) : list of Figure, list of axes.Axes
+        The matplotlib figures and axes containing the plots and summary tables.
 
         See Also
         --------
@@ -179,8 +178,7 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
 
         Examples
         --------
-        >>>
-        >>>    # filled with random data
+        >>> demo_graph(var=['gender','age'], input_data=data, group="treatment")
 
     """
     fig_list = []
@@ -227,28 +225,57 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
 
 
 def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
+    """
+    Show the scatter plot of outcome means over time in each group and combine with a summary table.
+
+        Parameters
+        ----------
+        outcome : list
+            List of the continuous outcome(y) variables need to be plotted.
+        time : names of variables in input_data 
+            Time variables(x)
+            (e.g. visit number).
+        group : names of time variables in input_data
+            Grouping variables that will produce plottings and summary tables with different colors
+            (e.g. treatment group).
+        input_data : pd.DataFrame
+            Input dataset name.
+
+        Returns
+        -------
+        tuple (fig_list, ax_list) : list of Figure, list of axes.Axes
+        The matplotlib figures and axes containing the plots and summary tables.
+
+        See Also
+        --------
+        demo_graph
+
+        Examples
+        --------
+        >>> longitudinal_graph(outcome=["change_from_baseline"], time="visit", group="treatment", input_data=data)
+
+    """
     fig_list = []
     ax_list = []
+    time_uni = input_data[time].unique()
+    group_uni = input_data[group].unique()
     for col in outcome:
-        summary = round(input_data.groupby([group, time])[col].mean().reset_index(), 2)
-        fig, ax = plt.subplots(figsize=(15, 10))
+        summary = round(input_data.groupby(by=[group, time])[col].mean().reset_index(), 2)
+        fig, ax = plt.subplots(figsize=(15, 9))
         ax.tick_params(axis='both', which='major', labelsize=20)
         sns.set_theme(font_scale=1.2, palette="Set2")
         sns.lineplot(x=time, y=col, hue=group, data=summary)
 
-        time_group = input_data[time].unique()
-        group = input_data[group].unique()
         temp = pd.DataFrame()
-        for i in time_group:
-            for g1, g2 in itertools.combinations(range(len(group)), 2):
-                a = input_data.query(f"{time}=={i} and {group}=='{group[g1]}'")[col].transpose()
-                b = input_data.query(f"{time}=={i} and {group}=='{group[g2]}'")[col].transpose()
+        for i in time_uni:
+            for g1, g2 in itertools.combinations(range(len(group_uni)), 2):
+                a = input_data.query(f"{time}=={i} and {group}=='{group_uni[g1]}'")[col].transpose()
+                b = input_data.query(f"{time}=={i} and {group}=='{group_uni[g2]}'")[col].transpose()
                 p_value = f_test(a, b)
-                row = pd.DataFrame([[i, f"p-value: \n {group[g1]} vs {group[g2]}", p_value]],
+                row = pd.DataFrame([[i, f"p-value: \n {group_uni[g1]} vs {group_uni[g2]}", p_value]],
                                    columns=["Time", "Compare", col])
                 temp = pd.concat([temp, row])
         temp = temp.pivot_table(index='Compare', columns="Time")
-        print(summary)
         summary = summary.pivot_table(index=group, columns=time)
         summary = pd.concat([summary, temp])
         ax.set(xlabel=None)
@@ -296,7 +323,33 @@ def relation(df, col1 = None, col2 = None, gtype = 3, path = None,
             plt.show()
 
 
-def survival_analysis(input_data, time, censor_status, group):
+def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
+    """
+    Show the kaplan-meier curve and combine with a median survival time summary.
+
+        Parameters
+        ----------
+        time : names of time variables in input_data
+            Time to event of interest
+        censor_status : names of variables in input_data
+            True(1) if the event of interest was observed, False(0) if the event was lost (right-censored).
+        group : names of time variables in input_data
+            Grouping variables that will produce plottings and summary tables with different colors
+            (e.g. treatment group).
+        input_data : pd.DataFrame
+            Input dataset name.
+
+        Returns
+        -------
+        fig, ax :  Figure, axes.Axes
+        The matplotlib figure and ax containing the plot and summary table.
+
+
+        Examples
+        --------
+        >>> survival_analysis(time="time_to_event", censor_status="censor", group="treatment", input_data=data)
+
+    """
     ana_data = input_data[input_data[time].notnull()]
     group_list = ana_data.sort_values(by=[group])[group].unique()
     fig, ax = plt.subplots(figsize=(8, 6))
@@ -312,8 +365,8 @@ def survival_analysis(input_data, time, censor_status, group):
 
     plt.title(f"Survival of different {group}")
     plt.table(cellText=temp.values, colLabels=(group, "Median survival time"),
-              loc='bottom', bbox=[0, -0.55, 1, 0.4], cellLoc="center")
-    plt.subplots_adjust(left=0.2, bottom=0.4)
+              loc='bottom', bbox=[0, -0.6, 1, 0.4], cellLoc="center")
+    plt.subplots_adjust(left=0.2, bottom=0.35)
     plt.show()
 
     return fig, ax
