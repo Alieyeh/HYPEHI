@@ -400,3 +400,14 @@ def boxplot_grid(df, col1 = None, col2 = None, col3 = None):
         plt.tight_layout()
         plt.show()
         return g
+
+def pie(df, col, path = None, name = 'pie_chart'):
+    total = df[col].value_counts().values.sum()
+    def fmt(x):
+        return '{:.1f}%\n{:.0f}'.format(x, total*x/100)
+    colors = sns.color_palette("Spectral")
+    plt.figure(figsize=(14,7))
+    ax = plt.pie(df[col].value_counts().values, colors = colors, labels=df[col].value_counts().index, autopct=fmt)
+    if path is not None:
+        plt.savefig(f'{path}/{name}.pdf', format='png', bbox_inches='tight')
+    return ax
