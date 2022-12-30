@@ -300,21 +300,21 @@ def survival_analysis(input_data, time, censor_status, group):
     ana_data = input_data[input_data[time].notnull()]
     group_list = ana_data.sort_values(by=[group])[group].unique()
     fig, ax = plt.subplots(figsize=(8, 6))
-    plot = {}
-    count = 1
+    temp = pd.DataFrame()
     for i in group_list:
         mask = ana_data[group] == i
-        plot['kmf' + str(count)] = KaplanMeierFitter()
-        plot['kmf' + str(count)].fit(ana_data[time][mask], ana_data[censor_status][mask], label=i)
-        plot['kmf' + str(count)].plot_survival_function(ax=ax)
-        count += 1
-        # summary = pd.DataFrame(kmf.median_survival_time_)
+        kmf = KaplanMeierFitter()
+        kmf.fit(ana_data[time][mask], ana_data[censor_status][mask], label=i)
+        kmf.plot_survival_function(ax=ax)
+        row = pd.DataFrame([[i, kmf.median_survival_time_]],
+                           columns=[group, "Median Survival Time"])
+        temp = pd.concat([temp, row])
 
-    #add_at_risk_counts([x for x in plot.values()], ax=ax)
-    plt.tight_layout()
     plt.title(f"Survival of different {group}")
+    plt.table(cellText=temp.values, colLabels=(group, "Median survival time"),
+              loc='bottom', bbox=[0, -0.55, 1, 0.4], cellLoc="center")
+    plt.subplots_adjust(left=0.2, bottom=0.4)
     plt.show()
-    # plt.table(cellText=summary.values, rowLabels=summary.index, loc='bottom', bbox=[0, -0.5, 1, 0.4], cellLoc="center")
 
     return fig, ax
 
