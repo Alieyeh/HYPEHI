@@ -406,7 +406,7 @@ def pie(df, col, path = None, name = 'pie_chart'):
     def fmt(x):
         return '{:.1f}%\n{:.0f}'.format(x, total*x/100)
     colors = sns.color_palette("Spectral")
-    plt.figure(figsize=(14,7))
+    plt.figure(figsize=(20,20))
     ax = plt.pie(df[col].value_counts().values, colors = colors, labels=df[col].value_counts().index, autopct=fmt)
     if path is not None:
         plt.savefig(f'{path}/{name}.pdf', format='png', bbox_inches='tight')
