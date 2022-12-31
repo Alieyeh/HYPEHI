@@ -233,8 +233,7 @@ def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
         outcome : list
             List of the continuous outcome(y) variables need to be plotted.
         time : names of variables in input_data 
-            Time variables(x)
-            (e.g. visit number).
+            Time variables(x)(e.g. visit number).
         group : names of time variables in input_data
             Grouping variables that will produce plottings and summary tables with different colors
             (e.g. treatment group).
@@ -330,7 +329,7 @@ def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
         Parameters
         ----------
         time : names of time variables in input_data
-            Time to event of interest
+            Time to event of interest.
         censor_status : names of variables in input_data
             True(1) if the event of interest was observed, False(0) if the event was lost (right-censored).
         group : names of time variables in input_data
