@@ -155,24 +155,25 @@ def derive_extreme_flag(input_data, by_vars: list, sort_var: list, new_var, mode
                     Input dataset name.
                 by_vars : list
                     Grouping variables uniquely identifying a set of records for flags.
-                sort_var : str
-                    The query string to specify the baseline visit. (e.g. 'visit==0').
+                sort_var : list
+                    Sort variables used to sort the dataset which help find the first/last.
                 new_var : str
-                    The variable names from which to extract the baseline value.
-                mode : bool, default to True
-                    If True, return change from baseline (chg) variable as value - base.
-                value_var : bool, default to True
-                    If True, return percent change from baseline (chg) variable as (value - base)/base.
+                    The variable name. It is set to "Y" for the observation (depending on the mode) of each by group.
+                mode : str, select from (last, first, max, min)
+                    Determines of the first/last/max/min observation is flagged.
+                value_var : str
+                    The variable names from which to extract the specified value.
 
                 Returns
                 -------
                 output_data : pd.DataFrame
-                Dataset with derived baseline and related variables.
+                Dataset with derived extreme variables.
 
                 Examples
                 --------
-                >>> derive_baseline(input_data=data, base_visit='visit==0', by_vars=["patient","lab test"], value=value,
-                >>> chg=True, pchg=True)
+                >>> derive_extreme_flag(input_data=data, by_vars=["patient","lab_test"],
+                >>> sort_var=["patient","lab test", "test_value"], new_var="first_flag",
+                >>> mode="first", value_var="test_value")
 
     """
     if mode.lower() == "last":
@@ -191,6 +192,36 @@ def derive_extreme_flag(input_data, by_vars: list, sort_var: list, new_var, mode
 
 
 def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
+    """
+        Add a variable flagging the specified observation within each by_vars group.
+
+                Parameters
+                ----------
+                input_data : pd.DataFrame
+                    Input dataset name.
+                start_date : list
+                    Grouping variables uniquely identifying a set of records for flags.
+                end_date : list
+                    Sort variables used to sort the dataset which help find the first/last.
+                censor_date : str, select from (last, first, max, min)
+                    Determines of the first/last/max/min observation is flagged.
+                new_var : str
+                    The variable name. It is set to "Y" for the observation (depending on the mode) of each by group.
+                unit : str
+                    The variable names from which to extract the specified value.
+
+                Returns
+                -------
+                output_data : pd.DataFrame
+                Dataset with derived extreme variables.
+
+                Examples
+                --------
+                >>> derive_extreme_flag(input_data=data, by_vars=["patient","lab_test"],
+                >>> sort_var=["patient","lab test", "test_value"], new_var="first_flag",
+                >>> mode="first", value_var="test_value")
+
+    """
     output_data = input_data.astype({start_date: 'datetime64[ns]', end_date: 'datetime64[ns]',
                                      censor_date: 'datetime64[ns]'})
 
