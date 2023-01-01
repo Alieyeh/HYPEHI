@@ -269,16 +269,23 @@ def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
     """
     fig_list = []
     ax_list = []
+    # get unique time point
     time_uni = input_data[time].unique()
+    # get unique group name
     group_uni = input_data[group].unique()
+    # iterate through different outcome variables
     for col in outcome:
+        # generate summary table for mean value in each group
         summary = round(input_data.groupby(by=[group, time])[col].mean().reset_index(), 2)
+        # set up figure, ax
         fig, ax = plt.subplots(figsize=(15, 9))
         ax.tick_params(axis='both', which='major', labelsize=20)
         sns.set_theme(font_scale=1.2, palette="Set2")
+        # generate line plot
         sns.lineplot(x=time, y=col, hue=group, data=summary)
 
         temp = pd.DataFrame()
+        # performing F-test between every two of the groups
         for i in time_uni:
             for g1, g2 in itertools.combinations(range(len(group_uni)), 2):
                 a = input_data.query(f"{time}=={i} and {group}=='{group_uni[g1]}'")[col].transpose()
@@ -290,10 +297,15 @@ def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
         temp = temp.pivot_table(index='Compare', columns="Time")
         summary = summary.pivot_table(index=group, columns=time)
         summary = pd.concat([summary, temp])
+
+        # combine summary table with line plot
+        plt.table(cellText=summary.values, rowLabels=summary.index, loc='bottom', bbox=[0, -0.5, 1, 0.4],
+                  cellLoc="center")
+        # format adjust
         ax.set(xlabel=None)
-        plt.table(cellText=summary.values, rowLabels=summary.index, loc='bottom', bbox=[0, -0.5, 1, 0.4], cellLoc="center")
         plt.subplots_adjust(left=0.2, bottom=0.3)
         plt.title(f"Line plot and summary table for {col.title()}", fontsize=30)
+        # append multiple plots into list
         fig_list.append(fig)
         ax_list.append(ax)
     return fig_list, ax_list
