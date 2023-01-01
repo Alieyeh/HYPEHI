@@ -3,13 +3,52 @@ import numpy as np
 from operator import itemgetter
 
 
-def handle_null(input_data, col, by, impute_type):
-    if impute_type.lower() == 'mean':
-        output_data = input_data[col].fillna(input_data.groupby(by)[col].mean())
-    elif impute_type.lower() == 'min':
-        output_data = input_data[col].fillna(input_data.groupby(by)[col].min())
-    elif impute_type.lower() == 'max':
-        output_data = input_data[col].fillna(input_data.groupby(by)[col].max())
+def handle_null(input_data, col, by_vars:None, impute_type):
+    """
+         Replace missing values with a descriptive statistic.
+
+                Parameters
+                ----------
+                input_data : pd.DataFrame
+                    Input dataset name.
+                col : str
+                    Variable name nedd to be imputed.
+                by_vars : str or list
+                    Grouping variables uniquely identifying a set of records for computing descriptive statistic .
+                impute_type : str, , select from (mean, max, min, median)
+                    The imputation method.
+
+                Returns
+                -------
+                output_data : pd.DataFrame
+                Dataset with variables after imputation.
+
+                Examples
+                --------
+                >>> df = pd.DataFrame()
+                >>> df['C0'] = [0.2601,0.2358,0.1429,0.1259,0.7526,0.7341,0.4546,0.1426,0.1490,0.2500]
+                >>> df['C1'] = [0.7154,np.nan,0.2615,0.5846,np.nan,0.8308,0.4962,np.nan,0.5340,0.6731]
+                >>> handle_null(input_data=df, col="C!", impute_type="median")
+
+    """
+    if by_vars is not None:
+        if impute_type.lower() == 'mean':
+            output_data = input_data[col].fillna(input_data.groupby(by_vars)[col].mean())
+        elif impute_type.lower() == 'median':
+            output_data = input_data[col].fillna(input_data.groupby(by_vars)[col].median())
+        elif impute_type.lower() == 'min':
+            output_data = input_data[col].fillna(input_data.groupby(by_vars)[col].min())
+        elif impute_type.lower() == 'max':
+            output_data = input_data[col].fillna(input_data.groupby(by_vars)[col].max())
+    else:
+        if impute_type.lower() == 'mean':
+            output_data = input_data[col].fillna(input_data[col].mean())
+        elif impute_type.lower() == 'median':
+            output_data = input_data[col].fillna(input_data[col].median())
+        elif impute_type.lower() == 'min':
+            output_data = input_data[col].fillna(input_data[col].min())
+        elif impute_type.lower() == 'max':
+            output_data = input_data[col].fillna(input_data[col].max())
 
     return output_data
 
@@ -158,7 +197,7 @@ def derive_extreme_flag(input_data, by_vars: list, sort_var: list, new_var, mode
                 sort_var : list
                     Sort variables used to sort the dataset which help find the first/last.
                 new_var : str
-                    The variable name. It is set to "Y" for the observation (depending on the mode) of each by group.
+                    The name of variable to add. It is set to "Y" for the observation (depending on the mode) of each by group.
                 mode : str, select from (last, first, max, min)
                     Determines of the first/last/max/min observation is flagged.
                 value_var : str
@@ -199,16 +238,16 @@ def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
                 ----------
                 input_data : pd.DataFrame
                     Input dataset name.
-                start_date : list
-                    Grouping variables uniquely identifying a set of records for flags.
-                end_date : list
-                    Sort variables used to sort the dataset which help find the first/last.
-                censor_date : str, select from (last, first, max, min)
-                    Determines of the first/last/max/min observation is flagged.
+                start_date : str
+                    Variable name of time to event origin date.
+                end_date : str
+                    Variable name of time to event happened date.
+                censor_date : str
+                    Variable name of time to event censoring date.
                 new_var : str
-                    The variable name. It is set to "Y" for the observation (depending on the mode) of each by group.
-                unit : str
-                    The variable names from which to extract the specified value.
+                    The name of variable to add.
+                unit : str, select from (day, week, month, year)
+                    The unit of time to event duration.
 
                 Returns
                 -------
