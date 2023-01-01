@@ -31,6 +31,7 @@ def handle_null(input_data, col, by_vars:None, impute_type):
                 >>> handle_null(input_data=df, col="C!", impute_type="median")
 
     """
+    # when there is by variables
     if by_vars is not None:
         if impute_type.lower() == 'mean':
             output_data = input_data[col].fillna(input_data.groupby(by_vars)[col].mean())
@@ -40,6 +41,7 @@ def handle_null(input_data, col, by_vars:None, impute_type):
             output_data = input_data[col].fillna(input_data.groupby(by_vars)[col].min())
         elif impute_type.lower() == 'max':
             output_data = input_data[col].fillna(input_data.groupby(by_vars)[col].max())
+    # when there is no by variables
     else:
         if impute_type.lower() == 'mean':
             output_data = input_data[col].fillna(input_data[col].mean())
@@ -108,29 +110,29 @@ def data_selection(input_data: pd.DataFrame, cond=None, keep_col=None, drop_col=
             Dataset with the selection creteria applied.
 
     """
-
+    # filter the data
     if cond is not None:
         output_data = input_data.query(cond)
     else:
         output_data = input_data
-
+    # keep variables
     if keep_col is not None:
         output_data = output_data.loc[:, keep_col]
-
+    # drop variables
     if drop_col is not None:
         output_data.drop(drop_col, axis=1, inplace=True)
-
+    # keep variables in merge dataset
     if merge_keep_col is not None:
         merge_data = merge_data.loc[:, merge_keep_col]
-
+    # merge dataset with input dataset
     if merge_data is not None:
         output_data = output_data.merge(merge_data, on=merge_by, how="left")
-
+    # sort dataset
     if (sort_by is not None) & isinstance(output_data, pd.DataFrame):
         output_data.sort_values(sort_by, ascending=sort_asc, inplace=True)
     elif sort_by is not None:
         output_data = output_data.sort_values(ascending=sort_asc).copy()
-
+    # rename columns in dataset
     if rename is not None:
         output_data.rename(columns=rename, inplace=True)
 
@@ -139,7 +141,8 @@ def data_selection(input_data: pd.DataFrame, cond=None, keep_col=None, drop_col=
 
 def derive_baseline(input_data, base_visit, by_vars: list, value, chg=True, pchg=True):
     """
-        Return a new data frame of derived baseline and related variables.
+        Return a new data frame of derived baseline and related variables. Function for longitudinal
+        data analysis.
 
                 Parameters
                 ----------
@@ -172,10 +175,12 @@ def derive_baseline(input_data, base_visit, by_vars: list, value, chg=True, pchg
 
     """
     combine_col = by_vars + [value]
+    # get baseline records
     baseline = data_selection(keep_col=combine_col, input_data=input_data,
                               cond=base_visit, rename={value: "base"})
-
+    # merge baseline records with input dataset
     output_data = data_selection(input_data=input_data, merge_data=baseline, merge_by=by_vars)
+    # derive chg/pchg variables
     if chg:
         output_data["chg"] = output_data[value]-output_data["base"]
     if pchg:
@@ -186,7 +191,8 @@ def derive_baseline(input_data, base_visit, by_vars: list, value, chg=True, pchg
 
 def derive_extreme_flag(input_data, by_vars: list, sort_var: list, new_var, mode, value_var=None):
     """
-        Add a variable flagging the specified observation within each by_vars group.
+        Add a variable flagging the specified observation within each by_vars group. Function for longitudinal
+        data analysis.
 
                 Parameters
                 ----------
@@ -232,7 +238,8 @@ def derive_extreme_flag(input_data, by_vars: list, sort_var: list, new_var, mode
 
 def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
     """
-        Add a variable flagging the specified observation within each by_vars group.
+        Add a variable flagging the specified observation within each by_vars group. Function for survival
+        data analysis.
 
                 Parameters
                 ----------
@@ -261,14 +268,17 @@ def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
                 >>> mode="first", value_var="test_value")
 
     """
+    # change variables type into datetime
     output_data = input_data.astype({start_date: 'datetime64[ns]', end_date: 'datetime64[ns]',
                                      censor_date: 'datetime64[ns]'})
-
+    # derive time_to_event variable
     output_data[new_var] = np.where((output_data[start_date].notnull()) & (output_data[end_date].notnull()),
                                     output_data[end_date] - output_data[start_date],
                                     output_data[censor_date] - output_data[start_date])
+    # derive censor variable
     output_data['censor_status'] = np.where((output_data[start_date].notnull()) & (output_data[end_date].notnull()), 1, 0)
 
+    # format value based on unit
     if unit.lower() == 'day':
         output_data[new_var] = output_data[new_var].dt.days
     elif unit.lower() == 'week':

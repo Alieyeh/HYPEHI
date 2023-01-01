@@ -183,22 +183,31 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
     """
     fig_list = []
     ax_list = []
+    # iterate through different variables
     for col in var:
+        # set up figure, axes
         fig, ax = plt.subplots(figsize=(15, 10))
         ax.tick_params(axis='both', which='major', labelsize=20)
         sns.set_theme(font_scale=1.2, palette="Set2")
+        # sort dataset
         if group is not None:
             dat = input_data.sort_values(by=[group, col], ascending=True)
         else:
             dat = input_data.sort_values(by=[col], ascending=True)
+        # check the type of variable (if numeric)
         if np.issubdtype(input_data[col].dtype, np.number):
+            # generate boxplot
             sns.boxplot(ax=ax, data=dat, y=col, x=group, orient="v")
+            # generate summary table (descriptive statistic for numeric variables)
             if group is not None:
                 summary = dat.groupby([group])[col].describe(percentiles=[0.5]).round(2).transpose()
             else:
                 summary = dat[col].describe(percentiles=[0.5]).round(2).reset_index().set_index('index')
+        # check the type of variable (if categorical)
         else:
             summary = pd.DataFrame()
+            # generate count plot
+            # generate summary table (percentage for categorical variables)
             if group is not None:
                 sns.countplot(ax=ax, data=dat, x=group, hue=col)
                 summary['result'] = dat.groupby([group])[col].value_counts().astype(str) + " (" + \
@@ -213,11 +222,14 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
                 summary['result'] = dat[col].value_counts().astype(str) + " (" + \
                     round(dat[col].value_counts(normalize=True) * 100, 2).astype(str) + "%)"
         ax.set(xlabel=None)
+        # combine summary table with plot
         plt.table(cellText=summary.values, rowLabels=[" ".join(i.split()[:3]) for i in summary.index],
                   loc='bottom', bbox=[0, -0.3, 1, 0.2], cellLoc="center")
+        # format adjust
         plt.subplots_adjust(left=0.2, bottom=0.3)
         plt.ylabel(col, fontsize=16)
         plt.title(f"Plot and summary table for {col.title()}", fontsize=30)
+        # append multiple plots into list
         fig_list.append(fig)
         ax_list.append(ax)
 
@@ -226,7 +238,8 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
 
 def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
     """
-    Show the scatter plot of outcome means over time in each group and combine with a summary table.
+    Show the scatter plot of outcome means over time in each group and combine with a summary table. Function for
+    longitudinal data analysis.
 
         Parameters
         ----------
@@ -281,7 +294,6 @@ def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
         plt.table(cellText=summary.values, rowLabels=summary.index, loc='bottom', bbox=[0, -0.5, 1, 0.4], cellLoc="center")
         plt.subplots_adjust(left=0.2, bottom=0.3)
         plt.title(f"Line plot and summary table for {col.title()}", fontsize=30)
-        plt.show()
         fig_list.append(fig)
         ax_list.append(ax)
     return fig_list, ax_list
@@ -324,7 +336,7 @@ def relation(df, col1 = None, col2 = None, gtype = 3, path = None,
 
 def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
     """
-    Show the kaplan-meier curve and combine with a median survival time summary.
+    Show the kaplan-meier curve and combine with a median survival time summary. Function for survival data analysis.
 
         Parameters
         ----------
@@ -349,24 +361,30 @@ def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
         >>> survival_analysis(time="time_to_event", censor_status="censor", group="treatment", input_data=data)
 
     """
+    # remove records with missing time to event value
     ana_data = input_data[input_data[time].notnull()]
     group_list = ana_data.sort_values(by=[group])[group].unique()
+    # set up figure, ax
     fig, ax = plt.subplots(figsize=(8, 6))
     temp = pd.DataFrame()
+    # iterate through group
     for i in group_list:
+        # data filter
         mask = ana_data[group] == i
+        # draw KM plot
         kmf = KaplanMeierFitter()
         kmf.fit(ana_data[time][mask], ana_data[censor_status][mask], label=i)
         kmf.plot_survival_function(ax=ax)
+        # get median survival time
         row = pd.DataFrame([[i, kmf.median_survival_time_]],
                            columns=[group, "Median Survival Time"])
         temp = pd.concat([temp, row])
-
-    plt.title(f"Survival of different {group}")
+    # combine median survival table with plot
     plt.table(cellText=temp.values, colLabels=(group, "Median survival time"),
               loc='bottom', bbox=[0, -0.6, 1, 0.4], cellLoc="center")
+    # plot format adjust
+    plt.title(f"Survival of different {group}")
     plt.subplots_adjust(left=0.2, bottom=0.35)
-    plt.show()
 
     return fig, ax
 
