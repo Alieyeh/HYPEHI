@@ -11,22 +11,24 @@ import matplotlib.gridspec as gridspec
 from sklearn.cluster import DBSCAN, KMeans
 from matplotlib import cm
 from lifelines import KaplanMeierFitter
+import math
+from scipy import stats
 
 
-def cluster_3D(df, cols, type, number = None, min_sample = 3, eps = 0.5,
-            lab1 = None, lab2 = None, lab3 = None):
+def cluster_3d(df, cols, ctype, number=None, min_sample=3, eps=0.5,
+               lab1=None, lab2=None, lab3=None):
     if len(cols) != 3:
         return 'Wrong number of columns'
-    if type == 'OPTICS':
-        clusters = OPTICS(min_samples = min_sample).fit(df[cols])
-        df['Clusters'] = clusters.labels_     
-    elif type == 'DBSCAN':
-        clusters = DBSCAN(eps = eps, min_samples = min_sample).fit(df[cols])
+    if ctype == 'OPTICS':
+        clusters = OPTICS(min_samples=min_sample).fit(df[cols])
+        df['Clusters'] = clusters.labels_
+    elif ctype == 'DBSCAN':
+        clusters = DBSCAN(eps=eps, min_samples=min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_
     else:
         if number is None:
             number = 15
-            for k in range(1,15):
+            for k in range(1, 15):
                 clusters = KMeans(n_clusters=k).fit(df[cols])
                 if clusters.inertia_ < 50:
                     number = k
@@ -37,41 +39,41 @@ def cluster_3D(df, cols, type, number = None, min_sample = 3, eps = 0.5,
     sns.set(style="whitegrid")
     fig = plt.figure(figsize=(12, 12))
     ax = fig.add_subplot(111, projection='3d')
-    if not (lab1 is None) and type(lab1) == str:
+    if not (lab1 is None) and ctype(lab1) == str:
         ax.set_xlabel(lab1)
     else:
-        ax.set_xlabel(col[0])
-    if not (lab2 is None) and type(lab2) == str:
+        ax.set_xlabel(cols[0])
+    if not (lab2 is None) and ctype(lab2) == str:
         ax.set_ylabel(lab2)
     else:
-        ax.set_ylabel(col[1])
-    if not (lab3 is None) and type(lab3) == str:
+        ax.set_ylabel(cols[1])
+    if not (lab3 is None) and ctype(lab3) == str:
         ax.set_zlabel(lab3)
     else:
-        ax.set_zlabel(col[2])
-    
+        ax.set_zlabel(cols[2])
+
     for s in df.Clusters.unique():
-        ax.scatter(df[col[0]], df[col[1]], df[col[2]],label=s)
+        ax.scatter(df[cols[0]], df[cols[1]], df[cols[2]], label=s)
     ax.legend(loc='upper left')
-    fig = plt.figure(figsize=(10,10))
+    fig = plt.figure(figsize=(10, 10))
 
     return fig, ax
 
 
-def cluster_2D(df, cols, type, number, min_sample = 3, eps = 0.5, 
-            lab1 = None, lab2 = None):
+def cluster_2d(df, cols, ctype, number, min_sample=3, eps=0.5,
+               lab1=None, lab2=None):
     if len(cols) != 2:
         return 'Wrong number of columns'
-    if type == 'OPTICS':
-        clusters = OPTICS(min_samples = min_sample).fit(df[cols])
-        df['Clusters'] = clusters.labels_     
-    elif type == 'DBSCAN':
-        clusters = DBSCAN(eps = eps, min_samples = min_sample).fit(df[cols])
+    if ctype == 'OPTICS':
+        clusters = OPTICS(min_samples=min_sample).fit(df[cols])
+        df['Clusters'] = clusters.labels_
+    elif ctype == 'DBSCAN':
+        clusters = DBSCAN(eps=eps, min_samples=min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_
     else:
         if number is None:
             number = 15
-            for k in range(1,15):
+            for k in range(1, 15):
                 clusters = KMeans(n_clusters=k).fit(df[cols])
                 if clusters.inertia_ < 50:
                     number = k
@@ -81,22 +83,22 @@ def cluster_2D(df, cols, type, number, min_sample = 3, eps = 0.5,
 
     sns.set(style="whitegrid")
     fig = plt.figure(figsize=(12, 12))
-    ax = sns.scatterplot(data=X,x="Prftchange",y="Revchange",hue=X['OPTICS'])
+    ax = sns.scatterplot(data=df, x="Prftchange", y="Revchange", hue=df['OPTICS'])
 
-    if not (lab1 is None) and type(lab1) == str:
+    if not (lab1 is None) and ctype(lab1) == str:
         ax.set_xlabel(lab1)
     else:
-        ax.set_xlabel(col[0])
-    if not (lab2 is None) and type(lab2) == str:
+        ax.set_xlabel(cols[0])
+    if not (lab2 is None) and ctype(lab2) == str:
         ax.set_ylabel(lab2)
     else:
-        ax.set_ylabel(col[1])
+        ax.set_ylabel(cols[1])
 
     return fig, ax
 
 
-def graph_3D(df, ax1: str, ax2: str, ax3: str, lab1 = None,
-            lab2 = None, lab3 = None):
+def graph_3d(df, ax1: str, ax2: str, ax3: str, lab1=None,
+             lab2=None, lab3=None):
     sns.set(style="whitegrid")
     fig = plt.figure(figsize=(12, 12))
     ax = fig.add_subplot(111, projection='3d')
@@ -210,17 +212,18 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
             # generate summary table (percentage for categorical variables)
             if group is not None:
                 sns.countplot(ax=ax, data=dat, x=group, hue=col)
-                summary['result'] = dat.groupby([group])[col].value_counts().astype(str) + " (" + \
-                    round(dat.groupby([group])[col].value_counts(normalize=True) * 100, 2)\
-                    .astype(str) + "%)"
+                summary['result'] = dat.groupby([group])[col].value_counts().astype(str) + \
+                    " (" + round(dat.groupby([group])[col].value_counts(normalize=True) * 100,
+                        2).astype(str) + "%)"
                 summary = summary.reset_index()
                 summary = summary.pivot(index=col, columns=group)
                 plt.legend(loc='upper left')
             else:
                 sns.countplot(ax=ax, data=dat, x=col, hue=col, dodge=False)
                 plt.xticks([], [])
-                summary['result'] = dat[col].value_counts().astype(str) + " (" + \
-                    round(dat[col].value_counts(normalize=True) * 100, 2).astype(str) + "%)"
+                summary['result'] = dat[col].value_counts().astype(str) + \
+                    " (" + round(dat[col].value_counts(normalize=True) * 100,
+                        2).astype(str) + "%)"
         ax.set(xlabel=None)
         # combine summary table with plot
         plt.table(cellText=summary.values, rowLabels=[" ".join(i.split()[:3]) for i in summary.index],
@@ -245,7 +248,7 @@ def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
         ----------
         outcome : list
             List of the continuous outcome(y) variables need to be plotted.
-        time : names of variables in input_data 
+        time : names of variables in input_data
             Time variables(x)(e.g. visit number).
         group : names of time variables in input_data
             Grouping variables that will produce plottings and summary tables with different colors
@@ -312,38 +315,38 @@ def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
 
 
 # type 1 is catagorical, 2 is correlation, anything else is both
-def relation(df, col1 = None, col2 = None, gtype = 3, path = None, 
-            name_chi = 'chiheatmap', name_cor = 'corheatmap'):
-    if col1 is None and col2 is None:
-        if gtype != 2:
-            chi = []
-            cols = df.columns
-            num_cols = df._get_numeric_data().columns
-            cat_cols = list(set(cols) - set(num_cols))
-            for i in cat_cols:
-                for j in cat_cols:
-                    con = pd.crosstab(df[i], df[j]) 
-                    c, p, dof, expected = stats.chi2_contingency(con)
-                    chi.append(round(p,3)) 
-            data = np.array(chi)
-            n = int(np.sqrt(len(data)))
-            data = data.reshape(n, n)
-        
-            fig, ax = plt.subplots(figsize=(14, 14))
-            p = sns.heatmap(data=data, annot=True, fmt='2g', ax=ax,
+def relation(df, gtype=3, path=None,
+             name_chi='chiheatmap', name_cor='corheatmap'):
+    if gtype != 2:
+        chi = []
+        cols = df.columns
+        num_cols = df._get_numeric_data().columns
+        cat_cols = list(set(cols) - set(num_cols))
+        for i in cat_cols:
+            for j in cat_cols:
+                con = pd.crosstab(df[i], df[j])
+                c, p, dof, expected = stats.chi2_contingency(con)
+                chi.append(round(p, 3))
+        data = np.array(chi)
+        n = int(np.sqrt(len(data)))
+        data = data.reshape(n, n)
+
+        fig, ax = plt.subplots(figsize=(14, 14))
+        p = sns.heatmap(data=data, annot=True, fmt='2g', ax=ax,
                         cmap=cm.YlOrBr, xticklabels=cat_cols, yticklabels=cat_cols)
 
-            if path is not None:
-                fig.savefig(f'{path}/{name_chi}.pdf', format='png', bbox_inches='tight')       
-            plt.show()
-            # pandas.DataFrame(chi, chi_cols, chi_cols)
-            return fig, ax
-        if gtype != 1:
-            plt.figure(figsize = (14, 14))
-            p = sns.heatmap(df.corr(), annot = True)
-            if path is not None:
-                fig.savefig(f'{path}/{name_cor}.pdf', format='png', bbox_inches='tight')       
-            plt.show()
+        if path is not None:
+            fig.savefig(f'{path}/{name_chi}.pdf', format='png', bbox_inches='tight')
+        plt.show()
+        # pandas.DataFrame(chi, chi_cols, chi_cols)
+        return fig, ax
+    if gtype != 1:
+        plt.figure(figsize=(14, 14))
+        p = sns.heatmap(df.corr(), annot=True)
+        fig = p.get_figure()
+        if path is not None:
+            fig.savefig(f'{path}/{name_cor}.pdf', format='png', bbox_inches='tight')
+        plt.show()
 
 
 def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
@@ -401,19 +404,17 @@ def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
     return fig, ax
 
 
-def boxplot_grid(df, col1 = None, col2 = None, col3 = None):
+def boxplot_grid(df, col1=None, col2=None, col3=None):
     if col1 is None and col2 is None:
-        cols = df.columns
         num_cols = df._get_numeric_data().columns
-        cat_cols = list(set(cols) - set(num_cols))
         sizex = int(math.sqrt(len(num_cols)))
-        marg = (len(num_cols) - (sizex*sizex))/sizex 
-        if (marg).is_integer():
+        marg = (len(num_cols) - (sizex * sizex)) / sizex
+        if marg.is_integer():
             sizey = sizex + int(marg)
         else:
             sizey = sizex + int(marg) + 1
         plt.style.use('ggplot')
-        fig, axes = plt.subplots(sizey, sizex, figsize = (20,20))
+        fig, axes = plt.subplots(sizey, sizex, figsize=(20, 20))
         for i in range(len(num_cols)):
             sns.boxplot(df[num_cols[i]], ax=axes.flat[i])
             axes.flat[i].title.set_text(num_cols[i])
@@ -422,21 +423,24 @@ def boxplot_grid(df, col1 = None, col2 = None, col3 = None):
     elif col1 is not None and col2 is not None and col3 is not None:
         ordered = sorted(df[col1].unique())
         wrap = int(math.sqrt(len(ordered)))
-        g = sns.FacetGrid(df,col=col1,col_order=ordered,col_wrap=wrap)
-        g.map(sns.boxplot,col2,col3,palette='muted')
-        for ax in g.axes.flatten(): 
+        g = sns.FacetGrid(df, col=col1, col_order=ordered, col_wrap=wrap)
+        g.map(sns.boxplot, col2, col3, palette='muted')
+        for ax in g.axes.flatten():
             ax.tick_params(labelbottom=True)
         plt.tight_layout()
         plt.show()
         return g
 
-def pie(df, col, path = None, name = 'pie_chart'):
+
+def pie(df, col, path=None, name='pie_chart'):
     total = df[col].value_counts().values.sum()
+
     def fmt(x):
-        return '{:.1f}%\n{:.0f}'.format(x, total*x/100)
+        return '{:.1f}%\n{:.0f}'.format(x, total * x / 100)
+
     colors = sns.color_palette("Spectral")
-    plt.figure(figsize=(20,20))
-    ax = plt.pie(df[col].value_counts().values, colors = colors, labels=df[col].value_counts().index, autopct=fmt)
+    plt.figure(figsize=(20, 20))
+    ax = plt.pie(df[col].value_counts().values, colors=colors, labels=df[col].value_counts().index, autopct=fmt)
     if path is not None:
         plt.savefig(f'{path}/{name}.pdf', format='png', bbox_inches='tight')
     return ax
