@@ -1,28 +1,24 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from matplotlib import style
-from mpl_toolkits.mplot3d import Axes3D
 import seaborn as sns
 import pandas as pd
 import scipy.stats
 import itertools
-from sklearn.cluster import OPTICS, cluster_optics_dbscan
-import matplotlib.gridspec as gridspec
-from sklearn.cluster import DBSCAN, KMeans
+from sklearn.cluster import OPTICS, DBSCAN, KMeans
 from matplotlib import cm
 from lifelines import KaplanMeierFitter
 import math
 from scipy import stats
 
 
-def cluster_3d(df, cols, ctype, number=None, min_sample=3, eps=0.5,
+def cluster_3d(df, cols, c_type, number=None, min_sample=3, eps=0.5,
                lab1=None, lab2=None, lab3=None):
     if len(cols) != 3:
         return 'Wrong number of columns'
-    if ctype == 'OPTICS':
+    if c_type == 'OPTICS':
         clusters = OPTICS(min_samples=min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_
-    elif ctype == 'DBSCAN':
+    elif c_type == 'DBSCAN':
         clusters = DBSCAN(eps=eps, min_samples=min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_
     else:
@@ -39,15 +35,15 @@ def cluster_3d(df, cols, ctype, number=None, min_sample=3, eps=0.5,
     sns.set(style="whitegrid")
     fig = plt.figure(figsize=(12, 12))
     ax = fig.add_subplot(111, projection='3d')
-    if not (lab1 is None) and ctype(lab1) == str:
+    if not (lab1 is None) and type(lab1) == str:
         ax.set_xlabel(lab1)
     else:
         ax.set_xlabel(cols[0])
-    if not (lab2 is None) and ctype(lab2) == str:
+    if not (lab2 is None) and type(lab2) == str:
         ax.set_ylabel(lab2)
     else:
         ax.set_ylabel(cols[1])
-    if not (lab3 is None) and ctype(lab3) == str:
+    if not (lab3 is None) and type(lab3) == str:
         ax.set_zlabel(lab3)
     else:
         ax.set_zlabel(cols[2])
@@ -60,14 +56,14 @@ def cluster_3d(df, cols, ctype, number=None, min_sample=3, eps=0.5,
     return fig, ax
 
 
-def cluster_2d(df, cols, ctype, number, min_sample=3, eps=0.5,
+def cluster_2d(df, cols, c_type, number, min_sample=3, eps=0.5,
                lab1=None, lab2=None):
     if len(cols) != 2:
         return 'Wrong number of columns'
-    if ctype == 'OPTICS':
+    if c_type == 'OPTICS':
         clusters = OPTICS(min_samples=min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_
-    elif ctype == 'DBSCAN':
+    elif c_type == 'DBSCAN':
         clusters = DBSCAN(eps=eps, min_samples=min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_
     else:
@@ -85,11 +81,11 @@ def cluster_2d(df, cols, ctype, number, min_sample=3, eps=0.5,
     fig = plt.figure(figsize=(12, 12))
     ax = sns.scatterplot(data=df, x="Prftchange", y="Revchange", hue=df['OPTICS'])
 
-    if not (lab1 is None) and ctype(lab1) == str:
+    if not (lab1 is None) and type(lab1) == str:
         ax.set_xlabel(lab1)
     else:
         ax.set_xlabel(cols[0])
-    if not (lab2 is None) and ctype(lab2) == str:
+    if not (lab2 is None) and type(lab2) == str:
         ax.set_ylabel(lab2)
     else:
         ax.set_ylabel(cols[1])
@@ -180,7 +176,7 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
 
         Examples
         --------
-        >>> demo_graph(var=['gender','age'], input_data=data, group="treatment")
+        > demo_graph(var=['gender','age'], input_data=data, group="treatment")
 
     """
     fig_list = []
@@ -267,7 +263,7 @@ def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
 
         Examples
         --------
-        >>> longitudinal_graph(outcome=["change_from_baseline"], time="visit", group="treatment", input_data=data)
+        > longitudinal_graph(outcome=["change_from_baseline"], time="visit", group="treatment", input_data=data)
 
     """
     fig_list = []
@@ -336,7 +332,7 @@ def relation(df, gtype=3, path=None,
                         cmap=cm.YlOrBr, xticklabels=cat_cols, yticklabels=cat_cols)
 
         if path is not None:
-            fig.savefig(f'{path}/{name_chi}.pdf', format='png', bbox_inches='tight')
+            fig.savefig(f'{path}/{name_chi}.png', format='png', bbox_inches='tight')
         plt.show()
         # pandas.DataFrame(chi, chi_cols, chi_cols)
         return fig, ax
@@ -345,7 +341,7 @@ def relation(df, gtype=3, path=None,
         p = sns.heatmap(df.corr(), annot=True)
         fig = p.get_figure()
         if path is not None:
-            fig.savefig(f'{path}/{name_cor}.pdf', format='png', bbox_inches='tight')
+            fig.savefig(f'{path}/{name_cor}.png', format='png', bbox_inches='tight')
         plt.show()
 
 
@@ -373,7 +369,7 @@ def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
 
         Examples
         --------
-        >>> survival_analysis(time="time_to_event", censor_status="censor", group="treatment", input_data=data)
+        > survival_analysis(time="time_to_event", censor_status="censor", group="treatment", input_data=data)
 
     """
     # remove records with missing time to event value
@@ -442,5 +438,5 @@ def pie(df, col, path=None, name='pie_chart'):
     plt.figure(figsize=(20, 20))
     ax = plt.pie(df[col].value_counts().values, colors=colors, labels=df[col].value_counts().index, autopct=fmt)
     if path is not None:
-        plt.savefig(f'{path}/{name}.pdf', format='png', bbox_inches='tight')
+        plt.savefig(f'{path}/{name}.png', format='png', bbox_inches='tight')
     return ax
