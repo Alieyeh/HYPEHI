@@ -309,8 +309,8 @@ def read(path, source, sheet_name = None, table = False, sql = None, con = None)
         df = pd.read_html(path)
     elif source == 'xml':
         df = pd.read_spss(path)
-    elif source = 'sql' and name is not None and con is not None:
-       pandas.read_sql(sql, con)
+    elif source == 'sql' and sql is not None and con is not None:
+        pd.read_sql(sql, con)
     else: 
         print("Source type not supported")
     return df
@@ -323,7 +323,7 @@ def check_bias(df, col = None, real_dist = None, marg = 5):
     i = 0
     for n in nul:
         if n >= 0.1 * leng:
-            too_nul.append([dat.columns[i], n])
+            too_nul.append([df.columns[i], n])
         i += 1
     print('columns with too many null values: ', too_nul)
     if real_dist is not None and col is not None:
