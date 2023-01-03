@@ -57,6 +57,27 @@ def handle_null(input_data, col, by_vars: None, impute_type):
 
 
 def change_type(df, col, col_type):
+    """
+    Changes the data type of the specified column of a data frame.
+
+        Parameters
+        ----------
+        df : pd.DataFrame, mandatory
+            The dataset that will be changed.
+        col : str, mandatory
+            Name of the chosen column.
+        col_type : data type, mandatory
+            Type to change to. The available options are int, float and str.
+
+        Returns
+        -------
+        df : pd.DataFrame
+            The dataset with changed column type.
+
+        Examples
+        --------
+        > data = change_type(data, 'sbp', int)
+    """
     if col_type == str:
         df[col] = df[col].apply(lambda x: str(x))
     elif col_type == int:
@@ -295,8 +316,38 @@ def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
     return output_data
 
 
-def read(path, source, sheet_name=None, sql=None, con=None):
-    df = None
+def read(source, path=None, sheet_name=None, sql=None, con=None):
+    """
+    Reads data from specified path into a pandas dataframe.
+
+        Parameters
+        ----------
+        source : str, mandatory
+            The type of the data source. Available options are csv, tsv, excel, sql,
+            json, html and xml.
+        path : str, optional
+            The path to the data.
+        sheet_name : str, optional
+            Name of the excel sheet. The path to the excel file need to be specified
+            for this option.
+        sql : str/SQLAlchemy Selectable, optional
+            The sql command for getting the data.
+        con: SQLAlchemy connectable/str/sqlite3 connection, optional
+            Connection to database.
+
+        Returns
+        -------
+        df : pd.DataFrame
+            The dataset.
+
+        Examples
+        --------
+        > from sqlite3 import connect
+        > conn = connect(':memory:')
+        > data = read(source='sql', sql='SELECT int_column, date_column FROM test_data',
+        con=conn)
+    """
+    df = pd.DataFrame()
     if source == 'csv':
         df = pd.read_csv(path)
     elif source == 'tsv':
@@ -319,13 +370,36 @@ def read(path, source, sheet_name=None, sql=None, con=None):
     return df
 
 
-def check_bias(df, col=None, real_dist=None, marg=5):
+def check_bias(df, col=None, real_dist=None, n_marg=10, marg=5):
+    """
+    Checks data for two types of bias. Too many null values and improper distribution.
+    If no column is specified, only the amount of null values will be checked.
+
+        Parameters
+        ----------
+        df : pd.DataFrame, mandatory
+            The dataset containing the column of interest.
+        col : str, optional
+            The name of the column to check.
+        real_dist : list of lists, mandatory
+            A list containing two item lists of the values and their proper distribution.
+        n_marg : int, optional
+            The percentage of null values that is allowed. The default is 10.
+        marg : int, optional
+            The amount of deviance allowed from the proper distribution.
+
+        Examples
+        --------
+        > check_bias(df=data, col='Blood_cell_type', real_dist=[['Red', 37],['White', 53]],
+         n_marg=50)
+    """
     nul = df.isna().sum()
     too_nul = []
+    n_marg = n_marg/100
     leng = df.shape[0]
     i = 0
     for n in nul:
-        if n >= 0.1 * leng:
+        if n >= n_marg * leng:
             too_nul.append([df.columns[i], n])
         i += 1
     print('columns with too many null values: ', too_nul)
@@ -346,6 +420,34 @@ def check_bias(df, col=None, real_dist=None, marg=5):
 
 
 def numeric_to_categorical(df, col: str, bounds, add=False):
+    """
+    Changes numeric data to categories. If add option if True the data will be added
+    into a separate column and if it is False the categorical values will replace the
+    numerical values of the column.
+
+        Parameters
+        ----------
+        df : pd.DataFrame, mandatory
+            The type of the data source. Available options are csv, tsv, excel, sql,
+            json, html and xml.
+        col : str, mandatory
+            The name of the column to change.
+        bounds : list of lists, mandatory
+            A list containing two item lists of the upper bound of each category (int)
+            and the category name (str).
+        add : str, optional
+            Choice of adding results as an additional column or replacing the current
+            column. The default is False (replacement).
+
+        Returns
+        -------
+        df : pd.DataFrame
+            The changed dataset.
+
+        Examples
+        --------
+        > data = numeric_to_categorical(data, 'sbp', [[9,'low'],[1000000,'high']],True)
+    """
     def group(row, bound, column):
         bound = sorted(bound, key=itemgetter(0))
         for i in bound:
