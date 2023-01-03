@@ -3,7 +3,7 @@ import numpy as np
 from operator import itemgetter
 
 
-def handle_null(input_data, col, by_vars:None, impute_type):
+def handle_null(input_data, col, by_vars: None, impute_type):
     """
          Replace missing values with a descriptive statistic.
 
@@ -25,13 +25,14 @@ def handle_null(input_data, col, by_vars:None, impute_type):
 
                 Examples
                 --------
-                >>> df = pd.DataFrame()
-                >>> df['C0'] = [0.2601,0.2358,0.1429,0.1259,0.7526,0.7341,0.4546,0.1426,0.1490,0.2500]
-                >>> df['C1'] = [0.7154,np.nan,0.2615,0.5846,np.nan,0.8308,0.4962,np.nan,0.5340,0.6731]
-                >>> handle_null(input_data=df, col="C!", impute_type="median")
+                > df = pd.DataFrame()
+                > df['C0'] = [0.2601,0.2358,0.1429,0.1259,0.7526,0.7341,0.4546,0.1426,0.1490,0.2500]
+                > df['C1'] = [0.7154,np.nan,0.2615,0.5846,np.nan,0.8308,0.4962,np.nan,0.5340,0.6731]
+                > handle_null(input_data=df, col="C!", impute_type="median")
 
     """
     # when there is by variables
+    output_data = None
     if by_vars is not None:
         if impute_type.lower() == 'mean':
             output_data = input_data[col].fillna(input_data.groupby(by_vars)[col].mean())
@@ -60,14 +61,14 @@ def change_type(df, col, col_type):
         df[col] = df[col].apply(lambda x: str(x))
     elif col_type == int:
         if type(df[col]) == str:
-            df[col] = df[col].apply(lambda x: int(x.replace(',','')
-                                                .replace(' ','')))
+            df[col] = df[col].apply(lambda x: int(x.replace(',', '')
+                                                  .replace(' ', '')))
         else:
             df[col] = df[col].apply(lambda x: int(x))
     elif col_type == float:
         if type(df[col]) == str:
-            df[col] = df[col].apply(lambda x: float(x.replace(',','')
-                                                    .replace(' ','')))
+            df[col] = df[col].apply(lambda x: float(x.replace(',', '')
+                                                    .replace(' ', '')))
         else:
             df[col] = df[col].apply(lambda x: float(x))
     else:
@@ -170,8 +171,8 @@ def derive_baseline(input_data, base_visit, by_vars: list, value, chg=True, pchg
 
                 Examples
                 --------
-                >>> derive_baseline(input_data=data, base_visit='visit==0', by_vars=["patient","lab test"], value=value,
-                >>> chg=True, pchg=True)
+                > derive_baseline(input_data=data, base_visit='visit==0', by_vars=["patient","lab test"], value=value,
+                > chg=True, pchg=True)
 
     """
     combine_col = by_vars + [value]
@@ -182,9 +183,9 @@ def derive_baseline(input_data, base_visit, by_vars: list, value, chg=True, pchg
     output_data = data_selection(input_data=input_data, merge_data=baseline, merge_by=by_vars)
     # derive chg/pchg variables
     if chg:
-        output_data["chg"] = output_data[value]-output_data["base"]
+        output_data["chg"] = output_data[value] - output_data["base"]
     if pchg:
-        output_data["pchg"] = (output_data[value]-output_data["base"])/output_data["base"]
+        output_data["pchg"] = (output_data[value] - output_data["base"]) / output_data["base"]
 
     return output_data
 
@@ -203,7 +204,8 @@ def derive_extreme_flag(input_data, by_vars: list, sort_var: list, new_var, mode
                 sort_var : list
                     Sort variables used to sort the dataset which help find the first/last.
                 new_var : str
-                    The name of variable to add. It is set to "Y" for the observation (depending on the mode) of each by group.
+                    The name of variable to add. It is set to "Y" for the observation (depending on the mode)
+                    of each by group.
                 mode : str, select from (last, first, max, min)
                     Determines of the first/last/max/min observation is flagged.
                 value_var : str
@@ -216,9 +218,9 @@ def derive_extreme_flag(input_data, by_vars: list, sort_var: list, new_var, mode
 
                 Examples
                 --------
-                >>> derive_extreme_flag(input_data=data, by_vars=["patient","lab_test"],
-                >>> sort_var=["patient","lab test", "test_value"], new_var="first_flag",
-                >>> mode="first", value_var="test_value")
+                > derive_extreme_flag(input_data=data, by_vars=["patient","lab_test"],
+                > sort_var=["patient","lab test", "test_value"], new_var="first_flag",
+                > mode="first", value_var="test_value")
 
     """
     if mode.lower() == "last":
@@ -230,8 +232,8 @@ def derive_extreme_flag(input_data, by_vars: list, sort_var: list, new_var, mode
     elif mode.lower() == "min":
         temp = input_data.loc[input_data.sort_values(sort_var).groupby(by_vars)[value_var].idxmin(), :]
     temp[new_var] = "Y"
-    output_data = data_selection(input_data, merge_data=temp.reset_index(), merge_by=by_vars+sort_var,
-                                 merge_keep_col=by_vars+sort_var+new_var.split())
+    output_data = data_selection(input_data, merge_data=temp.reset_index(), merge_by=by_vars + sort_var,
+                                 merge_keep_col=by_vars + sort_var + new_var.split())
 
     return output_data
 
@@ -263,9 +265,9 @@ def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
 
                 Examples
                 --------
-                >>> derive_extreme_flag(input_data=data, by_vars=["patient","lab_test"],
-                >>> sort_var=["patient","lab test", "test_value"], new_var="first_flag",
-                >>> mode="first", value_var="test_value")
+                > derive_extreme_flag(input_data=data, by_vars=["patient","lab_test"],
+                > sort_var=["patient","lab test", "test_value"], new_var="first_flag",
+                > mode="first", value_var="test_value")
 
     """
     # change variables type into datetime
@@ -276,33 +278,34 @@ def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
                                     output_data[end_date] - output_data[start_date],
                                     output_data[censor_date] - output_data[start_date])
     # derive censor variable
-    output_data['censor_status'] = np.where((output_data[start_date].notnull()) & (output_data[end_date].notnull()), 1, 0)
+    output_data['censor_status'] = np.where((output_data[start_date].notnull()) & (output_data[end_date].notnull()), 1,
+                                            0)
 
     # format value based on unit
     if unit.lower() == 'day':
         output_data[new_var] = output_data[new_var].dt.days
     elif unit.lower() == 'week':
-        output_data[new_var] = round(output_data[new_var].dt.days/7, 2)
+        output_data[new_var] = round(output_data[new_var].dt.days / 7, 2)
     elif unit.lower() == 'month':
-        output_data[new_var] = round(output_data[new_var].dt.days/30, 2)
+        output_data[new_var] = round(output_data[new_var].dt.days / 30, 2)
     elif unit.lower() == 'year':
-        output_data[new_var] = round(output_data[new_var].dt.days/365.25, 2)
+        output_data[new_var] = round(output_data[new_var].dt.days / 365.25, 2)
     output_data['unit'] = unit
 
     return output_data
 
 
-def read(path, source, sheet_name = None, table = False, sql = None, con = None):
+def read(path, source, sheet_name=None, sql=None, con=None):
     df = None
     if source == 'csv':
-        df = pd.read_csv(path)   
+        df = pd.read_csv(path)
     elif source == 'tsv':
-        df = pd.read_csv(path, sep='\t')    
+        df = pd.read_csv(path, sep='\t')
     elif source == 'excel':
         if sheet_name is None:
-            df = pd.read_excel(path)  
+            df = pd.read_excel(path)
         else:
-            df = pd.read_excel(io=path, sheet_name = sheet_name)
+            df = pd.read_excel(io=path, sheet_name=sheet_name)
     elif source == 'json':
         df = pd.read_json(path)
     elif source == 'html':
@@ -311,12 +314,12 @@ def read(path, source, sheet_name = None, table = False, sql = None, con = None)
         df = pd.read_spss(path)
     elif source == 'sql' and sql is not None and con is not None:
         pd.read_sql(sql, con)
-    else: 
+    else:
         print("Source type not supported")
     return df
 
 
-def check_bias(df, col = None, real_dist = None, marg = 5):
+def check_bias(df, col=None, real_dist=None, marg=5):
     nul = df.isna().sum()
     too_nul = []
     leng = df.shape[0]
@@ -330,26 +333,27 @@ def check_bias(df, col = None, real_dist = None, marg = 5):
         count = df[col].value_counts(ascending=False).rename_axis(
             'vals').reset_index(name='dist')
         count.index.name = 'Index'
-        count['dist'] = count['dist']*100/len(df)
+        count['dist'] = count['dist'] * 100 / len(df)
         skew = []
-        for i in range(0,len(real_dist)):
+        for i in range(0, len(real_dist)):
             dist = count.loc[count['vals'] == real_dist[i][0]]
             real = real_dist[i][1]
             ours = dist['dist'].values[0]
-            print(str(ours) + " "+ str(real))
+            print(str(ours) + " " + str(real))
             if ours > (real + marg) or ours < (real - marg):
                 skew.append(dist)
         print(skew)
 
 
-def numeric_to_categorical(df, col: str, bounds, add = False):
-    def group (row, bounds, col):
-        bounds = sorted(bounds, key=itemgetter(0))
-        for i in bounds:
-            if float(row[col]) <= i[0]:
+def numeric_to_categorical(df, col: str, bounds, add=False):
+    def group(row, bound, column):
+        bound = sorted(bound, key=itemgetter(0))
+        for i in bound:
+            if float(row[column]) <= i[0]:
                 return i[1]
-    if add == True:
-        name = col+'_group'
+
+    if add:
+        name = col + '_group'
         df[name] = df.apply(lambda row: group(row, bounds, col), axis=1)
         return df
     else:
