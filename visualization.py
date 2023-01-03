@@ -20,7 +20,7 @@ def cluster_3d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
 
         Parameters
         ----------
-        df : pandas dataframe, mandatory
+        df : pd.DataFrame, mandatory
             The dataset that contains the feature that will be plotted.
         cols : list, mandatory
             A list with three element of type str which are the column names.
@@ -110,7 +110,7 @@ def cluster_2d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
 
         Parameters
         ----------
-        df : pandas dataframe, mandatory
+        df : pd.DataFrame, mandatory
             The dataset that contains the feature that will be plotted.
         cols : list, mandatory
             A list with two element of type str which are the column names.
@@ -187,7 +187,7 @@ def graph_3d(df, ax1: str, ax2: str, ax3: str, lab1=None,
 
         Parameters
         ----------
-        df : pandas dataframe, mandatory
+        df : pd.DataFrame, mandatory
             The dataset that contains the feature that will be plotted.
         ax1 : str, mandatory
             The name of the column for axis 1 containing the feature to be plotted.
@@ -241,9 +241,9 @@ def f_test(group1, group2):
 
             Parameters
             ----------
-            group1 : series or list
+            group1 : series or list, mandatory
                 Containing continuous numbers for F-test from group 1.
-            group2 : series or list
+            group2 : series or list, mandatory
                 Containing continuous numbers for F-test from group 2.
 
             Returns
@@ -277,10 +277,10 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
 
         Parameters
         ----------
-        var : list
+        var : list, mandatory
             List of the characteristic variables. The list can include both categorical and countinous variables.
             The function can automatically detect its type and then use proper plot.
-        input_data : pd.DataFrame
+        input_data : pd.DataFrame, mandatory
             Input dataset name.
         group : names of variables in input_data, optional
             Grouping variables that will produce plottings and summary tables with different colors
@@ -363,14 +363,14 @@ def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
 
         Parameters
         ----------
-        outcome : list
+        outcome : list, mandatory
             List of the continuous outcome(y) variables need to be plotted.
-        time : names of variables in input_data
+        time : names of variables in input_data, mandatory
             Time variables(x)(e.g. visit number).
-        group : names of time variables in input_data
+        group : names of time variables in input_data, mandatory
             Grouping variables that will produce plottings and summary tables with different colors
             (e.g. treatment group).
-        input_data : pd.DataFrame
+        input_data : pd.DataFrame, mandatory
             Input dataset name.
 
         Returns
@@ -431,7 +431,6 @@ def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
     return fig_list, ax_list
 
 
-# type 1 is catagorical, 2 is correlation, anything else is both
 def relation(df, gtype=3, path=None, name_chi='chiheatmap', name_cor='corheatmap'):
     """
     Plots a heat-map of the relationship between features of the same type. If type of feature
@@ -441,7 +440,7 @@ def relation(df, gtype=3, path=None, name_chi='chiheatmap', name_cor='corheatmap
 
         Parameters
         ----------
-        df : pandas dataframe, mandatory
+        df : pd.DataFrame, mandatory
             The dataset.
         gtype : int, optional
             Type of feature. 1 for categorical (chi-squared), 2 for numerical (correlation)
@@ -498,7 +497,6 @@ def relation(df, gtype=3, path=None, name_chi='chiheatmap', name_cor='corheatmap
     return to_return
 
 
-
 def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
     """
     Show the kaplan-meier curve and combine with a median survival time summary.
@@ -506,15 +504,15 @@ def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
 
         Parameters
         ----------
-        time : names of time variables in input_data
+        time : names of time variables in input_data, mandatory
             Time to event of interest.
-        censor_status : names of variables in input_data
+        censor_status : names of variables in input_data, mandaory
             True(1) if the event of interest was observed, False(0) if the event was
             lost (right-censored).
-        group : names of time variables in input_data
+        group : names of time variables in input_data, mandatory
             Grouping variables that will produce plottings and summary tables with
             different colors (e.g. treatment group).
-        input_data : pd.DataFrame
+        input_data : pd.DataFrame, mandatory
             Input dataset name.
 
         Returns
@@ -563,12 +561,12 @@ def boxplot_grid(df, col1=None, col2=None, col3=None):
     no column was specified, in this case the grid will be box plots of all numeric
     features in the dataset. The other being that three columns were specified, with
     one column being numeric and the others being categorical. In this case the grid
-    will be of the neumeric value on the basis of the two categorical values. If all
+    will be of the numeric value on the basis of the two categorical values. If all
     three columns are specified, then the first case will be preformed.
 
         Parameters
         ----------
-        df : pandas dataframe, mandatory
+        df : pd.DataFrame, mandatory
             The dataset holding the data that will be plotted.
         col1 : str, optional
             The categorical column that the grid will be split based on.
@@ -623,7 +621,7 @@ def pie(df, col, path=None, name='pie_chart'):
 
         Parameters
         ----------
-        df : pandas dataframe, mandatory
+        df : pd.DataFrame, mandatory
             The dataset that contains the feature that will be plotted.
         col : str, mandatory
             The name of the column containing the feature to be plotted.
