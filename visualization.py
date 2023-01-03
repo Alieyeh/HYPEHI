@@ -11,8 +11,53 @@ import math
 from scipy import stats
 
 
-def cluster_3d(df, cols, c_type, number=None, min_sample=3, eps=0.5,
+def cluster_3d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
                lab1=None, lab2=None, lab3=None):
+    """
+    Plots a three dimensional graph of clusters for the three columns specified.
+    The type of clustering as well as some minor fine tuning of clustering model
+    are available.
+
+        Parameters
+        ----------
+        df : pandas dataframe, mandatory
+            The dataset that contains the feature that will be plotted.
+        cols : list, mandatory
+            A list with three element of type str which are the column names.
+        c_type : str, optional
+            The type of clustering model. The available options are DBSCAN, OPTICS
+            and k-means. If no type is specified, k-means will be preformed.
+        number : int, optional
+            The number of clusters. This parameter is only used for k-means. The
+            default value is the smallest number of clusters with an inertia value
+            less than 50.
+        min_sample : int, optional
+            The minimum number of samples in a cluster. This parameter is only used
+            for DBSCAN and OPTICS. The default value is 3.
+        eps: float, optional
+            The maximum distance between samples for them to fall into the same cluster.
+            This parameter is only used for DBSCAN. The default value is 0.5.
+        lab1 : str, optional
+            The label for axis 1. The default option is the name of the column in
+            the data frame.
+        lab2 : str, optional
+            The label for axis 2. The default option is the name of the column in
+            the data frame.
+        lab3 : str, optional
+            The label for axis 3. The default option is the name of the column in
+            the data frame.
+
+        Returns
+        -------
+        fig : plt.figure
+        ax : axes.Axes
+        The figure and axes of the plot.
+
+        Example
+        --------
+        > cluster_3d(df = data, cols = ['age','height','BMI'], c_type = "DBSCAN", lab1 = "Age",
+        lab2 = "Height")
+    """
     if len(cols) != 3:
         return 'Wrong number of columns'
     if c_type == 'OPTICS':
@@ -29,8 +74,8 @@ def cluster_3d(df, cols, c_type, number=None, min_sample=3, eps=0.5,
                 if clusters.inertia_ < 50:
                     number = k
                     break
-        clusters = KMeans(n_clusters=number).fit(df[cols])
-        df['Clusters'] = clusters.labels_
+            clusters = KMeans(n_clusters=number).fit(df[cols])
+            df['Clusters'] = clusters.labels_
 
     sns.set(style="whitegrid")
     fig = plt.figure(figsize=(12, 12))
@@ -56,8 +101,50 @@ def cluster_3d(df, cols, c_type, number=None, min_sample=3, eps=0.5,
     return fig, ax
 
 
-def cluster_2d(df, cols, c_type, number, min_sample=3, eps=0.5,
+def cluster_2d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
                lab1=None, lab2=None):
+    """
+    Plots a two dimensional graph of clusters for the two columns specified.
+    The type of clustering as well as some minor fine tuning of clustering model
+    are available.
+
+        Parameters
+        ----------
+        df : pandas dataframe, mandatory
+            The dataset that contains the feature that will be plotted.
+        cols : list, mandatory
+            A list with two element of type str which are the column names.
+        c_type : str, optional
+            The type of clustering model. The available options are DBSCAN, OPTICS
+            and k-means. If no type is specified, k-means will be preformed.
+        number : int, optional
+            The number of clusters. This parameter is only used for k-means. The
+            default value is the smallest number of clusters with an inertia value
+            less than 50.
+        min_sample : int, optional
+            The minimum number of samples in a cluster. This parameter is only used
+            for DBSCAN and OPTICS. The default value is 3.
+        eps: float, optional
+            The maximum distance between samples for them to fall into the same cluster.
+            This parameter is only used for DBSCAN. The default value is 0.5.
+        lab1 : str, optional
+            The label for axis 1. The default option is the name of the column in
+            the data frame.
+        lab2 : str, optional
+            The label for axis 2. The default option is the name of the column in
+            the data frame.
+
+        Returns
+        -------
+        fig : plt.figure
+        ax : axes.Axes
+        The figure and axes of the plot.
+
+        Example
+        --------
+        > cluster_2d(df = data, cols = ['age','height'], c_type = "OPTICS", lab1 = "Age",
+        lab2 = "Height")
+    """
     if len(cols) != 2:
         return 'Wrong number of columns'
     if c_type == 'OPTICS':
@@ -95,6 +182,40 @@ def cluster_2d(df, cols, c_type, number, min_sample=3, eps=0.5,
 
 def graph_3d(df, ax1: str, ax2: str, ax3: str, lab1=None,
              lab2=None, lab3=None):
+    """
+    Plots a three dimensional graph based on the three columns entered.
+
+        Parameters
+        ----------
+        df : pandas dataframe, mandatory
+            The dataset that contains the feature that will be plotted.
+        ax1 : str, mandatory
+            The name of the column for axis 1 containing the feature to be plotted.
+        ax2 : str, mandatory
+            The name of the column for axis 2 containing the feature to be plotted.
+        ax3 : str, mandatory
+            The name of the column for axis 3 containing the feature to be plotted.
+        lab1 : str, optional
+            The label for axis 1. The default option is the name of the column in
+            the data frame.
+        lab2 : str, optional
+            The label for axis 2. The default option is the name of the column in
+            the data frame.
+        lab3 : str, optional
+            The label for axis 3. The default option is the name of the column in
+            the data frame.
+
+        Returns
+        -------
+        fig : plt.figure
+        ax : axes.Axes
+        The figure and axes of the plot.
+
+        Example
+        --------
+        > graph_3d(df = health_data, ax1 = "sbp", ax2 = "dbp", ax3 = "chd", lab1 = "SBP",
+        lab2 = "DBP", lab3 = "CHD")
+    """
     sns.set(style="whitegrid")
     fig = plt.figure(figsize=(12, 12))
     ax = fig.add_subplot(111, projection='3d')
@@ -132,9 +253,9 @@ def f_test(group1, group2):
 
             Examples
             --------
-            >>> a = [0.28, 0.2, 0.26, 0.28, 0.5]
-            >>> b = [0.2, 0.23, 0.26, 0.21, 0.23]
-            >>> f_test(a, b)
+            > a = [0.28, 0.2, 0.26, 0.28, 0.5]
+            > b = [0.2, 0.23, 0.26, 0.21, 0.23]
+            > f_test(a, b)
             0.004
     """
     x = np.array(group1)
@@ -209,8 +330,8 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
             if group is not None:
                 sns.countplot(ax=ax, data=dat, x=group, hue=col)
                 summary['result'] = dat.groupby([group])[col].value_counts().astype(str) + \
-                    " (" + round(dat.groupby([group])[col].value_counts(normalize=True) * 100,
-                        2).astype(str) + "%)"
+                                    " (" + round(dat.groupby([group])[col].value_counts(normalize=True) * 100,
+                                                 2).astype(str) + "%)"
                 summary = summary.reset_index()
                 summary = summary.pivot(index=col, columns=group)
                 plt.legend(loc='upper left')
@@ -218,8 +339,8 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
                 sns.countplot(ax=ax, data=dat, x=col, hue=col, dodge=False)
                 plt.xticks([], [])
                 summary['result'] = dat[col].value_counts().astype(str) + \
-                    " (" + round(dat[col].value_counts(normalize=True) * 100,
-                        2).astype(str) + "%)"
+                                    " (" + round(dat[col].value_counts(normalize=True) * 100,
+                                                 2).astype(str) + "%)"
         ax.set(xlabel=None)
         # combine summary table with plot
         plt.table(cellText=summary.values, rowLabels=[" ".join(i.split()[:3]) for i in summary.index],
@@ -311,8 +432,38 @@ def longitudinal_graph(outcome: list, time, group, input_data: pd.DataFrame):
 
 
 # type 1 is catagorical, 2 is correlation, anything else is both
-def relation(df, gtype=3, path=None,
-             name_chi='chiheatmap', name_cor='corheatmap'):
+def relation(df, gtype=3, path=None, name_chi='chiheatmap', name_cor='corheatmap'):
+    """
+    Plots a heat-map of the relationship between features of the same type. If type of feature
+    (numerical or categorical) is not specified, both heat-maps will be drawn. The measure used
+    is chi-squared for categorical and correlation for numerical types. This function does not
+    calculate the relationship between categorical and numerical values.
+
+        Parameters
+        ----------
+        df : pandas dataframe, mandatory
+            The dataset.
+        gtype : int, optional
+            Type of feature. 1 for categorical (chi-squared), 2 for numerical (correlation)
+            any other number for both. The default is 3 (both).
+        path : str, optional
+            The directory path to save the plot in. Plot will not be saved if not specified.
+        name_chi : str, optional
+            Name of the plot for the categorical features. The default is chiheatmap.
+        name_cor: str, optional
+            Name of the plot for the numerical features. The default is corheatmap.
+
+        Returns
+        -------
+        list : plt.figure, axes.Axes, p <Object containing both figure and axes>
+        A list containing the figure and axes of each drawn plot.
+
+        Example
+        --------
+        > relation(df = health_data, gtype = 2, path = "/Users/Person/Documents",
+        name_cor = "numerical_heatmap")
+    """
+    to_return = []
     if gtype != 2:
         chi = []
         cols = df.columns
@@ -335,7 +486,7 @@ def relation(df, gtype=3, path=None,
             fig.savefig(f'{path}/{name_chi}.png', format='png', bbox_inches='tight')
         plt.show()
         # pandas.DataFrame(chi, chi_cols, chi_cols)
-        return fig, ax
+        to_return.append([fig, ax])
     if gtype != 1:
         plt.figure(figsize=(14, 14))
         p = sns.heatmap(df.corr(), annot=True)
@@ -343,21 +494,26 @@ def relation(df, gtype=3, path=None,
         if path is not None:
             fig.savefig(f'{path}/{name_cor}.png', format='png', bbox_inches='tight')
         plt.show()
+        to_return.append(p)
+    return to_return
+
 
 
 def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
     """
-    Show the kaplan-meier curve and combine with a median survival time summary. Function for survival data analysis.
+    Show the kaplan-meier curve and combine with a median survival time summary.
+    Function for survival data analysis.
 
         Parameters
         ----------
         time : names of time variables in input_data
             Time to event of interest.
         censor_status : names of variables in input_data
-            True(1) if the event of interest was observed, False(0) if the event was lost (right-censored).
+            True(1) if the event of interest was observed, False(0) if the event was
+            lost (right-censored).
         group : names of time variables in input_data
-            Grouping variables that will produce plottings and summary tables with different colors
-            (e.g. treatment group).
+            Grouping variables that will produce plottings and summary tables with
+            different colors (e.g. treatment group).
         input_data : pd.DataFrame
             Input dataset name.
 
@@ -369,7 +525,8 @@ def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
 
         Examples
         --------
-        > survival_analysis(time="time_to_event", censor_status="censor", group="treatment", input_data=data)
+        > survival_analysis(time="time_to_event", censor_status="censor",
+        group="treatment", input_data=data)
 
     """
     # remove records with missing time to event value
@@ -401,7 +558,37 @@ def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
 
 
 def boxplot_grid(df, col1=None, col2=None, col3=None):
-    if col1 is None and col2 is None:
+    """
+    A function for creating a grid of box plots with two options. One being that
+    no column was specified, in this case the grid will be box plots of all numeric
+    features in the dataset. The other being that three columns were specified, with
+    one column being numeric and the others being categorical. In this case the grid
+    will be of the neumeric value on the basis of the two categorical values. If all
+    three columns are specified, then the first case will be preformed.
+
+        Parameters
+        ----------
+        df : pandas dataframe, mandatory
+            The dataset holding the data that will be plotted.
+        col1 : str, optional
+            The categorical column that the grid will be split based on.
+        col2 : str, optional
+            The categorical column on the x axis of each plot.
+        col3 : str, optional
+            The numerical column on the y axis of each plot.
+
+        Returns
+        -------
+        fig, ax :  Figure, array of axes.Axes
+        The matplotlib figure and axes containing the plots.
+
+
+        Examples
+        --------
+        > boxplot_grid(df=health_data, col1="months", col2="sex", col3="BMI")
+
+    """
+    if col1 is None or col2 is None or col3 is None:
         num_cols = df._get_numeric_data().columns
         sizex = int(math.sqrt(len(num_cols)))
         marg = (len(num_cols) - (sizex * sizex)) / sizex
@@ -429,6 +616,33 @@ def boxplot_grid(df, col1=None, col2=None, col3=None):
 
 
 def pie(df, col, path=None, name='pie_chart'):
+    """
+    Draws a pie chart of the specified column. If the path is given the png file of
+    the chart will be saved under the name of pie_chart.png at the specified path.
+    This chart should be used for columns with discrete values.
+
+        Parameters
+        ----------
+        df : pandas dataframe, mandatory
+            The dataset that contains the feature that will be plotted.
+        col : str, mandatory
+            The name of the column containing the feature to be plotted.
+        path : str, optional
+            Path to the directory that the png file of the chart will be
+            saved in. If left empty, the file will not be saved.
+        name : str, optional
+            Name of the png image of the chart. The default is pie_chart.
+
+        Returns
+        -------
+        ax : axes.Axes
+        The axes of the plot.
+
+        Example
+        --------
+        > pie(df = demographic_data, col = "sex",
+        path = "/Users/Person/Documents", name = "demo_pie")
+    """
     total = df[col].value_counts().values.sum()
 
     def fmt(x):
