@@ -58,10 +58,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-**put description here**
-
 HYPEHD is a Python package that provides easy to use functions, designed to make the exploration of health data easier for people with various levels of python experience, but primarily for those who are less experienced. This package aims to be a tool for real-world and practical data analysis, assisting in reaching a quicker understanding of various health related data.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
