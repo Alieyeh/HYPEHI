@@ -9,12 +9,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -68,11 +62,13 @@
 
 **put description here**
 
+HYPEHD is a Python package that provides easy to use functions, designed to make the exploration of health data easier for people with various levels of python experience, but primarily for those who are less experienced. This package aims to be a tool for real-world and practical data analysis, assisting in reaching a quicker understanding of various health related data.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Features
+**list all available features here**
 
-
-### Built With
+### Dependencies
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
