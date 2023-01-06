@@ -14,7 +14,7 @@ from scipy import stats
 def cluster_3d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
                lab1=None, lab2=None, lab3=None):
     """
-    Plots a three dimensional graph of clusters for the three columns specified.
+    Plots a three dimensional graph of clusters for the three specified numerical columns.
     The type of clustering as well as some minor fine tuning of clustering model
     are available.
 
@@ -58,12 +58,13 @@ def cluster_3d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
         > cluster_3d(df = data, cols = ['age','height','BMI'], c_type = "DBSCAN", lab1 = "Age",
         lab2 = "Height")
     """
+    c_type = c_type.lower()
     if len(cols) != 3:
         return 'Wrong number of columns'
-    if c_type == 'OPTICS':
+    if c_type == 'optics':
         clusters = OPTICS(min_samples=min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_
-    elif c_type == 'DBSCAN':
+    elif c_type == 'dbscan':
         clusters = DBSCAN(eps=eps, min_samples=min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_
     else:
@@ -104,7 +105,7 @@ def cluster_3d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
 def cluster_2d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
                lab1=None, lab2=None):
     """
-    Plots a two dimensional graph of clusters for the two columns specified.
+    Plots a two dimensional graph of clusters for the two specified numercial columns.
     The type of clustering as well as some minor fine tuning of clustering model
     are available.
 
@@ -145,12 +146,13 @@ def cluster_2d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
         > cluster_2d(df = data, cols = ['age','height'], c_type = "OPTICS", lab1 = "Age",
         lab2 = "Height")
     """
+    c_type = c_type.lower()
     if len(cols) != 2:
         return 'Wrong number of columns'
-    if c_type == 'OPTICS':
+    if c_type == 'optics':
         clusters = OPTICS(min_samples=min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_
-    elif c_type == 'DBSCAN':
+    elif c_type == 'dbscan':
         clusters = DBSCAN(eps=eps, min_samples=min_sample).fit(df[cols])
         df['Clusters'] = clusters.labels_
     else:
@@ -166,7 +168,7 @@ def cluster_2d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
 
     sns.set(style="whitegrid")
     fig = plt.figure(figsize=(12, 12))
-    ax = sns.scatterplot(data=df, x="Prftchange", y="Revchange", hue=df['OPTICS'])
+    ax = sns.scatterplot(data=df, x=cols[0], y=cols[1], hue=df['Clusters'])
 
     if not (lab1 is None) and type(lab1) == str:
         ax.set_xlabel(lab1)
