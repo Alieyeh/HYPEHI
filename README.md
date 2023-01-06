@@ -9,12 +9,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -64,9 +58,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-**put description here**
+HYPEHD is a Python package that provides easy to use functions, designed to make the exploration of health data easier for people with various levels of python experience, but primarily for those who are less experienced. This package aims to be a tool for real-world and practical data analysis, assisting in reaching a quicker understanding of various health related data.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -128,8 +120,8 @@ Below are some examples of using this package. The test dataset is from https://
    ```
 2. read test data
    ```sh
-   dm = pd.read_csv("data/demographic.csv")
-   vs = pd.read_csv("data/vital_signs.csv")
+   dm = da.read("csv", "data/demographic.csv")
+   vs = da.read("csv", "data/vital_signs.csv")
    ```
 3. filter data using `data_selection()` function in data_manipulation
    filter the dataset vs to select only weight records and merge it with dataset dm
