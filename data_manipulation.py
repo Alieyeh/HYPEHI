@@ -348,6 +348,7 @@ def read(source, path=None, sheet_name=None, sql=None, con=None):
         con=conn)
     """
     df = pd.DataFrame()
+    source = source.lower()
     if source == 'csv':
         df = pd.read_csv(path)
     elif source == 'tsv':
@@ -374,6 +375,9 @@ def check_bias(df, col=None, real_dist=None, n_marg=10, marg=5):
     """
     Checks data for two types of bias. Too many null values and improper distribution.
     If no column is specified, only the amount of null values will be checked.
+    The function prints the column names with too many null values along with the number
+    of null values and The names of columns with skewed distribution along with their 
+    distribution.
 
         Parameters
         ----------
@@ -402,7 +406,7 @@ def check_bias(df, col=None, real_dist=None, n_marg=10, marg=5):
         if n >= n_marg * leng:
             too_nul.append([df.columns[i], n])
         i += 1
-    print('columns with too many null values: ', too_nul)
+    print('Columns with too many null values: \n', too_nul)
     if real_dist is not None and col is not None:
         count = df[col].value_counts(ascending=False).rename_axis(
             'vals').reset_index(name='dist')
@@ -413,10 +417,11 @@ def check_bias(df, col=None, real_dist=None, n_marg=10, marg=5):
             dist = count.loc[count['vals'] == real_dist[i][0]]
             real = real_dist[i][1]
             ours = dist['dist'].values[0]
-            print(str(ours) + " " + str(real))
             if ours > (real + marg) or ours < (real - marg):
                 skew.append(dist)
-        print(skew)
+        print("\nColumns with skewed distribution:")
+        for i in skew:
+            print(str(i['vals'].values[0]) + " : " + str(i['dist'].values[0]))
 
 
 def numeric_to_categorical(df, col: str, bounds, add=False):
