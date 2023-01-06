@@ -101,7 +101,8 @@ def cluster_3d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
         ax.set_zlabel(cols[2])
 
     for s in df.Clusters.unique():
-        ax.scatter(df[cols[0]], df[cols[1]], df[cols[2]], label=s)
+        ax.scatter(df[cols[0]].loc[df.Clusters == s], df[cols[1]].loc[df.Clusters == s], 
+                   df[cols[2]].loc[df.Clusters == s], label=s)
     if legend == True:
         ax.legend(loc='upper left')
     if path is not None:
