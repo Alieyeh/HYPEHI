@@ -119,11 +119,41 @@ _Below is an example of how you can instruct your audience on installing and set
 
 <!-- USAGE EXAMPLES -->
 ## Examples
+Below are some examples of using this package. The test dataset is from https://github.com/insightsengineering/scda.2022
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
+1. import package
+   ```sh
+   import visualization as vis
+   import data_manipulation as da
+   ```
+2. read test data
+   ```sh
+   dm = pd.read_csv("data/demographic.csv")
+   vs = pd.read_csv("data/vital_signs.csv")
+   ```
+3. filter data using `data_selection()` function in data_manipulation
+   filter the dataset vs to select only weight records and merge it with dataset dm
+   ```sh
+   test = da.data_selection(keep_col=["USUBJID", "PARAMCD", "AVAL"], sort_by=["SEX", "AGE"], sort_asc=True, 
+                            input_data=vs,cond='PARAMCD=="WEIGHT"', merge_data=dm, merge_by="USUBJID",
+                            merge_keep_col=["USUBJID", "ITTFL", "SEX", "AGE", "TRT01P"])
+   ```
+4. derive baseline info using `derive_baseline()` function in data_manipulation
+   calculate change from baseline, percent change from baseline of weight per each subject
+   ```sh
+   test = da.derive_baseline(input_data=test, by=["USUBJID", "PARAMCD"], value="AVAL", chg=True, pchg=True, 
+                      base_visit='AVISITN==0')
+   ```
+5. generate demographic plots using `demo_graph()` function in visualization
+   plots of AGE, SEX and RACE by different treatment group
+   ```sh
+   vis.demo_graph(var=["AGE", "SEX", "RACE"], input_data=dm, by='TRT01P')
+   ```
+6. generate line plots using `longitudinal_graph()` function in visualization
+   plots of change from baseline, percent change from baseline by different visit
+   ```sh
+   vis.longitudinal_graph(outcome=["CHG", "PCHG"], time="AVISITN", group="TRT01P", input_data=test)
+   ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
