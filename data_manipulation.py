@@ -3,7 +3,7 @@ import numpy as np
 from operator import itemgetter
 
 
-def handle_null(input_data, col, by_vars: None, impute_type):
+def handle_null(input_data, col, impute_type, by_vars=None):
     """
          Replace missing values with a descriptive statistic.
 
@@ -12,48 +12,47 @@ def handle_null(input_data, col, by_vars: None, impute_type):
                 input_data : pd.DataFrame
                     Input dataset name.
                 col : str
-                    Variable name nedd to be imputed.
+                    Variable name need to be imputed.
                 by_vars : str or list
                     Grouping variables uniquely identifying a set of records for computing descriptive statistic .
-                impute_type : str, , select from (mean, max, min, median)
+                impute_type : str, select from (mean, max, min, median)
                     The imputation method.
 
                 Returns
                 -------
-                output_data : pd.DataFrame
-                Dataset with variables after imputation.
+                input_data : pd.DataFrame
+                Same dataset after imputation.
 
                 Examples
                 --------
                 > df = pd.DataFrame()
                 > df['C0'] = [0.2601,0.2358,0.1429,0.1259,0.7526,0.7341,0.4546,0.1426,0.1490,0.2500]
                 > df['C1'] = [0.7154,np.nan,0.2615,0.5846,np.nan,0.8308,0.4962,np.nan,0.5340,0.6731]
-                > handle_null(input_data=df, col="C!", impute_type="median")
+                > handle_null(input_data=df, col="C1", impute_type="median")
 
     """
     # when there is by variables
-    output_data = None
     if by_vars is not None:
         if impute_type.lower() == 'mean':
-            output_data = input_data[col].fillna(input_data.groupby(by_vars)[col].mean())
+            input_data[col].fillna(input_data.groupby(by_vars)[col].mean())
         elif impute_type.lower() == 'median':
-            output_data = input_data[col].fillna(input_data.groupby(by_vars)[col].median())
+            input_data[col].fillna(input_data.groupby(by_vars)[col].median())
         elif impute_type.lower() == 'min':
-            output_data = input_data[col].fillna(input_data.groupby(by_vars)[col].min())
+            input_data[col].fillna(input_data.groupby(by_vars)[col].min())
         elif impute_type.lower() == 'max':
-            output_data = input_data[col].fillna(input_data.groupby(by_vars)[col].max())
+            input_data[col].fillna(input_data.groupby(by_vars)[col].max())
     # when there is no by variables
     else:
         if impute_type.lower() == 'mean':
-            output_data = input_data[col].fillna(input_data[col].mean())
+            input_data[col].fillna(input_data[col].mean())
         elif impute_type.lower() == 'median':
-            output_data = input_data[col].fillna(input_data[col].median())
+            input_data[col].fillna(input_data[col].median())
         elif impute_type.lower() == 'min':
-            output_data = input_data[col].fillna(input_data[col].min())
+            input_data[col].fillna(input_data[col].min())
         elif impute_type.lower() == 'max':
-            output_data = input_data[col].fillna(input_data[col].max())
+            input_data[col].fillna(input_data[col].max(), inplace=True)
 
-    return output_data
+    return input_data
 
 
 def change_type(df, col, col_type):
