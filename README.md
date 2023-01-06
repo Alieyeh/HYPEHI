@@ -21,7 +21,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/Alieyeh/HYPEHI">
+  <a href="https://github.com/Alieyeh/HYPEHD">
     <img src="Animated Logo 500x500 px.gif" alt="Logo" width="300" height="300">
   </a>
 
@@ -30,9 +30,9 @@
   <p align="center">
     A package to aid in data exploration for health data.
     <br />
-    <a href="https://github.com/Alieyeh/HYPEHI/issues">Report Bug</a>
+    <a href="https://github.com/Alieyeh/HYPEHD/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Alieyeh/HYPEHI/issues">Request Feature</a>
+    <a href="https://github.com/Alieyeh/HYPEHD/issues">Request Feature</a>
   </p>
 </div>
 
@@ -45,7 +45,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#Dependencies">Built With</a></li>
+        <li><a href="#dependencies">Built With</a></li>
       </ul>
     </li>
     <li>
@@ -54,7 +54,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#examples">Usage</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -118,7 +118,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Examples
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
@@ -131,6 +131,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- CONTACT -->
 ## Contact
 
-Project Link: [https://github.com/Alieyeh/HYPEHI](https://github.com/Alieyeh/HYPEHI)
+Project Link: [https://github.com/Alieyeh/HYPEHD](https://github.com/Alieyeh/HYPEHD)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
