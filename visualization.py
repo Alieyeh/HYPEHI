@@ -12,7 +12,7 @@ from scipy import stats
 
 
 def cluster_3d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
-               lab1=None, lab2=None, lab3=None):
+               lab1=None, lab2=None, lab3=None, legend = False, path=None, name='cluster3d'):
     """
     Plots a three dimensional graph of clusters for the three specified numerical columns.
     The type of clustering as well as some minor fine tuning of clustering model
@@ -46,6 +46,12 @@ def cluster_3d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
         lab3 : str, optional
             The label for axis 3. The default option is the name of the column in
             the data frame.
+        legend : bool, optional
+            Show legend or not. default is False.
+        path : str, optional
+            The directory path to save the plot in. Plot will not be saved if not specified.
+        name : str, optional
+            Name of the plot. The default is cluster3d.
 
         Returns
         -------
@@ -96,14 +102,15 @@ def cluster_3d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
 
     for s in df.Clusters.unique():
         ax.scatter(df[cols[0]], df[cols[1]], df[cols[2]], label=s)
-    ax.legend(loc='upper left')
-    fig = plt.figure(figsize=(10, 10))
-
+    if legend == True:
+        ax.legend(loc='upper left')
+    if path is not None:
+        fig.savefig(f'{path}/{name}.png', format='png', bbox_inches='tight')
     return fig, ax
 
 
 def cluster_2d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
-               lab1=None, lab2=None):
+               lab1=None, lab2=None, path=None, name='cluster2d'):
     """
     Plots a two dimensional graph of clusters for the two specified numercial columns.
     The type of clustering as well as some minor fine tuning of clustering model
@@ -134,6 +141,10 @@ def cluster_2d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
         lab2 : str, optional
             The label for axis 2. The default option is the name of the column in
             the data frame.
+        path : str, optional
+            The directory path to save the plot in. Plot will not be saved if not specified.
+        name : str, optional
+            Name of the plot. The default is cluster2d.
 
         Returns
         -------
@@ -178,12 +189,14 @@ def cluster_2d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
         ax.set_ylabel(lab2)
     else:
         ax.set_ylabel(cols[1])
+    if path is not None:
+        fig.savefig(f'{path}/{name}.png', format='png', bbox_inches='tight')
 
     return fig, ax
 
 
-def graph_3d(df, ax1: str, ax2: str, ax3: str, lab1=None,
-             lab2=None, lab3=None):
+def graph_3d(df, ax1: str, ax2: str, ax3: str, lab1=None, lab2=None, lab3=None,
+                path=None, name="graph3d"):
     """
     Plots a three dimensional graph based on the three columns entered.
 
@@ -206,6 +219,11 @@ def graph_3d(df, ax1: str, ax2: str, ax3: str, lab1=None,
         lab3 : str, optional
             The label for axis 3. The default option is the name of the column in
             the data frame.
+        path : str, optional
+            The directory path to save the plot in. Plot will not be saved if not specified.
+        name : str, optional
+            Name of the plot. The default is graph3d.
+        
 
         Returns
         -------
@@ -234,6 +252,9 @@ def graph_3d(df, ax1: str, ax2: str, ax3: str, lab1=None,
     else:
         ax.set_zlabel(ax3)
     ax.scatter(df[ax1], df[ax2], df[ax3], color='purple')
+    if path is not None:
+        fig.savefig(f'{path}/{name}.png', format='png', bbox_inches='tight')
+    plt.show()
     return fig, ax
 
 
