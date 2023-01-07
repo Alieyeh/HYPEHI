@@ -66,16 +66,16 @@ HYPEHD is a Python package that provides easy to use functions, designed to make
 
 ### Dependencies
 - Python 3 (with the following auto-installed packages)
-    - numpy
-    - matplotlib
-    - seaborn
-    - pandas
-    - scipy.stats
-    - itertools
-    - sklearn.cluster
-    - lifelines
+    - numpy 1.23.2
+    - matplotlib 3.5.3
+    - seaborn 0.12.2
+    - pandas 1.4.4
+    - scipy.stats 1.9.1
+    - sklearn.cluster 1.1.2
+    - lifelines 0.27.4
     - math
     - operator
+    - itertools 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
