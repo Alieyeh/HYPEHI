@@ -2,7 +2,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 import seaborn as sns
 import pandas as pd
-import scipy.stats
 import itertools
 from sklearn.cluster import OPTICS, DBSCAN, KMeans
 from matplotlib import cm
@@ -288,7 +287,7 @@ def f_test(group1, group2):
         f_value = np.var(group1, ddof=1) / np.var(group2, ddof=1)
         nun = x.size - 1
         dun = y.size - 1
-        p_value = round(1 - scipy.stats.f.cdf(f_value, nun, dun), 3)
+        p_value = round(1 - stats.f.cdf(f_value, nun, dun), 3)
     else:
         p_value = np.nan
     return p_value
