@@ -15,7 +15,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/Alieyeh/HYPEHD">
+  <a href="https://github.com/Alieyeh/hypehd">
     <img src="Animated Logo 500x500 px.gif" alt="Logo" width="300" height="300">
   </a>
 
@@ -24,9 +24,9 @@
   <p align="center">
     A package to aid in data exploration for health data.
     <br />
-    <a href="https://github.com/Alieyeh/HYPEHD/issues">Report Bug</a>
+    <a href="https://github.com/Alieyeh/hypehd/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Alieyeh/HYPEHD/issues">Request Feature</a>
+    <a href="https://github.com/Alieyeh/hypehd/issues">Request Feature</a>
   </p>
 </div>
 
@@ -111,7 +111,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 <!-- Documentation -->
 ## Documentation
-The official documentation can be found on: [https://example.com](https://example.com) /add website <br>
+The official documentation can be found on: [https://example.com](https://example.com) /add website<br>
 On the website, users can find examples, API and more detailed information about this package.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -121,7 +121,7 @@ On the website, users can find examples, API and more detailed information about
 <!-- CONTACT -->
 ## Contact
 
-Project Link: [https://github.com/Alieyeh/HYPEHD](https://github.com/Alieyeh/HYPEHD)
+Project Link: [https://github.com/Alieyeh/hypehd](https://github.com/Alieyeh/hypehd)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
