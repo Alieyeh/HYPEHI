@@ -11,10 +11,10 @@ from scipy import stats
 
 
 def cluster_3d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
-               lab1=None, lab2=None, lab3=None, legend = False, path=None, name='cluster3d'):
+               lab1=None, lab2=None, lab3=None, legend=False, path=None, name='cluster3d'):
     """
-    Plots a three dimensional graph of clusters for the three specified numerical columns.
-    The type of clustering as well as some minor fine tuning of clustering model
+    Plots a three-dimensional graph of clusters for the three specified numerical columns.
+    The type of clustering as well as some minor fine-tuning of clustering model
     are available.
 
         Parameters
@@ -102,7 +102,7 @@ def cluster_3d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
     for s in df.Clusters.unique():
         ax.scatter(df[cols[0]].loc[df.Clusters == s], df[cols[1]].loc[df.Clusters == s], 
                    df[cols[2]].loc[df.Clusters == s], label=s)
-    if legend == True:
+    if legend:
         ax.legend(loc='upper left')
     if path is not None:
         fig.savefig(f'{path}/{name}.png', format='png', bbox_inches='tight')
@@ -112,8 +112,8 @@ def cluster_3d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
 def cluster_2d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
                lab1=None, lab2=None, path=None, name='cluster2d'):
     """
-    Plots a two dimensional graph of clusters for the two specified numercial columns.
-    The type of clustering as well as some minor fine tuning of clustering model
+    Plots a two-dimensional graph of clusters for the two specified numercial columns.
+    The type of clustering as well as some minor fine-tuning of clustering model
     are available.
 
         Parameters
@@ -196,9 +196,9 @@ def cluster_2d(df, cols, c_type='k-means', number=None, min_sample=3, eps=0.5,
 
 
 def graph_3d(df, ax1: str, ax2: str, ax3: str, lab1=None, lab2=None, lab3=None,
-                path=None, name="graph3d"):
+             path=None, name="graph3d"):
     """
-    Plots a three dimensional graph based on the three columns entered.
+    Plots a three-dimensional graph based on the three columns entered.
 
         Parameters
         ----------
@@ -352,9 +352,8 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
             # generate summary table (percentage for categorical variables)
             if group is not None:
                 sns.countplot(ax=ax, data=dat, x=group, hue=col)
-                summary['result'] = dat.groupby([group])[col].value_counts().astype(str) + \
-                                    " (" + round(dat.groupby([group])[col].value_counts(normalize=True) * 100,
-                                                 2).astype(str) + "%)"
+                summary['result'] = dat.groupby([group])[col].value_counts().astype(str) + " (" \
+                    + round(dat.groupby([group])[col].value_counts(normalize=True) * 100, 2).astype(str) + "%)"
                 summary = summary.reset_index()
                 summary = summary.pivot(index=col, columns=group)
                 plt.legend(loc='upper left')
@@ -362,8 +361,7 @@ def demo_graph(var: list, input_data: pd.DataFrame, group=None):
                 sns.countplot(ax=ax, data=dat, x=col, hue=col, dodge=False)
                 plt.xticks([], [])
                 summary['result'] = dat[col].value_counts().astype(str) + \
-                                    " (" + round(dat[col].value_counts(normalize=True) * 100,
-                                                 2).astype(str) + "%)"
+                    " (" + round(dat[col].value_counts(normalize=True) * 100, 2).astype(str) + "%)"
         ax.set(xlabel=None)
         # combine summary table with plot
         plt.table(cellText=summary.values, rowLabels=[" ".join(i.split()[:3]) for i in summary.index],
@@ -550,7 +548,7 @@ def survival_analysis(time, censor_status, group, input_data: pd.DataFrame):
         group="treatment", input_data=data)
 
     """
-    # remove records with missing time to event value
+    # remove records with missing time-to-event value
     ana_data = input_data[input_data[time].notnull()]
     group_list = ana_data.sort_values(by=[group])[group].unique()
     # set up figure, ax
@@ -594,9 +592,9 @@ def boxplot_grid(df, col1=None, col2=None, col3=None):
         col1 : str, optional
             The categorical column that the grid will be split based on.
         col2 : str, optional
-            The categorical column on the x axis of each plot.
+            The categorical column on the x-axis of each plot.
         col3 : str, optional
-            The numerical column on the y axis of each plot.
+            The numerical column on the y-axis of each plot.
 
         Returns
         -------
