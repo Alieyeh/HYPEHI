@@ -5,7 +5,6 @@ import random
 
 
 def test_handle_null():
-    """Test impute null."""
     # test data
     df = pd.DataFrame()
     df['C0'] = [0.2601, 0.2358, 0.1429, 0.1259, 0.7526, 0.7341, 0.4546, 0.1426, 0.1490, 0.2500]
