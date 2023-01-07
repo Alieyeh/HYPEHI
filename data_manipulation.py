@@ -295,12 +295,11 @@ def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
 
     """
     # change variables type into datetime
-    # pd.to_datetime(input_data[start_date], format="%y-%m-%d")
-    # pd.to_datetime(input_data[end_date], format="%y-%m-%d")
-    # pd.to_datetime(input_data[end_date], censor_date="%y-%m-%d")
+    output_data = input_data.copy()
     if not isinstance(start_date, dt.datetime):
-        output_data = input_data.astype({start_date: 'datetime64[ns]', end_date: 'datetime64[ns]',
-                                        censor_date: 'datetime64[ns]'})
+        output_data[start_date] = pd.to_datetime(output_data[start_date], infer_datetime_format=True)
+        output_data[end_date] = pd.to_datetime(output_data[end_date], infer_datetime_format=True)
+        output_data[censor_date] = pd.to_datetime(output_data[censor_date], infer_datetime_format=True)
 
     # derive time_to_event variable
     output_data[new_var] = np.where((output_data[start_date].notnull()) & (output_data[end_date].notnull()),

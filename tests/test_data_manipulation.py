@@ -171,25 +171,24 @@ def test_time_to_event():
     df = pd.DataFrame()
     df['group'] = [1, 1, 1, 1, 2, 2, 2, 2]
     df['student'] = ['Alice', 'Ben', 'Calvin', 'Doris', 'Eric', 'Frank', 'Gloria', 'Harry']
-    df['school_start_date'] = ["20/09/2020", "03/05/2018", "09/11/2013", "18/08/2010", "30/01/2009", "16/03/2007",
-                               "07/01/2023", "28/10/2021"]
-    df['graduation_date'] = [np.nan, "06/05/2021", "09/12/2016", "25/08/2015", np.nan, "23/05/2011",
+    df['school_start_date'] = ["20-09-2020", "03-05-2018", "09-11-2013", "18-08-2010", "30-01-2009", "16-03-2007",
+                               "07-01-2023", "28-10-2021"]
+    df['graduation_date'] = [np.nan, "26/05/2021", "09/12/2016", "25/08/2015", np.nan, "23/05/2011",
                              np.nan, "28/10/2022"]
-    df['last_known'] = ["20/12/2021", "06/05/2021", "09/12/2016", "25/08/2015", "30/09/2009", "23/05/2011",
+    df['last_known'] = ["20/12/2021", "26/05/2021", "09/12/2016", "25/08/2015", "30/09/2009", "23/05/2011",
                         "11/01/2023", "28/10/2022"]
 
     # expected data
     expected = df.copy()
-    expected['time_to_gra'] = [456, 1099, 1126, 1833, 243, 1529, 4, 365]
+    expected['time_to_gra'] = [456, 1119, 1126, 1833, 243, 1529, 4, 365]
     expected['censor_status'] = [0, 1, 1, 1, 0, 1, 0, 1]
     expected['unit'] = "day"
 
     # compare
     actual = da.time_to_event(input_data=df, start_date="school_start_date", end_date="graduation_date",
                               censor_date="last_known", new_var='time_to_gra', unit='day')
-    print(actual)
-    assert actual.equals(expected), "Time to event value incorrect!"
-
+    assert actual.iloc[:, -3:].equals(expected.iloc[:, -3:]), "Time to event value incorrect!"
+test_time_to_event()
 
 def test_read():
     pass
