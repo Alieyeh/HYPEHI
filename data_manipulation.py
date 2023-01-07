@@ -447,8 +447,7 @@ def numeric_to_categorical(df, col: str, bounds, add=False):
         Parameters
         ----------
         df : pd.DataFrame, mandatory
-            The type of the data source. Available options are csv, tsv, excel, sql,
-            json, html and xml.
+            The data source.
         col : str, mandatory
             The name of the column to change.
         bounds : list of lists, mandatory
@@ -475,6 +474,49 @@ def numeric_to_categorical(df, col: str, bounds, add=False):
 
     if add:
         name = col + '_group'
+        df[name] = df.apply(lambda row: group(row, bounds, col), axis=1)
+        return df
+    else:
+        df[col] = df.apply(lambda row: group(row, bounds, col), axis=1)
+        return df
+
+
+def categorical_to_numeric(df, col: str, bounds, add=False):
+    """
+    Changes categories to numbers. If add option if True the data will be added
+    into a separate column and if it is False the categorical values will replace the
+    categorical values of the column.
+
+        Parameters
+        ----------
+        df : pd.DataFrame, mandatory
+            The data source. 
+        col : str, mandatory
+            The name of the column to change.
+        bounds : list of lists, mandatory
+            A list containing two item lists of the name of the categorical column
+            and the number to replace it with.
+        add : str, optional
+            Choice of adding results as an additional column or replacing the current
+            column. The default is False (replacement).
+
+        Returns
+        -------
+        df : pd.DataFrame
+            The changed dataset.
+
+        Examples
+        --------
+        > data = categorical_to_numeric(data, 'sex', [['Female', 0],['Male', 1]],True)
+    """
+    def group(row, bound, column):
+        bound = sorted(bound, key=itemgetter(0))
+        for i in bound:
+            if row[column] == i[0]:
+                return i[1]
+
+    if add:
+        name = col + '_num'
         df[name] = df.apply(lambda row: group(row, bounds, col), axis=1)
         return df
     else:
