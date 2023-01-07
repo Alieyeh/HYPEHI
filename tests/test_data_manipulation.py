@@ -26,6 +26,36 @@ def test_handle_null():
     assert actual.equals(expected), "Imputation incorrectly with group!"
 
 
+def test_change_type():
+    # data
+    df = pd.DataFrame()
+    df['C0'] = ['1,000', '1', '1 000']
+    df['C1'] = [1, 3.01, 50]
+
+    # str to int
+    expected = pd.DataFrame()
+    expected['C0'] = [1000, 1, 1000]
+    expected['C1'] = [1, 3.01, 50]
+    actual = da.change_typel(df, 'C0', int)
+    assert actual.equals(expected), "Incorrect change from str to int!"
+
+    # float to str
+    df['C0'] = ['1,000', '1', '1 000']
+    df['C1'] = [1, 3.01, 50]
+    expected['C0'] = ['1,000', '1', '1 000']
+    expected['C1'] = ["1", "3.01", "50"]
+    actual = da.handle_null(df, 'C1', str)
+    assert actual.equals(expected), "Incorrect change from float to str!"
+    
+    # float to int
+    df['C0'] = ['1,000', '1', '1 000']
+    df['C1'] = [1.9, 3.01, 50.2]
+    expected['C0'] = ['1,000', '1', '1 000']
+    expected['C1'] = [1, 3, 50]
+    actual = da.handle_null(df, 'C1', int)
+    assert actual.equals(expected), "Incorrect change from float to int!"
+
+
 def test_data_selection():
     # test data
     df = pd.DataFrame()
@@ -88,6 +118,50 @@ def test_derive_extreme_flag():
                                     value_var='value')
     assert actual.equals(expected), "Baseline value incorrectly with group!"
 
+    
+def test_check_bias():
+    # test data
+    df = pd.DataFrame()
+    df['Visit'] = [True, np.nan, np.nan, np.nan,]
+    df['Rest'] = [np.nan, np.nan, '3h', '1h']
+    df['Sex'] = ['M', 'M', 'M', 'F']
 
+    # expected data
+    expected1 = [['Visit', 3],['Rest', 2]]
+    expected2 = [['M', 75], ['F', 25]]
+    
+    # actual data
+    actual1, actual2 =da.check_bias(df, 'Sex', [['M',50],['F',50]])
+    
+    # compare    
+    assert actual1 == expected1, "Null value incorrect!"
+    assert actual2 == expected2, "Distribution incorrect!"
+
+
+def test_numeric_to_categorical():
+    # test data
+    df = pd.DataFrame()
+    df['Height'] = [160, 145, 180, 178]
+
+    # expected data
+    expected = pd.DataFrame()
+    expected['Height'] = ['medium', 'short', 'tall', 'tall']
+
+    # replace
+    actual = dm.numeric_to_categorical(df, 'Height', [[150, 'short'], [170, 'medium'], [190, 'tall']])
+    assert actual.equals(expected), "Incorrect replacement!"
+    
+    # new group
+    df['Height'] = [160, 145, 180, 178]
+    expected['Height'] = [160, 145, 180, 178]
+    expected['Height_group'] = ['medium', 'short', 'tall', 'tall']
+    actual = dm.numeric_to_categorical(df, 'Height', [[150, 'short'], [170, 'medium'], [190, 'tall']], True)
+    assert actual.equals(expected), "Incorrect new group!"
+    
+    
 def test_time_to_event():
+    pass
+
+
+def test_read():
     pass
