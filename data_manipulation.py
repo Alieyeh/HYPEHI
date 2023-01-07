@@ -34,21 +34,21 @@ def handle_null(input_data, col, impute_type, by_vars=None):
     # when there is by variables
     if by_vars is not None:
         if impute_type.lower() == 'mean':
-            input_data[col].fillna(input_data.groupby(by_vars)[col].mean())
+            input_data[col].fillna(input_data.groupby(by_vars)[col].transform('mean'), inplace=True)
         elif impute_type.lower() == 'median':
-            input_data[col].fillna(input_data.groupby(by_vars)[col].median())
+            input_data[col].fillna(input_data.groupby(by_vars)[col].transform('median'), inplace=True)
         elif impute_type.lower() == 'min':
-            input_data[col].fillna(input_data.groupby(by_vars)[col].min())
+            input_data[col].fillna(input_data.groupby(by_vars)[col].transform('min'), inplace=True)
         elif impute_type.lower() == 'max':
-            input_data[col].fillna(input_data.groupby(by_vars)[col].max())
+            input_data[col].fillna(input_data.groupby(by_vars)[col].transform('max'), inplace=True)
     # when there is no by variables
     else:
         if impute_type.lower() == 'mean':
-            input_data[col].fillna(input_data[col].mean())
+            input_data[col].fillna(input_data[col].mean(), inplace=True)
         elif impute_type.lower() == 'median':
-            input_data[col].fillna(input_data[col].median())
+            input_data[col].fillna(input_data[col].median(), inplace=True)
         elif impute_type.lower() == 'min':
-            input_data[col].fillna(input_data[col].min())
+            input_data[col].fillna(input_data[col].min(), inplace=True)
         elif impute_type.lower() == 'max':
             input_data[col].fillna(input_data[col].max(), inplace=True)
 
@@ -141,7 +141,7 @@ def data_selection(input_data: pd.DataFrame, cond=None, keep_col=None, drop_col=
         output_data = output_data.loc[:, keep_col]
     # drop variables
     if drop_col is not None:
-        output_data.drop(drop_col, axis=1, inplace=True)
+        output_data = output_data.drop(drop_col, axis=1)
     # keep variables in merge dataset
     if merge_keep_col is not None:
         merge_data = merge_data.loc[:, merge_keep_col]
