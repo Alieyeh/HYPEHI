@@ -1,4 +1,4 @@
-from Library import data_manipulation as da
+from hypehd import data_manipulation as da
 import pandas as pd
 import numpy as np
 import random
@@ -80,7 +80,7 @@ def test_data_selection():
     # compare
     actual = da.data_selection(df, cond='`class`=="A"', drop_col='gender', sort_by='age', rename={'math_score': 'math'},
                                merge_data=mer, merge_by='class')
-    assert np.array_equal(actual.values, expected.values), "Imputation incorrectly with group!"
+    assert np.array_equal(actual.values, expected.values), "Data selection incorrect!"
 
 
 def test_derive_baseline():
@@ -98,7 +98,7 @@ def test_derive_baseline():
 
     # compare
     actual = da.derive_baseline(df, base_visit='`visit`==0', by_vars=['patient'], value='value', chg=True, pchg=False)
-    assert np.array_equal(actual.values, expected.values), "Baseline value incorrectly with group!"
+    assert np.array_equal(actual.values, expected.values), "Baseline value incorrect!"
 
 
 def test_derive_extreme_flag():
@@ -116,7 +116,7 @@ def test_derive_extreme_flag():
     # compare
     actual = da.derive_extreme_flag(df, by_vars=['patient'], sort_var=['visit'], new_var="max", mode="max",
                                     value_var='value')
-    assert actual.equals(expected), "Baseline value incorrectly with group!"
+    assert actual.equals(expected), "Extreme flag incorrect!"
 
     
 def test_check_bias():
@@ -160,8 +160,30 @@ def test_numeric_to_categorical():
     
     
 def test_time_to_event():
-    pass
+    # test data
+    df = pd.DataFrame()
+    df['group'] = [1, 1, 1, 1, 2, 2, 2, 2]
+    df['student'] = ['Alice', 'Ben', 'Calvin', 'Doris', 'Eric', 'Frank', 'Gloria', 'Harry']
+    df['school_start_date'] = ["20/09/2020", "03/05/2018", "09/11/2013", "18/08/2010", "30/01/2009", "16/03/2007",
+                               "07/01/2023", "28/10/2021"]
+    df['graduation_date'] = [np.nan, "06/05/2021", "09/12/2016", "25/08/2015", np.nan, "23/05/2011",
+                             np.nan, "28/10/2022"]
+    df['last_known'] = ["20/12/2021", "06/05/2021", "09/12/2016", "25/08/2015", "30/09/2009", "23/05/2011",
+                        "11/01/2023", "28/10/2022"]
+
+    # expected data
+    expected = df.copy()
+    expected['time_to_gra'] = [456, 1099, 1126, 1833, 243, 1529, 4, 365]
+    expected['censor_status'] = [0, 1, 1, 1, 0, 1, 0, 1]
+    expected['unit'] = "day"
+
+    # compare
+    actual = da.time_to_event(input_data=df, start_date="school_start_date", end_date="graduation_date",
+                              censor_date="last_known", new_var='time_to_gra', unit='day')
+    print(actual)
+    assert actual.equals(expected), "Time to event value incorrect!"
 
 
+test_time_to_event()
 def test_read():
     pass
