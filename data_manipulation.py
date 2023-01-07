@@ -375,7 +375,7 @@ def check_bias(df, col=None, real_dist=None, n_marg=10, marg=5):
     Checks data for two types of bias. Too many null values and improper distribution.
     If no column is specified, only the amount of null values will be checked.
     The function prints the column names with too many null values along with the number
-    of null values and The names of columns with skewed distribution along with their
+    of null values and The names of columns with skewed distribution along with their 
     distribution.
 
         Parameters
@@ -395,7 +395,7 @@ def check_bias(df, col=None, real_dist=None, n_marg=10, marg=5):
         -------
         too_nul : list of columns that have too many null values
         skew : list of columns with skewed distribution
-        
+
         Examples
         --------
         > check_bias(df=data, col='Blood_cell_type', real_dist=[['Red', 37],['White', 53]],
@@ -426,7 +426,7 @@ def check_bias(df, col=None, real_dist=None, n_marg=10, marg=5):
         print("\nColumns with skewed distribution:")
         for i in skew:
             print(str(i['vals'].values[0]) + " : " + str(i['dist'].values[0]))
-    return too_nul, skew
+    retrun too_nul, skew
 
 
 def numeric_to_categorical(df, col: str, bounds, add=False):
