@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from operator import itemgetter
+import datetime as dt
 
 
 def handle_null(input_data, col, impute_type, by_vars=None):
@@ -15,7 +16,7 @@ def handle_null(input_data, col, impute_type, by_vars=None):
                     Variable name need to be imputed.
                 by_vars : str or list
                     Grouping variables uniquely identifying a set of records for computing descriptive statistic .
-                impute_type : str, select from (mean, max, min, median)
+                impute_type : str, select from (mean, max, min, median, remove-remove rows with null)
                     The imputation method.
 
                 Returns
@@ -31,28 +32,31 @@ def handle_null(input_data, col, impute_type, by_vars=None):
                 > handle_null(input_data=df, col="C1", impute_type="median")
 
     """
+    output_data = input_data.copy()
     # when there is by variables
     if by_vars is not None:
         if impute_type.lower() == 'mean':
-            input_data[col].fillna(input_data.groupby(by_vars)[col].transform('mean'), inplace=True)
+            output_data[col].fillna(output_data.groupby(by_vars)[col].transform('mean'), inplace=True)
         elif impute_type.lower() == 'median':
-            input_data[col].fillna(input_data.groupby(by_vars)[col].transform('median'), inplace=True)
+            output_data[col].fillna(output_data.groupby(by_vars)[col].transform('median'), inplace=True)
         elif impute_type.lower() == 'min':
-            input_data[col].fillna(input_data.groupby(by_vars)[col].transform('min'), inplace=True)
+            output_data[col].fillna(output_data.groupby(by_vars)[col].transform('min'), inplace=True)
         elif impute_type.lower() == 'max':
-            input_data[col].fillna(input_data.groupby(by_vars)[col].transform('max'), inplace=True)
+            output_data[col].fillna(output_data.groupby(by_vars)[col].transform('max'), inplace=True)
     # when there is no by variables
     else:
         if impute_type.lower() == 'mean':
-            input_data[col].fillna(input_data[col].mean(), inplace=True)
+            output_data[col].fillna(output_data[col].mean(), inplace=True)
         elif impute_type.lower() == 'median':
-            input_data[col].fillna(input_data[col].median(), inplace=True)
+            output_data[col].fillna(output_data[col].median(), inplace=True)
         elif impute_type.lower() == 'min':
-            input_data[col].fillna(input_data[col].min(), inplace=True)
+            output_data[col].fillna(output_data[col].min(), inplace=True)
         elif impute_type.lower() == 'max':
-            input_data[col].fillna(input_data[col].max(), inplace=True)
+            output_data[col].fillna(output_data[col].max(), inplace=True)
+        elif impute_type.lower() == "remove":
+            output_data.dropna(axis=0, subset=[col], inplace=True)
 
-    return input_data
+    return output_data
 
 
 def change_type(df, col, col_type):
@@ -291,8 +295,13 @@ def time_to_event(input_data, start_date, end_date, censor_date, new_var, unit):
 
     """
     # change variables type into datetime
-    output_data = input_data.astype({start_date: 'datetime64[ns]', end_date: 'datetime64[ns]',
-                                     censor_date: 'datetime64[ns]'})
+    # pd.to_datetime(input_data[start_date], format="%y-%m-%d")
+    # pd.to_datetime(input_data[end_date], format="%y-%m-%d")
+    # pd.to_datetime(input_data[end_date], censor_date="%y-%m-%d")
+    if not isinstance(start_date, dt.datetime):
+        output_data = input_data.astype({start_date: 'datetime64[ns]', end_date: 'datetime64[ns]',
+                                        censor_date: 'datetime64[ns]'})
+
     # derive time_to_event variable
     output_data[new_var] = np.where((output_data[start_date].notnull()) & (output_data[end_date].notnull()),
                                     output_data[end_date] - output_data[start_date],
