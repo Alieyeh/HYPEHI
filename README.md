@@ -82,8 +82,9 @@ HYPEHD is a Python package that provides easy to use functions, designed to make
 <!-- GETTING STARTED -->
 ## Getting Started
 
-
 The source code is currently hosted on GitHub at: [https://github.com/Alieyeh/hypehd](https://github.com/Alieyeh/hypehd)
+Running requires:
+- Python 3.8
 
 ### Installation
 
