@@ -13,7 +13,7 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="hypehd",
     version=__version__,
-    author="Jiayi Wang, Sarabandi Moghaddam Alieyeh",
+    author="Jiayi Wang, Alieyeh Sarabandi Moghaddam",
     author_email="jw1289@exeter.ac.uk, as1724@exeter.ac.uk",
     license="The MIT License (MIT)",
     description="This package aims to be a tool for real-world and practical data analysis, assisting in reaching a "
