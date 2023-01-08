@@ -95,6 +95,15 @@ Binary installers for the latest released version are available at the Test Pyth
 pip install -i https://test.pypi.org/simple/ hypehd
 ```
 
+or create the conda environment issues the following command on a terminal
+```shell
+git clone https://github.com/Alieyeh/hypehd
+cd hypehd
+conda update conda
+conda create -f codenv.yml
+conda activate hypehd_env
+```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
