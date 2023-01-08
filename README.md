@@ -82,26 +82,17 @@ HYPEHD is a Python package that provides easy to use functions, designed to make
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+
+The source code is currently hosted on GitHub at: [https://github.com/Alieyeh/hypehd](https://github.com/Alieyeh/hypehd)
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+Binary installers for the latest released version are available at the Test Python Package Index (TestPyPI)
+[https://test.pypi.org/project/hypehd/#description](https://test.pypi.org/project/hypehd/#description)
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+```shell
+pip install -i https://test.pypi.org/simple/ hypehd
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -109,7 +100,8 @@ _Below is an example of how you can instruct your audience on installing and set
 
 <!-- Documentation -->
 ## Documentation
-The official documentation can be found on: [https://example.com](https://example.com) /add website<br>
+The official documentation can be found on: 
+[https://hypehd.readthedocs.io/en/latest/](https://hypehd.readthedocs.io/en/latest/)<br>
 On the website, users can find examples, API and more detailed information about this package.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
