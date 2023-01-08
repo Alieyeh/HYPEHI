@@ -1,0 +1,29 @@
+:py:mod:`hypehd`
+================
+
+.. py:module:: hypehd
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   data_manipulation/index.rst
+   visualization/index.rst
+
+
+Package Contents
+----------------
+
+.. py:data:: __version__
+   :annotation: = 0.1.0
+
+   
+
+.. py:data:: __author__
+   :annotation: = Jiayi Wang, Sarabandi Moghaddam Alieyeh
+
+   
+
