@@ -129,16 +129,16 @@ def test_derive_extreme_flag():
 def test_check_bias():
     # test data
     df = pd.DataFrame()
-    df['Visit'] = [True, np.nan, np.nan, np.nan,]
+    df['Visit'] = [True, np.nan, np.nan, np.nan]
     df['Rest'] = [np.nan, np.nan, '3h', '1h']
     df['Sex'] = ['M', 'M', 'M', 'F']
 
     # expected data
-    expected1 = [['Visit', 3],['Rest', 2]]
+    expected1 = [['Visit', 3], ['Rest', 2]]
     expected2 = [['M', 75], ['F', 25]]
     
     # actual data
-    actual1, actual2 =da.check_bias(df, 'Sex', [['M',50],['F',50]])
+    actual1, actual2 = da.check_bias(df, 'Sex', [['M', 50], ['F', 50]])
     
     # compare    
     assert actual1 == expected1, "Null value incorrect!"
@@ -155,14 +155,14 @@ def test_numeric_to_categorical():
     expected['Height'] = ['medium', 'short', 'tall', 'tall']
 
     # replace
-    actual = dm.numeric_to_categorical(df, 'Height', [[150, 'short'], [170, 'medium'], [190, 'tall']])
+    actual = da.numeric_to_categorical(df, 'Height', [[150, 'short'], [170, 'medium'], [190, 'tall']])
     assert actual.equals(expected), "Incorrect replacement!"
     
     # new group
     df['Height'] = [160, 145, 180, 178]
     expected['Height'] = [160, 145, 180, 178]
     expected['Height_group'] = ['medium', 'short', 'tall', 'tall']
-    actual = dm.numeric_to_categorical(df, 'Height', [[150, 'short'], [170, 'medium'], [190, 'tall']], True)
+    actual = da.numeric_to_categorical(df, 'Height', [[150, 'short'], [170, 'medium'], [190, 'tall']], True)
     assert actual.equals(expected), "Incorrect new group!"
     
     
@@ -188,7 +188,6 @@ def test_time_to_event():
     actual = da.time_to_event(input_data=df, start_date="school_start_date", end_date="graduation_date",
                               censor_date="last_known", new_var='time_to_gra', unit='day')
     assert actual.iloc[:, -3:].equals(expected.iloc[:, -3:]), "Time to event value incorrect!"
-test_time_to_event()
 
 
 def test_read():
