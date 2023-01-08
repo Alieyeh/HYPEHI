@@ -16,7 +16,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Alieyeh/hypehd">
-    <img src="Animated Logo 500x500 px.gif" alt="Logo" width="300" height="300">
+    <img src="./imgs/Animated Logo 500x500 px.gif" alt="Logo" width="300" height="300">
   </a>
 
   <h3 align="center">HYPEHD</h3>
