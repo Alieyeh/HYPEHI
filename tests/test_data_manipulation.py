@@ -190,5 +190,11 @@ def test_time_to_event():
     assert actual.iloc[:, -3:].equals(expected.iloc[:, -3:]), "Time to event value incorrect!"
 test_time_to_event()
 
+
 def test_read():
-    pass
+    expected = pd.DataFrame()
+    expected['Height'] = [160, 145, 180, 178]
+    
+    actual = da.read("csv", "data/height.csv")
+    
+    assert actual.equals(expected), "Reading went wrong!"    
