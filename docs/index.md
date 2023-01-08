@@ -5,7 +5,8 @@
 :maxdepth: 1
 :hidden:
 
-examples.ipynb
+examples1.ipynb
+examples2.ipynb
 changelog.md
 contributing.md
 autoapi/index
