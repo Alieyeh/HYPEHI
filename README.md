@@ -92,7 +92,7 @@ Binary installers for the latest released version are available at the Test Pyth
 [https://test.pypi.org/project/hypehd/#description](https://test.pypi.org/project/hypehd/#description)
 
 ```shell
-pip install -i https://test.pypi.org/simple/ hypehd
+python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple hypehd
 ```
 
 or create the conda environment issues the following command on a terminal
