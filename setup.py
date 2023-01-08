@@ -11,22 +11,22 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="pypi-template",
+    name="hypehd",
     version=__version__,
-    author="Thomas Monks",
-    # I've created a specific email account before and forwarded to my own.
-    author_email="generic@genericemail.com",
+    author="Jiayi Wang, Sarabandi Moghaddam Alieyeh",
+    author_email="jw1289@exeter.ac.uk, as1724@exeter.ac.uk",
     license="The MIT License (MIT)",
-    description="A short, but useful description to appear on pypi",
+    description="This package aims to be a tool for real-world and practical data analysis, assisting in reaching a "
+                "quicker understanding of various health related data.",
     # read in from readme.md and will appear on PyPi
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/health-data-science-OR/pypi-template",
+    url="https://github.com/Alieyeh/hypehd",
     packages=setuptools.find_packages(),
     # if true look in MANIFEST.in for data files to include
     include_package_data=True,
     # 2nd approach to include data is include_package_data=False
-    package_data={"test_package": ["data/*.csv"]},
+    package_data={"hypehd": ["data/*.csv"]},
     # these are for documentation
     classifiers=[
         "Programming Language :: Python :: 3.6",
