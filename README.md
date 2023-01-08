@@ -15,7 +15,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/Alieyeh/hypehd">
+  <a href="https://github.com/Alieyeh/hypehd/">
     <img src="./imgs/Animated Logo 500x500 px.gif" alt="Logo" width="300" height="300">
   </a>
 

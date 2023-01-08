@@ -3,7 +3,7 @@
   {
    "cell_type": "markdown",
    "source": [
-    "# Example usage"
+    "# Examples 1"
    ],
    "metadata": {
     "collapsed": false,
@@ -157,33 +157,6 @@
   {
    "cell_type": "markdown",
    "source": [
-    "## Generate demographic plots\n",
-    "using `demo_graph()` function in visualization to generate plots of AGE, SEX by different treatment group"
-   ],
-   "metadata": {
-    "collapsed": false,
-    "pycharm": {
-     "name": "#%% md\n"
-    }
-   }
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "outputs": [],
-   "source": [
-    "vis.demo_graph(var=[\"AGE\", \"SEX\"], input_data=dm, group='TRT01P')"
-   ],
-   "metadata": {
-    "collapsed": false,
-    "pycharm": {
-     "name": "#%%\n"
-    }
-   }
-  },
-  {
-   "cell_type": "markdown",
-   "source": [
     "## Generate line plots for longitudinal data\n",
     "using `longitudinal_graph()` function in visualization to generate plots of change from baseline, percent change from baseline by different visits"
    ],
@@ -247,22 +220,6 @@
     "collapsed": false,
     "pycharm": {
      "name": "#%% md\n"
-    }
-   }
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "outputs": [],
-   "source": [
-    "dm2 = da.time_to_event(input_data=dm, start_date=\"TRTSDTM\", end_date=\"DTHDT\", censor_date=\"TRTEDTM\",\n",
-    "                       new_var='time_to_death', unit='year')\n",
-    "dm2.head()"
-   ],
-   "metadata": {
-    "collapsed": false,
-    "pycharm": {
-     "name": "#%%\n"
     }
    }
   },

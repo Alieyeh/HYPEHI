@@ -23,7 +23,7 @@ from hypehd import data_manipulation as da
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-[0;32m/var/folders/pg/bn92l6gx4bv7nvjqk8mjnhp80000gn/T/ipykernel_1422/2644166443.py[0m in [0;36m<module>[0;34m[0m
+[0;32m/var/folders/pg/bn92l6gx4bv7nvjqk8mjnhp80000gn/T/ipykernel_2963/2644166443.py[0m in [0;36m<module>[0;34m[0m
 [0;32m----> 1[0;31m [0;32mfrom[0m [0mhypehd[0m [0;32mimport[0m [0mvisualization[0m [0;32mas[0m [0mvis[0m[0;34m[0m[0;34m[0m[0m
 [0m[1;32m      2[0m [0;32mfrom[0m [0mhypehd[0m [0;32mimport[0m [0mdata_manipulation[0m [0;32mas[0m [0mda[0m[0;34m[0m[0;34m[0m[0m
 
