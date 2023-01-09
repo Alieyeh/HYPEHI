@@ -68,7 +68,7 @@ HYPEHD is a Python package that provides easy to use functions, designed to make
 - Python 3.7 (with the following packages)
     - numpy 1.19.4
     - matplotlib 3.5.3
-    - seaborn 0.10.0
+    - seaborn 0.11.0
     - pandas 1.0.1
     - scipy.stats 1.4.1
     - sklearn.cluster 0.22.1
