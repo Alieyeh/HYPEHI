@@ -88,7 +88,15 @@
              
   <section id="examples-2">
 <h1>Examples 2<a class="headerlink" href="#examples-2" title="Permalink to this headline"></a></h1>
-<p>Some additional examples to demonstrate the use of the HYPEHD package. The test dataset is open source data from https://github.com/insightsengineering/scda.2022 website.</p>
+<p>Some additional examples to demonstrate the use of the HYPEHD package. The test dataset is open source data from <a class="reference external" href="https://github.com/insightsengineering/scda.2022">https://github.com/insightsengineering/scda.2022</a> website.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">test</span><span class="o">.</span><span class="n">pypi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">simple</span><span class="o">/</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">simple</span> <span class="n">hypehd</span>
+</pre></div>
+</div>
+</div>
+</div>
 <section id="imports">
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline"></a></h2>
 <div class="cell docutils container">
@@ -676,11 +684,11 @@ You can replace the previous column or create a new column for your categorical 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.patches.Wedge at 0x7f83ccef9520&gt;,
-  &lt;matplotlib.patches.Wedge at 0x7f83ccef9a90&gt;,
-  &lt;matplotlib.patches.Wedge at 0x7f83ccf15160&gt;,
-  &lt;matplotlib.patches.Wedge at 0x7f83ccf157f0&gt;,
-  &lt;matplotlib.patches.Wedge at 0x7f83ccf15e80&gt;],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.patches.Wedge at 0x7fb33d3985b0&gt;,
+  &lt;matplotlib.patches.Wedge at 0x7fb33d398b20&gt;,
+  &lt;matplotlib.patches.Wedge at 0x7fb33d3b11f0&gt;,
+  &lt;matplotlib.patches.Wedge at 0x7fb33d3b1880&gt;,
+  &lt;matplotlib.patches.Wedge at 0x7fb33d3b1f10&gt;],
  [Text(0.5320908144466622, 0.9627457427490853, &#39;(35,40]&#39;),
   Text(-1.084458100654201, 0.18425696167440575, &#39;(,30]&#39;),
   Text(-0.30451921808270677, -1.0570090093363902, &#39;(30,35]&#39;),
@@ -713,7 +721,7 @@ Here we have plotted <strong><em>AGE</em></strong> by <strong><em>SEX</em></stro
 </pre></div>
 </div>
 <img alt="_images/9cafdf87f003c569daa43746d66185f63ced479e138729db10908b1e9bae8cb1.png" src="_images/9cafdf87f003c569daa43746d66185f63ced479e138729db10908b1e9bae8cb1.png" />
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f83b93650d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fb33dbd4400&gt;
 </pre></div>
 </div>
 </div>
@@ -756,7 +764,7 @@ If you only want a 3D graph without the clustering, you can use the <code class=
  &lt;Axes3DSubplot: xlabel=&#39;Age&#39;, ylabel=&#39;BMRKR1&#39;, zlabel=&#39;Study duration (s)&#39;&gt;)
 </pre></div>
 </div>
-<img alt="_images/c83775ff3651b97228ba96142006e4aa3fa44f55b8fa9e7bee16c989663f9f51.png" src="_images/c83775ff3651b97228ba96142006e4aa3fa44f55b8fa9e7bee16c989663f9f51.png" />
+<img alt="_images/318674a383a3452f2ace723d7a4845a35e55fd8982111871bac916d89ed44abd.png" src="_images/318674a383a3452f2ace723d7a4845a35e55fd8982111871bac916d89ed44abd.png" />
 </div>
 </div>
 </section>
@@ -775,7 +783,7 @@ We have plotted a two dimentional cluster graph of <strong><em>AGE</em></strong>
  &lt;AxesSubplot: xlabel=&#39;AGE&#39;, ylabel=&#39;BMRKR1&#39;&gt;)
 </pre></div>
 </div>
-<img alt="_images/3968004aef9795a9f64018b2318fb2d1462780b1070f674c9efb10f89e1b9b83.png" src="_images/3968004aef9795a9f64018b2318fb2d1462780b1070f674c9efb10f89e1b9b83.png" />
+<img alt="_images/b99d0c76d7ab3c12f2c6b82f5ffa8bf0ff399cf980a43f4f7cf5a4192f2012f6.png" src="_images/b99d0c76d7ab3c12f2c6b82f5ffa8bf0ff399cf980a43f4f7cf5a4192f2012f6.png" />
 </div>
 </div>
 </section>
@@ -824,7 +832,7 @@ Here, we have removed columns with too many null values and have used the <code 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9529851d3d59337907a43a2c0b84163abaa1be3f3eb1822a4a4b4ae69da6687a.png" src="_images/9529851d3d59337907a43a2c0b84163abaa1be3f3eb1822a4a4b4ae69da6687a.png" />
+<img alt="_images/eb4f3361fa3bc8a6847423a4bee9b43a2e043d90f2c391b64b13cd15730f4798.png" src="_images/eb4f3361fa3bc8a6847423a4bee9b43a2e043d90f2c391b64b13cd15730f4798.png" />
 <img alt="_images/c7a42743d85289e6c651ba323613ed8da74dc4d5be4ba711bf7ca3b56fbcd18b.png" src="_images/c7a42743d85289e6c651ba323613ed8da74dc4d5be4ba711bf7ca3b56fbcd18b.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&lt;Figure size 1008x1008 with 2 Axes&gt;, &lt;AxesSubplot: &gt;], &lt;AxesSubplot: &gt;]
 </pre></div>

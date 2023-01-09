@@ -9,8 +9,23 @@
    },
    "source": [
     "# Examples 2\n",
-    "Some additional examples to demonstrate the use of the HYPEHD package. The test dataset is open source data from https://github.com/insightsengineering/scda.2022 website."
+    "Some additional examples to demonstrate the use of the HYPEHD package. The test dataset is open source data from [https://github.com/insightsengineering/scda.2022](https://github.com/insightsengineering/scda.2022) website."
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "outputs": [],
+   "source": [
+    "%%capture\n",
+    "%pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple hypehd"
+   ],
+   "metadata": {
+    "collapsed": false,
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   }
   },
   {
    "cell_type": "markdown",
