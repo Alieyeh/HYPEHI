@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples 2 &mdash; hypehd  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="Examples 1" href="examples1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> hypehd
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="examples1.html">Examples 1</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples 2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#imports">Imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reading-the-data">Reading the data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-data-null-bias">Checking data null bias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dealing-with-too-many-null-values">Dealing with too many null values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-categories-for-a-numerical-column">Adding categories for a numerical column</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-the-distribution-of-a-demographic-feature">Plotting the distribution of a demographic feature</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-a-boxplot-grid">Plotting a boxplot grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generate-demographic-plots">Generate demographic plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-3d-clusters">Plotting 3D clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-2d-clusters">Plotting 2D clusters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#change-data-type">Change data type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-a-numeric-coded-column-from-a-categorical-column">Add a numeric coded column from a categorical column</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-the-relationship-between-some-cloumns">Plotting the relationship between some cloumns</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">hypehd</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Examples 2</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/examples2.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples-2">
+<h1>Examples 2<a class="headerlink" href="#examples-2" title="Permalink to this headline"></a></h1>
+<p>Some additional examples to demonstrate the use of the HYPEHD package. The test dataset is open source data from https://github.com/insightsengineering/scda.2022 website.</p>
+<section id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hypehd</span> <span class="kn">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
+<span class="kn">from</span> <span class="nn">hypehd</span> <span class="kn">import</span> <span class="n">data_manipulation</span> <span class="k">as</span> <span class="n">da</span>
+<span class="kn">import</span> <span class="nn">hypehd</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="reading-the-data">
+<h2>Reading the data<a class="headerlink" href="#reading-the-data" title="Permalink to this headline"></a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read into dataframe dm from package</span>
+<span class="n">my_file</span> <span class="o">=</span> <span class="n">hypehd</span><span class="o">.</span><span class="n">PACKAGEDIR</span> <span class="o">/</span> <span class="s1">&#39;data&#39;</span> <span class="o">/</span> <span class="s1">&#39;demographic.csv&#39;</span>
+<span class="n">dm</span><span class="o">=</span><span class="n">da</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">my_file</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>STUDYID</th>
+      <th>USUBJID</th>
+      <th>SUBJID</th>
+      <th>SITEID</th>
+      <th>AGE</th>
+      <th>AGEU</th>
+      <th>SEX</th>
+      <th>RACE</th>
+      <th>ETHNIC</th>
+      <th>...</th>
+      <th>DCSREAS</th>
+      <th>DTHDT</th>
+      <th>DTHCAUS</th>
+      <th>DTHCAT</th>
+      <th>LDDTHELD</th>
+      <th>LDDTHGR1</th>
+      <th>LSTALVDT</th>
+      <th>DTHADY</th>
+      <th>ADTHAUT</th>
+      <th>study_duration_secs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-3-id-128</td>
+      <td>id-128</td>
+      <td>CHN-3</td>
+      <td>32</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>ASIAN</td>
+      <td>HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>DEATH</td>
+      <td>2022-03-06</td>
+      <td>ADVERSE EVENT</td>
+      <td>ADVERSE EVENT</td>
+      <td>22.0</td>
+      <td>&lt;=30</td>
+      <td>2022-03-06</td>
+      <td>1106.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-15-id-262</td>
+      <td>id-262</td>
+      <td>CHN-15</td>
+      <td>35</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>BLACK OR AFRICAN AMERICAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-03-17</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63113904</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>AB12345</td>
+      <td>AB12345-RUS-3-id-378</td>
+      <td>id-378</td>
+      <td>RUS-3</td>
+      <td>30</td>
+      <td>YEARS</td>
+      <td>F</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-03-11</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63113904</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-11-id-220</td>
+      <td>id-220</td>
+      <td>CHN-11</td>
+      <td>26</td>
+      <td>YEARS</td>
+      <td>F</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-03-26</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63113904</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-7-id-267</td>
+      <td>id-267</td>
+      <td>CHN-7</td>
+      <td>40</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-03-15</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63113904</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 57 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="checking-data-null-bias">
+<h2>Checking data null bias<a class="headerlink" href="#checking-data-null-bias" title="Permalink to this headline"></a></h2>
+<p>You will need to check the bias in your data sometimes and some forms of bias checking are to be done manually but our package offers two forms of automated bias checking. To find columns with too much missing data and to check to see if the distribution of discrete data is as intended. <br>
+Here, we have checked the columns for too much missing data, in other words, columns that have too many null values. This is done using the <code class="docutils literal notranslate"><span class="pre">check_bias</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">too_null_1</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">check_bias</span><span class="p">(</span><span class="n">dm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Columns with too many null values: 
+ [[&#39;TRTEDTM&#39;, 73], [&#39;TRT01EDTM&#39;, 73], [&#39;TRT02SDTM&#39;, 73], [&#39;TRT02EDTM&#39;, 73], [&#39;AP01EDTM&#39;, 73], [&#39;AP02SDTM&#39;, 73], [&#39;AP02EDTM&#39;, 73], [&#39;EOSDT&#39;, 73], [&#39;EOSDY&#39;, 73], [&#39;DCSREAS&#39;, 280], [&#39;DTHDT&#39;, 330], [&#39;DTHCAUS&#39;, 330], [&#39;DTHCAT&#39;, 330], [&#39;LDDTHELD&#39;, 330], [&#39;LDDTHGR1&#39;, 330], [&#39;LSTALVDT&#39;, 73], [&#39;DTHADY&#39;, 330], [&#39;ADTHAUT&#39;, 343]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dealing-with-too-many-null-values">
+<h2>Dealing with too many null values<a class="headerlink" href="#dealing-with-too-many-null-values" title="Permalink to this headline"></a></h2>
+<p>For this you can either remove the column with too many null values which is done later in this example file, or you can impute the missing data using the <code class="docutils literal notranslate"><span class="pre">handle_null</span></code> function which also gives the option to remove the rows with the missing values.<br>
+Here, we have removed the row with null values in columns that had too many nulls.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make copy of unhandled version for future use</span>
+<span class="n">dm_uncleaned</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># remove rows with null values from columns that have too many nulls</span>
+<span class="k">for</span> <span class="n">null</span> <span class="ow">in</span> <span class="n">too_null_1</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+    <span class="n">dm</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">handle_null</span><span class="p">(</span><span class="n">dm</span><span class="p">,</span> <span class="n">null</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">impute_type</span><span class="o">=</span><span class="s2">&quot;remove&quot;</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>STUDYID</th>
+      <th>USUBJID</th>
+      <th>SUBJID</th>
+      <th>SITEID</th>
+      <th>AGE</th>
+      <th>AGEU</th>
+      <th>SEX</th>
+      <th>RACE</th>
+      <th>ETHNIC</th>
+      <th>...</th>
+      <th>DCSREAS</th>
+      <th>DTHDT</th>
+      <th>DTHCAUS</th>
+      <th>DTHCAT</th>
+      <th>LDDTHELD</th>
+      <th>LDDTHGR1</th>
+      <th>LSTALVDT</th>
+      <th>DTHADY</th>
+      <th>ADTHAUT</th>
+      <th>study_duration_secs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-3-id-128</td>
+      <td>id-128</td>
+      <td>CHN-3</td>
+      <td>32</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>ASIAN</td>
+      <td>HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>DEATH</td>
+      <td>2022-03-06</td>
+      <td>ADVERSE EVENT</td>
+      <td>ADVERSE EVENT</td>
+      <td>22.0</td>
+      <td>&lt;=30</td>
+      <td>2022-03-06</td>
+      <td>1106.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-15-id-201</td>
+      <td>id-201</td>
+      <td>CHN-15</td>
+      <td>49</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>DEATH</td>
+      <td>2022-02-22</td>
+      <td>ADVERSE EVENT</td>
+      <td>ADVERSE EVENT</td>
+      <td>3.0</td>
+      <td>&lt;=30</td>
+      <td>2022-02-22</td>
+      <td>1085.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>13</td>
+      <td>AB12345</td>
+      <td>AB12345-RUS-1-id-52</td>
+      <td>id-52</td>
+      <td>RUS-1</td>
+      <td>40</td>
+      <td>YEARS</td>
+      <td>F</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>DEATH</td>
+      <td>2022-02-20</td>
+      <td>DISEASE PROGRESSION</td>
+      <td>PROGRESSIVE DISEASE</td>
+      <td>7.0</td>
+      <td>&lt;=30</td>
+      <td>2022-02-20</td>
+      <td>1070.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>17</td>
+      <td>AB12345</td>
+      <td>AB12345-BRA-11-id-9</td>
+      <td>id-9</td>
+      <td>BRA-11</td>
+      <td>40</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>DEATH</td>
+      <td>2022-03-20</td>
+      <td>DISEASE PROGRESSION</td>
+      <td>PROGRESSIVE DISEASE</td>
+      <td>36.0</td>
+      <td>&gt;30</td>
+      <td>2022-03-20</td>
+      <td>1091.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>19</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-15-id-245</td>
+      <td>id-245</td>
+      <td>CHN-15</td>
+      <td>34</td>
+      <td>YEARS</td>
+      <td>F</td>
+      <td>WHITE</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>DEATH</td>
+      <td>2022-02-18</td>
+      <td>DISEASE PROGRESSION</td>
+      <td>PROGRESSIVE DISEASE</td>
+      <td>1.0</td>
+      <td>&lt;=30</td>
+      <td>2022-02-18</td>
+      <td>1057.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 57 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="adding-categories-for-a-numerical-column">
+<h2>Adding categories for a numerical column<a class="headerlink" href="#adding-categories-for-a-numerical-column" title="Permalink to this headline"></a></h2>
+<p>You can change unumerical values to categorical ones useing the <code class="docutils literal notranslate"><span class="pre">numeric_to_categorical</span></code> function. Here we have changed <strong><em>AGE</em></strong> into categories.
+You can replace the previous column or create a new column for your categorical data, we have used True to indicate a new column called <strong><em>AGE_group</em></strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">numeric_to_categorical</span><span class="p">(</span><span class="n">dm</span><span class="p">,</span> <span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="p">[[</span><span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;(,30]&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">35</span><span class="p">,</span> <span class="s1">&#39;(30,35]&#39;</span><span class="p">],</span> 
+                                        <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;(35,40]&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">45</span><span class="p">,</span> <span class="s1">&#39;(40,45]&#39;</span><span class="p">],</span>
+                                        <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="s1">&#39;(45,50]&#39;</span><span class="p">]],</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>STUDYID</th>
+      <th>USUBJID</th>
+      <th>SUBJID</th>
+      <th>SITEID</th>
+      <th>AGE</th>
+      <th>AGEU</th>
+      <th>SEX</th>
+      <th>RACE</th>
+      <th>ETHNIC</th>
+      <th>...</th>
+      <th>DTHDT</th>
+      <th>DTHCAUS</th>
+      <th>DTHCAT</th>
+      <th>LDDTHELD</th>
+      <th>LDDTHGR1</th>
+      <th>LSTALVDT</th>
+      <th>DTHADY</th>
+      <th>ADTHAUT</th>
+      <th>study_duration_secs</th>
+      <th>AGE_group</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-3-id-128</td>
+      <td>id-128</td>
+      <td>CHN-3</td>
+      <td>32</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>ASIAN</td>
+      <td>HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>2022-03-06</td>
+      <td>ADVERSE EVENT</td>
+      <td>ADVERSE EVENT</td>
+      <td>22.0</td>
+      <td>&lt;=30</td>
+      <td>2022-03-06</td>
+      <td>1106.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+      <td>(30,35]</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-15-id-201</td>
+      <td>id-201</td>
+      <td>CHN-15</td>
+      <td>49</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>2022-02-22</td>
+      <td>ADVERSE EVENT</td>
+      <td>ADVERSE EVENT</td>
+      <td>3.0</td>
+      <td>&lt;=30</td>
+      <td>2022-02-22</td>
+      <td>1085.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+      <td>(45,50]</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>13</td>
+      <td>AB12345</td>
+      <td>AB12345-RUS-1-id-52</td>
+      <td>id-52</td>
+      <td>RUS-1</td>
+      <td>40</td>
+      <td>YEARS</td>
+      <td>F</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>2022-02-20</td>
+      <td>DISEASE PROGRESSION</td>
+      <td>PROGRESSIVE DISEASE</td>
+      <td>7.0</td>
+      <td>&lt;=30</td>
+      <td>2022-02-20</td>
+      <td>1070.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+      <td>(35,40]</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>17</td>
+      <td>AB12345</td>
+      <td>AB12345-BRA-11-id-9</td>
+      <td>id-9</td>
+      <td>BRA-11</td>
+      <td>40</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>2022-03-20</td>
+      <td>DISEASE PROGRESSION</td>
+      <td>PROGRESSIVE DISEASE</td>
+      <td>36.0</td>
+      <td>&gt;30</td>
+      <td>2022-03-20</td>
+      <td>1091.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+      <td>(35,40]</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>19</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-15-id-245</td>
+      <td>id-245</td>
+      <td>CHN-15</td>
+      <td>34</td>
+      <td>YEARS</td>
+      <td>F</td>
+      <td>WHITE</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>2022-02-18</td>
+      <td>DISEASE PROGRESSION</td>
+      <td>PROGRESSIVE DISEASE</td>
+      <td>1.0</td>
+      <td>&lt;=30</td>
+      <td>2022-02-18</td>
+      <td>1057.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+      <td>(30,35]</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 58 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="plotting-the-distribution-of-a-demographic-feature">
+<h2>Plotting the distribution of a demographic feature<a class="headerlink" href="#plotting-the-distribution-of-a-demographic-feature" title="Permalink to this headline"></a></h2>
+<p>You can create a pie chart to show the distribution a discrete variable using the <code class="docutils literal notranslate"><span class="pre">pie</span></code> function. If you want to save it, specify the path. If you use <strong>”.”</strong> it will be saved in the same directory as your code file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vis</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">df</span> <span class="o">=</span> <span class="n">dm</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="s2">&quot;AGE_group&quot;</span><span class="p">,</span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;age_pie_chart&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.patches.Wedge at 0x7ff232078520&gt;,
+  &lt;matplotlib.patches.Wedge at 0x7ff232078a90&gt;,
+  &lt;matplotlib.patches.Wedge at 0x7ff232094160&gt;,
+  &lt;matplotlib.patches.Wedge at 0x7ff2320947f0&gt;,
+  &lt;matplotlib.patches.Wedge at 0x7ff232094e80&gt;],
+ [Text(0.5320908144466622, 0.9627457427490853, &#39;(35,40]&#39;),
+  Text(-1.084458100654201, 0.18425696167440575, &#39;(,30]&#39;),
+  Text(-0.30451921808270677, -1.0570090093363902, &#39;(30,35]&#39;),
+  Text(0.7778173500684047, -0.7778175685419846, &#39;(40,45]&#39;),
+  Text(1.084458098497778, -0.18425697436619265, &#39;(45,50]&#39;)],
+ [Text(0.290231353334543, 0.525134041499501, &#39;33.9%\n19&#39;),
+  Text(-0.5915226003568368, 0.10050379727694858, &#39;26.8%\n15&#39;),
+  Text(-0.16610139168147642, -0.57655036872894, &#39;19.6%\n11&#39;),
+  Text(0.4242640091282207, -0.42426412829562793, &#39;14.3%\n8&#39;),
+  Text(0.5915225991806061, -0.10050380419974143, &#39;5.4%\n3&#39;)])
+</pre></div>
+</div>
+<img alt="_images/629a6af5e80ea6cdf7be51fce04da0e752efa746403f180ef527068101bac1f5.png" src="_images/629a6af5e80ea6cdf7be51fce04da0e752efa746403f180ef527068101bac1f5.png" />
+</div>
+</div>
+</section>
+<section id="plotting-a-boxplot-grid">
+<h2>Plotting a boxplot grid<a class="headerlink" href="#plotting-a-boxplot-grid" title="Permalink to this headline"></a></h2>
+<p>You can plot a boxplot grid of either three features (one numeric and two categorical) or of all numeric features using the <code class="docutils literal notranslate"><span class="pre">boxplot_grid</span></code> function.<br>
+Here we have plotted <strong><em>AGE</em></strong> by <strong><em>SEX</em></strong> and <strong><em>COUNTRY</em></strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vis</span><span class="o">.</span><span class="n">boxplot_grid</span><span class="p">(</span><span class="n">dm</span><span class="p">,</span> <span class="n">col1</span><span class="o">=</span><span class="s1">&#39;COUNTRY&#39;</span><span class="p">,</span> <span class="n">col2</span><span class="o">=</span><span class="s1">&#39;SEX&#39;</span><span class="p">,</span> <span class="n">col3</span><span class="o">=</span><span class="s1">&#39;AGE&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/wangjiayi/opt/anaconda3/lib/python3.9/site-packages/seaborn/axisgrid.py:670: UserWarning: Using the boxplot function without specifying `order` is likely to produce an incorrect plot.
+  warnings.warn(warning)
+</pre></div>
+</div>
+<img alt="_images/9cafdf87f003c569daa43746d66185f63ced479e138729db10908b1e9bae8cb1.png" src="_images/9cafdf87f003c569daa43746d66185f63ced479e138729db10908b1e9bae8cb1.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7ff200adaeb0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="generate-demographic-plots">
+<h2>Generate demographic plots<a class="headerlink" href="#generate-demographic-plots" title="Permalink to this headline"></a></h2>
+<p>There is another function can help users exploring the distribution and description statics of both continuous and discrete variables simultaneously using <code class="docutils literal notranslate"><span class="pre">demo_graph()</span></code> function. Here generates plots of AGE, SEX by different treatment group.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vis</span><span class="o">.</span><span class="n">demo_graph</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;AGE&quot;</span><span class="p">,</span> <span class="s2">&quot;SEX&quot;</span><span class="p">],</span> <span class="n">input_data</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;TRT01P&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;Figure size 1080x720 with 1 Axes&gt;, &lt;Figure size 1080x720 with 1 Axes&gt;],
+ [&lt;AxesSubplot: title={&#39;center&#39;: &#39;Plot and summary table for Age&#39;}, ylabel=&#39;AGE&#39;&gt;,
+  &lt;AxesSubplot: title={&#39;center&#39;: &#39;Plot and summary table for Sex&#39;}, ylabel=&#39;SEX&#39;&gt;])
+</pre></div>
+</div>
+<img alt="_images/a45ff239beeaeeb5dfada09926acc55371e4126ba7f2ad1c08e4609a8c5387f3.png" src="_images/a45ff239beeaeeb5dfada09926acc55371e4126ba7f2ad1c08e4609a8c5387f3.png" />
+<img alt="_images/53104f91eb5d829a80d7741bd4dc9587574091ca4c9a081ff3a736c3da3f75d4.png" src="_images/53104f91eb5d829a80d7741bd4dc9587574091ca4c9a081ff3a736c3da3f75d4.png" />
+</div>
+</div>
+</section>
+<section id="plotting-3d-clusters">
+<h2>Plotting 3D clusters<a class="headerlink" href="#plotting-3d-clusters" title="Permalink to this headline"></a></h2>
+<p>You can find and plot the clusters between three numerical features using the <code class="docutils literal notranslate"><span class="pre">cluster_3d</span></code> function and you can choose your prefered clustering method out of the options available.
+<br>Here, we have plotted a three dimentional cluster graph of <strong><em>AGE</em></strong>, <strong><em>BMRKR1</em></strong> and <strong><em>study_duration_secs</em></strong> using <strong>k-means</strong> clustering.<br>
+If you only want a 3D graph without the clustering, you can use the <code class="docutils literal notranslate"><span class="pre">graph_3d</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vis</span><span class="o">.</span><span class="n">cluster_3d</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">dm_uncleaned</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AGE&#39;</span><span class="p">,</span><span class="s1">&#39;BMRKR1&#39;</span><span class="p">,</span><span class="s1">&#39;study_duration_secs&#39;</span><span class="p">],</span>
+               <span class="n">lab1</span> <span class="o">=</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="n">lab3</span><span class="o">=</span><span class="s1">&#39;Study duration (s)&#39;</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="s2">&quot;k-means&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 864x864 with 1 Axes&gt;,
+ &lt;Axes3DSubplot: xlabel=&#39;Age&#39;, ylabel=&#39;BMRKR1&#39;, zlabel=&#39;Study duration (s)&#39;&gt;)
+</pre></div>
+</div>
+<img alt="_images/207a12157c2ece6f6980ad02278ac78b98cb9c1d166f32b19b8ea129ce556e79.png" src="_images/207a12157c2ece6f6980ad02278ac78b98cb9c1d166f32b19b8ea129ce556e79.png" />
+</div>
+</div>
+</section>
+<section id="plotting-2d-clusters">
+<h2>Plotting 2D clusters<a class="headerlink" href="#plotting-2d-clusters" title="Permalink to this headline"></a></h2>
+<p>For two dimentional clustering you can use the <code class="docutils literal notranslate"><span class="pre">cluster_2d</span></code> function in a similar fashion to the three dimentional function.<br>
+We have plotted a two dimentional cluster graph of <strong><em>AGE</em></strong> and <strong><em>BMRKR1</em></strong> with <strong>DBSCAN</strong> clustering.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vis</span><span class="o">.</span><span class="n">cluster_2d</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">dm_uncleaned</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AGE&#39;</span><span class="p">,</span><span class="s1">&#39;BMRKR1&#39;</span><span class="p">],</span> <span class="n">c_type</span><span class="o">=</span><span class="s2">&quot;dbscans&quot;</span><span class="p">,</span> <span class="n">min_sample</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 864x864 with 1 Axes&gt;,
+ &lt;AxesSubplot: xlabel=&#39;AGE&#39;, ylabel=&#39;BMRKR1&#39;&gt;)
+</pre></div>
+</div>
+<img alt="_images/a991c5e817c25f07c4a4f7dac1d489cbb51a1f6745d13154f4a29f28f072294b.png" src="_images/a991c5e817c25f07c4a4f7dac1d489cbb51a1f6745d13154f4a29f28f072294b.png" />
+</div>
+</div>
+</section>
+<section id="change-data-type">
+<h2>Change data type<a class="headerlink" href="#change-data-type" title="Permalink to this headline"></a></h2>
+<p>You can change a column’s data type between <strong>String, Integer and Float</strong> types using the <code class="docutils literal notranslate"><span class="pre">change_type</span></code> function. <br>
+Here we have changed <strong><em>BMRKR1</em></strong> from float to int.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm_uncleaned</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">change_type</span><span class="p">(</span><span class="n">dm_uncleaned</span><span class="p">,</span> <span class="s1">&#39;BMRKR1&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="add-a-numeric-coded-column-from-a-categorical-column">
+<h2>Add a numeric coded column from a categorical column<a class="headerlink" href="#add-a-numeric-coded-column-from-a-categorical-column" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">categorical_to_numeric</span></code> function changes numerical data columns to categorical ones. Here we changed the <strong><em>SEX</em></strong> column in the <strong><em>dm_uncleaned</em></strong> dataset to 0 and 1 and added the values into a separate column (<em>SEX_goup</em>) by setting add to True, if we use False it will replace the previous values within the SEX column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm_uncleaned</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">categorical_to_numeric</span><span class="p">(</span><span class="n">dm_uncleaned</span><span class="p">,</span> <span class="s1">&#39;SEX&#39;</span><span class="p">,</span> <span class="p">[[</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plotting-the-relationship-between-some-cloumns">
+<h2>Plotting the relationship between some cloumns<a class="headerlink" href="#plotting-the-relationship-between-some-cloumns" title="Permalink to this headline"></a></h2>
+<p>You can plot the relationship between columns using the <code class="docutils literal notranslate"><span class="pre">relation</span></code> function. It will return one or two heatmaps depending on the input. For categorical data, it will plot a heatmap of <strong><em>chi-square</em></strong> values. For numerical data, it will show the <strong><em>correlation</em></strong>. <br>
+Here, we have removed columns with too many null values and have used the <code class="docutils literal notranslate"><span class="pre">data-selection</span></code> function to select some columns to plot and then plotted the relationship heatmaps.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># removing all columns with too many null values</span>
+<span class="k">for</span> <span class="n">null</span> <span class="ow">in</span> <span class="n">too_null_1</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+    <span class="n">dm_no_too_null</span> <span class="o">=</span> <span class="n">dm_uncleaned</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">null</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># choosing columns to plot</span>
+<span class="n">dm_no_too_null</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">data_selection</span><span class="p">(</span><span class="n">keep_col</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;STRATA1&quot;</span><span class="p">,</span> <span class="s2">&quot;ARMCD&quot;</span><span class="p">,</span> <span class="s2">&quot;STRATA2&quot;</span><span class="p">,</span> <span class="s2">&quot;SEX_num&quot;</span><span class="p">,</span> <span class="s2">&quot;EOSDY&quot;</span><span class="p">,</span>
+                                             <span class="s2">&quot;REGION1&quot;</span><span class="p">,</span> <span class="s2">&quot;ACTARM&quot;</span><span class="p">,</span> <span class="s2">&quot;DCSREAS&quot;</span><span class="p">,</span> <span class="s2">&quot;DTHADY&quot;</span><span class="p">,</span> <span class="s2">&quot;BMRKR1&quot;</span><span class="p">,</span>
+                                             <span class="s2">&quot;DTHDT&quot;</span><span class="p">,</span> <span class="s2">&quot;DTHFL&quot;</span><span class="p">,</span> <span class="s2">&quot;SEX&quot;</span><span class="p">,</span> <span class="s2">&quot;COUNTRY&quot;</span><span class="p">,</span> <span class="s2">&quot;LDDTHELD&quot;</span><span class="p">,</span>
+                                             <span class="s2">&quot;ETHNIC&quot;</span><span class="p">,</span> <span class="s2">&quot;DTHCAT&quot;</span><span class="p">,</span> <span class="s2">&quot;DTHCAUS&quot;</span><span class="p">,</span> <span class="s2">&quot;AGE&quot;</span><span class="p">],</span>
+                                              <span class="n">input_data</span><span class="o">=</span><span class="n">dm_no_too_null</span><span class="p">)</span>
+<span class="c1"># drawing the relationship plot </span>
+<span class="n">vis</span><span class="o">.</span><span class="n">relation</span><span class="p">(</span><span class="n">dm_no_too_null</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/306a78a1337896e1eefdda4f16c8b18f3379cd3744b58d43c61e8309c0f7fc30.png" src="_images/306a78a1337896e1eefdda4f16c8b18f3379cd3744b58d43c61e8309c0f7fc30.png" />
+<img alt="_images/c7a42743d85289e6c651ba323613ed8da74dc4d5be4ba711bf7ca3b56fbcd18b.png" src="_images/c7a42743d85289e6c651ba323613ed8da74dc4d5be4ba711bf7ca3b56fbcd18b.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&lt;Figure size 1008x1008 with 2 Axes&gt;, &lt;AxesSubplot: &gt;], &lt;AxesSubplot: &gt;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples1.html" class="btn btn-neutral float-left" title="Examples 1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiayi Wang, Sarabandi Moghaddam Alieyeh.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

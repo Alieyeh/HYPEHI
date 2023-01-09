@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hypehd.visualization &mdash; hypehd  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="hypehd.data_manipulation" href="../data_manipulation/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> hypehd
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../examples1.html">Examples 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples2.html">Examples 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hypehd</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../data_manipulation/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hypehd.data_manipulation</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hypehd.visualization</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">hypehd</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hypehd</span></code></a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hypehd.visualization</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/autoapi/hypehd/visualization/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-hypehd.visualization">
+<span id="hypehd-visualization"></span><h1><a class="reference internal" href="#module-hypehd.visualization" title="hypehd.visualization"><code class="xref py py-mod docutils literal notranslate"><span class="pre">hypehd.visualization</span></code></a><a class="headerlink" href="#module-hypehd.visualization" title="Permalink to this headline"></a></h1>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline"></a></h2>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hypehd.visualization.cluster_3d" title="hypehd.visualization.cluster_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cluster_3d</span></code></a>(df, cols[, c_type, number, min_sample, ...])</p></td>
+<td><p>Plots a three-dimensional graph of clusters for the three specified numerical columns.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hypehd.visualization.cluster_2d" title="hypehd.visualization.cluster_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cluster_2d</span></code></a>(df, cols[, c_type, number, min_sample, ...])</p></td>
+<td><p>Plots a two-dimensional graph of clusters for the two specified numercial columns.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hypehd.visualization.graph_3d" title="hypehd.visualization.graph_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_3d</span></code></a>(df, ax1, ax2, ax3[, lab1, lab2, lab3, path, name])</p></td>
+<td><p>Plots a three-dimensional graph based on the three columns entered.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hypehd.visualization.f_test" title="hypehd.visualization.f_test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">f_test</span></code></a>(group1, group2)</p></td>
+<td><p>Return the p-value given two groups' data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hypehd.visualization.demo_graph" title="hypehd.visualization.demo_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">demo_graph</span></code></a>(var, input_data[, group])</p></td>
+<td><p>Show the count of categorical characteristic variables in each group and combine with a summary table.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hypehd.visualization.longitudinal_graph" title="hypehd.visualization.longitudinal_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">longitudinal_graph</span></code></a>(outcome, time, group, input_data)</p></td>
+<td><p>Show the scatter plot of outcome means over time in each group and combine with a summary table. Function for</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hypehd.visualization.relation" title="hypehd.visualization.relation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">relation</span></code></a>(df[, gtype, path, name_chi, name_cor])</p></td>
+<td><p>Plots a heat-map of the relationship between features of the same type. If type of feature</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hypehd.visualization.survival_analysis" title="hypehd.visualization.survival_analysis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">survival_analysis</span></code></a>(time, censor_status, group, input_data)</p></td>
+<td><p>Show the kaplan-meier curve and combine with a median survival time summary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hypehd.visualization.boxplot_grid" title="hypehd.visualization.boxplot_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">boxplot_grid</span></code></a>(df[, col1, col2, col3])</p></td>
+<td><p>A function for creating a grid of box plots with two options. One being that</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hypehd.visualization.pie" title="hypehd.visualization.pie"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pie</span></code></a>(df, col[, path, name])</p></td>
+<td><p>Draws a pie chart of the specified column. If the path is given the png file of</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="hypehd.visualization.cluster_3d">
+<span class="sig-prename descclassname"><span class="pre">hypehd.visualization.</span></span><span class="sig-name descname"><span class="pre">cluster_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'k-means'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_sample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lab1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lab2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lab3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cluster3d'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/hypehd/visualization.html#cluster_3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hypehd.visualization.cluster_3d" title="Permalink to this definition"></a></dt>
+<dd><p>Plots a three-dimensional graph of clusters for the three specified numerical columns.
+The type of clustering as well as some minor fine-tuning of clustering model
+are available.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame, mandatory</span></dt><dd><p>The dataset that contains the feature that will be plotted.</p>
+</dd>
+<dt>cols<span class="classifier">list, mandatory</span></dt><dd><p>A list with three element of type str which are the column names.</p>
+</dd>
+<dt>c_type<span class="classifier">str, optional</span></dt><dd><p>The type of clustering model. The available options are DBSCAN, OPTICS
+and k-means. If no type is specified, k-means will be preformed.</p>
+</dd>
+<dt>number<span class="classifier">int, optional</span></dt><dd><p>The number of clusters. This parameter is only used for k-means. The
+default value is the smallest number of clusters with an inertia value
+less than 50.</p>
+</dd>
+<dt>min_sample<span class="classifier">int, optional</span></dt><dd><p>The minimum number of samples in a cluster. This parameter is only used
+for DBSCAN and OPTICS. The default value is 3.</p>
+</dd>
+<dt>eps: float, optional</dt><dd><p>The maximum distance between samples for them to fall into the same cluster.
+This parameter is only used for DBSCAN. The default value is 0.5.</p>
+</dd>
+<dt>lab1<span class="classifier">str, optional</span></dt><dd><p>The label for axis 1. The default option is the name of the column in
+the data frame.</p>
+</dd>
+<dt>lab2<span class="classifier">str, optional</span></dt><dd><p>The label for axis 2. The default option is the name of the column in
+the data frame.</p>
+</dd>
+<dt>lab3<span class="classifier">str, optional</span></dt><dd><p>The label for axis 3. The default option is the name of the column in
+the data frame.</p>
+</dd>
+<dt>legend<span class="classifier">bool, optional</span></dt><dd><p>Show legend or not. default is False.</p>
+</dd>
+<dt>path<span class="classifier">str, optional</span></dt><dd><p>The directory path to save the plot in. Plot will not be saved if not specified.</p>
+</dd>
+<dt>name<span class="classifier">str, optional</span></dt><dd><p>Name of the plot. The default is cluster3d.</p>
+</dd>
+</dl>
+<p>fig : plt.figure
+ax : axes.Axes
+The figure and axes of the plot.</p>
+<p>&gt; cluster_3d(df = data, cols = [‘age’,’height’,’BMI’], c_type = “DBSCAN”, lab1 = “Age”,
+lab2 = “Height”)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypehd.visualization.cluster_2d">
+<span class="sig-prename descclassname"><span class="pre">hypehd.visualization.</span></span><span class="sig-name descname"><span class="pre">cluster_2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'k-means'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_sample</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lab1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lab2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cluster2d'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/hypehd/visualization.html#cluster_2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hypehd.visualization.cluster_2d" title="Permalink to this definition"></a></dt>
+<dd><p>Plots a two-dimensional graph of clusters for the two specified numercial columns.
+The type of clustering as well as some minor fine-tuning of clustering model
+are available.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame, mandatory</span></dt><dd><p>The dataset that contains the feature that will be plotted.</p>
+</dd>
+<dt>cols<span class="classifier">list, mandatory</span></dt><dd><p>A list with two element of type str which are the column names.</p>
+</dd>
+<dt>c_type<span class="classifier">str, optional</span></dt><dd><p>The type of clustering model. The available options are DBSCAN, OPTICS
+and k-means. If no type is specified, k-means will be preformed.</p>
+</dd>
+<dt>number<span class="classifier">int, optional</span></dt><dd><p>The number of clusters. This parameter is only used for k-means. The
+default value is the smallest number of clusters with an inertia value
+less than 50.</p>
+</dd>
+<dt>min_sample<span class="classifier">int, optional</span></dt><dd><p>The minimum number of samples in a cluster. This parameter is only used
+for DBSCAN and OPTICS. The default value is 3.</p>
+</dd>
+<dt>eps: float, optional</dt><dd><p>The maximum distance between samples for them to fall into the same cluster.
+This parameter is only used for DBSCAN. The default value is 0.5.</p>
+</dd>
+<dt>lab1<span class="classifier">str, optional</span></dt><dd><p>The label for axis 1. The default option is the name of the column in
+the data frame.</p>
+</dd>
+<dt>lab2<span class="classifier">str, optional</span></dt><dd><p>The label for axis 2. The default option is the name of the column in
+the data frame.</p>
+</dd>
+<dt>path<span class="classifier">str, optional</span></dt><dd><p>The directory path to save the plot in. Plot will not be saved if not specified.</p>
+</dd>
+<dt>name<span class="classifier">str, optional</span></dt><dd><p>Name of the plot. The default is cluster2d.</p>
+</dd>
+</dl>
+<p>fig : plt.figure
+ax : axes.Axes
+The figure and axes of the plot.</p>
+<p>&gt; cluster_2d(df = data, cols = [‘age’,’height’], c_type = “OPTICS”, lab1 = “Age”,
+lab2 = “Height”)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypehd.visualization.graph_3d">
+<span class="sig-prename descclassname"><span class="pre">hypehd.visualization.</span></span><span class="sig-name descname"><span class="pre">graph_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax3</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lab1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lab2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lab3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'graph3d'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/hypehd/visualization.html#graph_3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hypehd.visualization.graph_3d" title="Permalink to this definition"></a></dt>
+<dd><p>Plots a three-dimensional graph based on the three columns entered.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame, mandatory</span></dt><dd><p>The dataset that contains the feature that will be plotted.</p>
+</dd>
+<dt>ax1<span class="classifier">str, mandatory</span></dt><dd><p>The name of the column for axis 1 containing the feature to be plotted.</p>
+</dd>
+<dt>ax2<span class="classifier">str, mandatory</span></dt><dd><p>The name of the column for axis 2 containing the feature to be plotted.</p>
+</dd>
+<dt>ax3<span class="classifier">str, mandatory</span></dt><dd><p>The name of the column for axis 3 containing the feature to be plotted.</p>
+</dd>
+<dt>lab1<span class="classifier">str, optional</span></dt><dd><p>The label for axis 1. The default option is the name of the column in
+the data frame.</p>
+</dd>
+<dt>lab2<span class="classifier">str, optional</span></dt><dd><p>The label for axis 2. The default option is the name of the column in
+the data frame.</p>
+</dd>
+<dt>lab3<span class="classifier">str, optional</span></dt><dd><p>The label for axis 3. The default option is the name of the column in
+the data frame.</p>
+</dd>
+<dt>path<span class="classifier">str, optional</span></dt><dd><p>The directory path to save the plot in. Plot will not be saved if not specified.</p>
+</dd>
+<dt>name<span class="classifier">str, optional</span></dt><dd><p>Name of the plot. The default is graph3d.</p>
+</dd>
+</dl>
+<p>fig : plt.figure
+ax : axes.Axes
+The figure and axes of the plot.</p>
+<p>&gt; graph_3d(df = health_data, ax1 = “sbp”, ax2 = “dbp”, ax3 = “chd”, lab1 = “SBP”,
+lab2 = “DBP”, lab3 = “CHD”)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypehd.visualization.f_test">
+<span class="sig-prename descclassname"><span class="pre">hypehd.visualization.</span></span><span class="sig-name descname"><span class="pre">f_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/hypehd/visualization.html#f_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hypehd.visualization.f_test" title="Permalink to this definition"></a></dt>
+<dd><p>Return the p-value given two groups’ data.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>group1<span class="classifier">series or list, mandatory</span></dt><dd><p>Containing continuous numbers for F-test from group 1.</p>
+</dd>
+<dt>group2<span class="classifier">series or list, mandatory</span></dt><dd><p>Containing continuous numbers for F-test from group 2.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>p_value<span class="classifier">float</span></dt><dd><p>A number round to 3 decimal places.</p>
+</dd>
+</dl>
+<p>&gt; a = [0.28, 0.2, 0.26, 0.28, 0.5]
+&gt; b = [0.2, 0.23, 0.26, 0.21, 0.23]
+&gt; f_test(a, b)
+0.004</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypehd.visualization.demo_graph">
+<span class="sig-prename descclassname"><span class="pre">hypehd.visualization.</span></span><span class="sig-name descname"><span class="pre">demo_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/hypehd/visualization.html#demo_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hypehd.visualization.demo_graph" title="Permalink to this definition"></a></dt>
+<dd><p>Show the count of categorical characteristic variables in each group and combine with a summary table.
+Show the boxplot of countinous characteristic variables in each group and combine with a smmary table.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>var<span class="classifier">list, mandatory</span></dt><dd><p>List of the characteristic variables. The list can include both categorical and countinous variables.
+The function can automatically detect its type and then use proper plot.</p>
+</dd>
+<dt>input_data<span class="classifier">pd.DataFrame, mandatory</span></dt><dd><p>Input dataset name.</p>
+</dd>
+<dt>group<span class="classifier">names of variables in input_data, optional</span></dt><dd><p>Grouping variables that will produce plottings and summary tables with different colors
+(e.g. treatment group).</p>
+</dd>
+</dl>
+<p>tuple (fig_list, ax_list) : list of Figure, list of axes.Axes
+The matplotlib figures and axes containing the plots and summary tables.</p>
+<p>longitudinal_graph</p>
+<p>&gt; demo_graph(var=[‘gender’,’age’], input_data=data, group=”treatment”)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypehd.visualization.longitudinal_graph">
+<span class="sig-prename descclassname"><span class="pre">hypehd.visualization.</span></span><span class="sig-name descname"><span class="pre">longitudinal_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outcome</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/hypehd/visualization.html#longitudinal_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hypehd.visualization.longitudinal_graph" title="Permalink to this definition"></a></dt>
+<dd><p>Show the scatter plot of outcome means over time in each group and combine with a summary table. Function for
+longitudinal data analysis.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>outcome<span class="classifier">list, mandatory</span></dt><dd><p>List of the continuous outcome(y) variables need to be plotted.</p>
+</dd>
+<dt>time<span class="classifier">names of variables in input_data, mandatory</span></dt><dd><p>Time variables(x)(e.g. visit number).</p>
+</dd>
+<dt>group<span class="classifier">names of time variables in input_data, mandatory</span></dt><dd><p>Grouping variables that will produce plottings and summary tables with different colors
+(e.g. treatment group).</p>
+</dd>
+<dt>input_data<span class="classifier">pd.DataFrame, mandatory</span></dt><dd><p>Input dataset name.</p>
+</dd>
+</dl>
+<p>tuple (fig_list, ax_list) : list of Figure, list of axes.Axes
+The matplotlib figures and axes containing the plots and summary tables.</p>
+<p>demo_graph</p>
+<p>&gt; longitudinal_graph(outcome=[“change_from_baseline”], time=”visit”, group=”treatment”, input_data=data)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypehd.visualization.relation">
+<span class="sig-prename descclassname"><span class="pre">hypehd.visualization.</span></span><span class="sig-name descname"><span class="pre">relation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_chi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'chiheatmap'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_cor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'corheatmap'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/hypehd/visualization.html#relation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hypehd.visualization.relation" title="Permalink to this definition"></a></dt>
+<dd><p>Plots a heat-map of the relationship between features of the same type. If type of feature
+(numerical or categorical) is not specified, both heat-maps will be drawn. The measure used
+is chi-squared for categorical and correlation for numerical types. This function does not
+calculate the relationship between categorical and numerical values.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame, mandatory</span></dt><dd><p>The dataset.</p>
+</dd>
+<dt>gtype<span class="classifier">int, optional</span></dt><dd><p>Type of feature. 1 for categorical (chi-squared), 2 for numerical (correlation)
+any other number for both. The default is 3 (both).</p>
+</dd>
+<dt>path<span class="classifier">str, optional</span></dt><dd><p>The directory path to save the plot in. Plot will not be saved if not specified.</p>
+</dd>
+<dt>name_chi<span class="classifier">str, optional</span></dt><dd><p>Name of the plot for the categorical features. The default is chiheatmap.</p>
+</dd>
+<dt>name_cor: str, optional</dt><dd><p>Name of the plot for the numerical features. The default is corheatmap.</p>
+</dd>
+</dl>
+<p>list : plt.figure, axes.Axes, p &lt;Object containing both figure and axes&gt;
+A list containing the figure and axes of each drawn plot.</p>
+<p>&gt; relation(df = health_data, gtype = 2, path = “/Users/Person/Documents”,
+name_cor = “numerical_heatmap”)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypehd.visualization.survival_analysis">
+<span class="sig-prename descclassname"><span class="pre">hypehd.visualization.</span></span><span class="sig-name descname"><span class="pre">survival_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">censor_status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/hypehd/visualization.html#survival_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hypehd.visualization.survival_analysis" title="Permalink to this definition"></a></dt>
+<dd><p>Show the kaplan-meier curve and combine with a median survival time summary.
+Function for survival data analysis.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>time<span class="classifier">names of time variables in input_data, mandatory</span></dt><dd><p>Time to event of interest.</p>
+</dd>
+<dt>censor_status<span class="classifier">names of variables in input_data, mandaory</span></dt><dd><p>True(1) if the event of interest was observed, False(0) if the event was
+lost (right-censored).</p>
+</dd>
+<dt>group<span class="classifier">names of time variables in input_data, mandatory</span></dt><dd><p>Grouping variables that will produce plottings and summary tables with
+different colors (e.g. treatment group).</p>
+</dd>
+<dt>input_data<span class="classifier">pd.DataFrame, mandatory</span></dt><dd><p>Input dataset name.</p>
+</dd>
+</dl>
+<p>fig, ax :  Figure, axes.Axes
+The matplotlib figure and ax containing the plot and summary table.</p>
+<p>&gt; survival_analysis(time=”time_to_event”, censor_status=”censor”,
+group=”treatment”, input_data=data)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypehd.visualization.boxplot_grid">
+<span class="sig-prename descclassname"><span class="pre">hypehd.visualization.</span></span><span class="sig-name descname"><span class="pre">boxplot_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col3</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/hypehd/visualization.html#boxplot_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hypehd.visualization.boxplot_grid" title="Permalink to this definition"></a></dt>
+<dd><p>A function for creating a grid of box plots with two options. One being that
+no column was specified, in this case the grid will be box plots of all numeric
+features in the dataset. The other being that three columns were specified, with
+one column being numeric and the others being categorical. In this case the grid
+will be of the numeric value on the basis of the two categorical values. If all
+three columns are specified, then the first case will be preformed.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame, mandatory</span></dt><dd><p>The dataset holding the data that will be plotted.</p>
+</dd>
+<dt>col1<span class="classifier">str, optional</span></dt><dd><p>The categorical column that the grid will be split based on.</p>
+</dd>
+<dt>col2<span class="classifier">str, optional</span></dt><dd><p>The categorical column on the x-axis of each plot.</p>
+</dd>
+<dt>col3<span class="classifier">str, optional</span></dt><dd><p>The numerical column on the y-axis of each plot.</p>
+</dd>
+</dl>
+<p>fig, ax :  Figure, array of axes.Axes
+The matplotlib figure and axes containing the plots.</p>
+<p>&gt; boxplot_grid(df=health_data, col1=”months”, col2=”sex”, col3=”BMI”)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="hypehd.visualization.pie">
+<span class="sig-prename descclassname"><span class="pre">hypehd.visualization.</span></span><span class="sig-name descname"><span class="pre">pie</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pie_chart'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/hypehd/visualization.html#pie"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hypehd.visualization.pie" title="Permalink to this definition"></a></dt>
+<dd><p>Draws a pie chart of the specified column. If the path is given the png file of
+the chart will be saved under the name of pie_chart.png at the specified path.
+This chart should be used for columns with discrete values.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame, mandatory</span></dt><dd><p>The dataset that contains the feature that will be plotted.</p>
+</dd>
+<dt>col<span class="classifier">str, mandatory</span></dt><dd><p>The name of the column containing the feature to be plotted.</p>
+</dd>
+<dt>path<span class="classifier">str, optional</span></dt><dd><p>Path to the directory that the png file of the chart will be
+saved in. If left empty, the file will not be saved.</p>
+</dd>
+<dt>name<span class="classifier">str, optional</span></dt><dd><p>Name of the png image of the chart. The default is pie_chart.</p>
+</dd>
+</dl>
+<p>ax : axes.Axes
+The axes of the plot.</p>
+<p>&gt; pie(df = demographic_data, col = “sex”,
+path = “/Users/Person/Documents”, name = “demo_pie”)</p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../data_manipulation/index.html" class="btn btn-neutral float-left" title="hypehd.data_manipulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiayi Wang, Sarabandi Moghaddam Alieyeh.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
