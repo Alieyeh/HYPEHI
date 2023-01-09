@@ -85,7 +85,7 @@ HYPEHD is a Python package that provides easy to use functions, designed to make
 
 The source code is currently hosted on GitHub at: [https://github.com/Alieyeh/hypehd](https://github.com/Alieyeh/hypehd)
 Running requires:
-- Python>=3.8
+- Python>=3.7
 
 ### Installation
 
