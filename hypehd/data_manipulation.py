@@ -415,6 +415,7 @@ def check_bias(df, col=None, real_dist=None, n_marg=10, marg=5):
     leng = df.shape[0]
     i = 0
     skew = []
+    skewed = []
     for n in nul:
         if n >= n_marg * leng:
             too_nul.append([df.columns[i], n])
@@ -434,7 +435,9 @@ def check_bias(df, col=None, real_dist=None, n_marg=10, marg=5):
         print("\nColumns with skewed distribution:")
         for i in skew:
             print(str(i['vals'].values[0]) + " : " + str(i['dist'].values[0]))
-    return too_nul, skew
+            skewed.append(str(i['vals'].values[0]))
+            skewed.append(str(i['dist'].values[0]))
+    return too_nul, skewed
 
 
 def numeric_to_categorical(df, col: str, bounds, add=False):
