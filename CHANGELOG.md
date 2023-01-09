@@ -6,6 +6,6 @@
 
 - First release of `hypehd`!
 
-## v0.1.6 (09/01/2023)
+## v0.1.7 (09/01/2023)
 
 - First stable release of `hypehd`!
