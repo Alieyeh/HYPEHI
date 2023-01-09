@@ -84,7 +84,7 @@ def change_type(df, col, col_type):
     if col_type == str:
         df[col] = df[col].apply(lambda x: str(x))
     elif col_type == int:
-        if type(df[col]) == str:
+        if type(df[col][0]) == str:
             df[col] = df[col].apply(lambda x: int(x.replace(',', '')
                                                   .replace(' ', '')))
         else:
