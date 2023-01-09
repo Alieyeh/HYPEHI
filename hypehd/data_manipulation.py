@@ -90,7 +90,7 @@ def change_type(df, col, col_type):
         else:
             df[col] = df[col].apply(lambda x: int(x))
     elif col_type == float:
-        if type(df[col]) == str:
+        if type(df[col][0]) == str:
             df[col] = df[col].apply(lambda x: float(x.replace(',', '')
                                                     .replace(' ', '')))
         else:
