@@ -95,7 +95,7 @@ Binary installers for the latest released version are available at the Test Pyth
 python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple hypehd
 ```
 
-or create the conda environment by issuing the following command on a terminal
+For dependancies, you can also download the conda environment from this github and run it by issuing the following command on a terminal
 ```shell
 git clone https://github.com/Alieyeh/hypehd
 cd hypehd
