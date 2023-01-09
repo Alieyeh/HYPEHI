@@ -139,13 +139,12 @@ def test_check_bias():
     
     # actual data
     actual1, actual2 = da.check_bias(df, 'Sex', [['M', 50], ['F', 50]])
-    print(actual2)
     
     # compare    
     assert actual1 == expected1, "Null value incorrect!"
     assert actual2 == expected2, "Distribution incorrect!"
 
-test_check_bias()
+
 def test_numeric_to_categorical():
     # test data
     df = pd.DataFrame()
