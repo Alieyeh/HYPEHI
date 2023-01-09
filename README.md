@@ -73,6 +73,7 @@ HYPEHD is a Python package that provides easy to use functions, designed to make
     - scipy.stats 1.9.1
     - sklearn.cluster 1.1.2
     - lifelines 0.27.4
+    - datetime 4.9
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -84,7 +85,7 @@ HYPEHD is a Python package that provides easy to use functions, designed to make
 
 The source code is currently hosted on GitHub at: [https://github.com/Alieyeh/hypehd](https://github.com/Alieyeh/hypehd)
 Running requires:
-- Python 3.8
+- Python>=3.7
 
 ### Installation
 
