@@ -36,7 +36,7 @@ def test_handle_null():
 def test_change_type():
     # data
     df = pd.DataFrame()
-    df['C0'] = ['1000', '1', '1000']
+    df['C0'] = ['1 000', '1', '1,000']
     df['C1'] = [1, 3.01, 50]
 
     # str to int
@@ -135,7 +135,7 @@ def test_check_bias():
 
     # expected data
     expected1 = [['Visit', 3], ['Rest', 2]]
-    expected2 = [['M', 75], ['F', 25]]
+    expected2 = ['M', 75, 'F', 25]
     
     # actual data
     actual1, actual2 = da.check_bias(df, 'Sex', [['M', 50], ['F', 50]])
