@@ -65,15 +65,14 @@ HYPEHD is a Python package that provides easy to use functions, designed to make
 
 
 ### Dependencies
-- Python 3 (with the following packages)
-    - numpy 1.23.2
+- Python 3.7 (with the following packages)
+    - numpy 1.19.4
     - matplotlib 3.5.3
-    - seaborn 0.12.2
-    - pandas 1.4.4
-    - scipy.stats 1.9.1
-    - sklearn.cluster 1.1.2
+    - seaborn 0.10.0
+    - pandas 1.0.1
+    - scipy.stats 1.4.1
+    - sklearn.cluster 0.22.1
     - lifelines 0.27.4
-    - datetime 4.9
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -96,7 +95,7 @@ Binary installers for the latest released version are available at the Test Pyth
 python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple hypehd
 ```
 
-or create the conda environment issues the following command on a terminal
+or create the conda environment by issuing the following command on a terminal
 ```shell
 git clone https://github.com/Alieyeh/hypehd
 cd hypehd
