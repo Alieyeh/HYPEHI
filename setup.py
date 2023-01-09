@@ -29,10 +29,10 @@ setuptools.setup(
     package_data={"hypehd": ["data/*.csv"]},
     # these are for documentation
     classifiers=[
-        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.8',
+    python_requires='>=3.7',
     install_requires=requirements,
 )
