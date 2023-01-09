@@ -18,12 +18,17 @@ Package Contents
 ----------------
 
 .. py:data:: __version__
-   :annotation: = 0.1.0
+   :annotation: = 0.1.6
 
    
 
 .. py:data:: __author__
-   :annotation: = Jiayi Wang, Sarabandi Moghaddam Alieyeh
+   :annotation: = Jiayi Wang, Alieyeh Sarabandi Moghaddam
+
+   
+
+.. py:data:: PACKAGEDIR
+   
 
    
 

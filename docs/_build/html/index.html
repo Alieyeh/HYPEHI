@@ -122,14 +122,14 @@
 <section id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
 <ul class="simple">
-<li><p>Python 3 (with the following packages)</p>
+<li><p>Python 3.7 (with the following packages)</p>
 <ul>
-<li><p>numpy 1.23.2</p></li>
+<li><p>numpy 1.19.4</p></li>
 <li><p>matplotlib 3.5.3</p></li>
-<li><p>seaborn 0.12.2</p></li>
-<li><p>pandas 1.4.4</p></li>
-<li><p>scipy.stats 1.9.1</p></li>
-<li><p>sklearn.cluster 1.1.2</p></li>
+<li><p>seaborn 0.10.0</p></li>
+<li><p>pandas 1.0.1</p></li>
+<li><p>scipy.stats 1.4.1</p></li>
+<li><p>sklearn.cluster 0.22.1</p></li>
 <li><p>lifelines 0.27.4</p></li>
 </ul>
 </li>
@@ -140,36 +140,34 @@
 </section>
 <section id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h1>
-<p>This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.</p>
+<p>The source code is currently hosted on GitHub at: <a class="reference external" href="https://github.com/Alieyeh/hypehd">https://github.com/Alieyeh/hypehd</a>
+Running requires:</p>
+<ul class="simple">
+<li><p>Python&gt;=3.7</p></li>
+</ul>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
-<p><em>Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn’t rely on any external dependencies or services.</em></p>
-<ol class="arabic">
-<li><p>Get a free API Key at <a class="reference external" href="https://example.com">https://example.com</a></p></li>
-<li><p>Clone the repo</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/your_username_/Project-Name.git
+<p>Binary installers for the latest released version are available at the Test Python Package Index (TestPyPI)
+<a class="reference external" href="https://test.pypi.org/project/hypehd/#description">https://test.pypi.org/project/hypehd/#description</a></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple hypehd
 </pre></div>
 </div>
-</li>
-<li><p>Install NPM packages</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>npm install
+<p>or create the conda environment by issuing the following command on a terminal</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/Alieyeh/hypehd
+<span class="nb">cd</span> hypehd
+conda update conda
+conda create -f codenv.yml
+conda activate hypehd_env
 </pre></div>
 </div>
-</li>
-<li><p>Enter your API in <code class="docutils literal notranslate"><span class="pre">config.js</span></code></p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span> <span class="nx">API_KEY</span> <span class="o">=</span> <span class="s1">&#39;ENTER YOUR API&#39;</span><span class="p">;</span>
-</pre></div>
-</div>
-</li>
-</ol>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- Documentation -->
 </section>
 </section>
 <section id="documentation">
 <h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h1>
-<p>The official documentation can be found on: <a class="reference external" href="https://example.com">https://example.com</a> /add website<br>
+<p>The official documentation can be found on:
+<a class="reference external" href="https://hypehd.readthedocs.io/en/latest/">https://hypehd.readthedocs.io/en/latest/</a><br>
 On the website, users can find examples, API and more detailed information about this package.</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- CONTACT -->

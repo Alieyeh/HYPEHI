@@ -87,19 +87,9 @@
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline"></a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hypehd</span> <span class="kn">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hypehd</span>
+<span class="kn">from</span> <span class="nn">hypehd</span> <span class="kn">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
 <span class="kn">from</span> <span class="nn">hypehd</span> <span class="kn">import</span> <span class="n">data_manipulation</span> <span class="k">as</span> <span class="n">da</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">pg</span><span class="o">/</span><span class="n">bn92l6gx4bv7nvjqk8mjnhp80000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_2963</span><span class="o">/</span><span class="mf">2644166443.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">hypehd</span> <span class="kn">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">hypehd</span> <span class="kn">import</span> <span class="n">data_manipulation</span> <span class="k">as</span> <span class="n">da</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;hypehd&#39;
 </pre></div>
 </div>
 </div>
@@ -111,19 +101,290 @@
 vs is a longitudinal dataset including a set of vital signs records per each patient, each visit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="s2">&quot;data/demographic.csv&quot;</span><span class="p">)</span>
-<span class="n">vs</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="s2">&quot;data/vital_signs.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read into dataframe dm from package</span>
+<span class="n">my_file</span> <span class="o">=</span> <span class="n">hypehd</span><span class="o">.</span><span class="n">PACKAGEDIR</span> <span class="o">/</span> <span class="s1">&#39;data&#39;</span> <span class="o">/</span> <span class="s1">&#39;demographic.csv&#39;</span>
+<span class="n">dm</span><span class="o">=</span><span class="n">da</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">my_file</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>STUDYID</th>
+      <th>USUBJID</th>
+      <th>SUBJID</th>
+      <th>SITEID</th>
+      <th>AGE</th>
+      <th>AGEU</th>
+      <th>SEX</th>
+      <th>RACE</th>
+      <th>ETHNIC</th>
+      <th>...</th>
+      <th>DCSREAS</th>
+      <th>DTHDT</th>
+      <th>DTHCAUS</th>
+      <th>DTHCAT</th>
+      <th>LDDTHELD</th>
+      <th>LDDTHGR1</th>
+      <th>LSTALVDT</th>
+      <th>DTHADY</th>
+      <th>ADTHAUT</th>
+      <th>study_duration_secs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-3-id-128</td>
+      <td>id-128</td>
+      <td>CHN-3</td>
+      <td>32</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>ASIAN</td>
+      <td>HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>DEATH</td>
+      <td>2022-03-06</td>
+      <td>ADVERSE EVENT</td>
+      <td>ADVERSE EVENT</td>
+      <td>22.0</td>
+      <td>&lt;=30</td>
+      <td>2022-03-06</td>
+      <td>1106.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-15-id-262</td>
+      <td>id-262</td>
+      <td>CHN-15</td>
+      <td>35</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>BLACK OR AFRICAN AMERICAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-03-17</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63113904</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>AB12345</td>
+      <td>AB12345-RUS-3-id-378</td>
+      <td>id-378</td>
+      <td>RUS-3</td>
+      <td>30</td>
+      <td>YEARS</td>
+      <td>F</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-03-11</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63113904</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-11-id-220</td>
+      <td>id-220</td>
+      <td>CHN-11</td>
+      <td>26</td>
+      <td>YEARS</td>
+      <td>F</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-03-26</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63113904</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-7-id-267</td>
+      <td>id-267</td>
+      <td>CHN-7</td>
+      <td>40</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-03-15</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63113904</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 57 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read into dataframe vs from package</span>
+<span class="n">my_file</span> <span class="o">=</span> <span class="n">hypehd</span><span class="o">.</span><span class="n">PACKAGEDIR</span> <span class="o">/</span> <span class="s1">&#39;data&#39;</span> <span class="o">/</span> <span class="s1">&#39;vital_signs.csv&#39;</span>
+<span class="n">vs</span><span class="o">=</span><span class="n">da</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">my_file</span><span class="p">)</span>
+<span class="n">vs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>USUBJID</th>
+      <th>PARAM</th>
+      <th>PARAMCD</th>
+      <th>AVAL</th>
+      <th>AVALU</th>
+      <th>ADTM</th>
+      <th>ADY</th>
+      <th>ATPTN</th>
+      <th>AVISIT</th>
+      <th>AVISITN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Diastolic Blood Pressure</td>
+      <td>DIABP</td>
+      <td>39.038337</td>
+      <td>Pa</td>
+      <td>2020/10/15 1:00</td>
+      <td>221</td>
+      <td>1</td>
+      <td>SCREENING</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Diastolic Blood Pressure</td>
+      <td>DIABP</td>
+      <td>55.497804</td>
+      <td>Pa</td>
+      <td>2021/12/6 0:00</td>
+      <td>638</td>
+      <td>1</td>
+      <td>BASELINE</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Diastolic Blood Pressure</td>
+      <td>DIABP</td>
+      <td>50.438759</td>
+      <td>Pa</td>
+      <td>2020/12/19 0:00</td>
+      <td>286</td>
+      <td>1</td>
+      <td>WEEK 1 DAY 8</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Diastolic Blood Pressure</td>
+      <td>DIABP</td>
+      <td>54.408067</td>
+      <td>Pa</td>
+      <td>2020/11/28 0:00</td>
+      <td>265</td>
+      <td>1</td>
+      <td>WEEK 2 DAY 15</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Diastolic Blood Pressure</td>
+      <td>DIABP</td>
+      <td>45.341591</td>
+      <td>Pa</td>
+      <td>2021/7/10 1:00</td>
+      <td>489</td>
+      <td>1</td>
+      <td>WEEK 3 DAY 22</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 <section id="filter-the-dataset">
@@ -138,6 +399,94 @@ vs is a longitudinal dataset including a set of vital signs records per each pat
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>USUBJID</th>
+      <th>PARAMCD</th>
+      <th>AVAL</th>
+      <th>AVISITN</th>
+      <th>ITTFL</th>
+      <th>SEX</th>
+      <th>AGE</th>
+      <th>TRT01P</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1631</th>
+      <td>AB12345-CHN-5-id-160</td>
+      <td>WEIGHT</td>
+      <td>48.578366</td>
+      <td>-1</td>
+      <td>Y</td>
+      <td>F</td>
+      <td>21</td>
+      <td>C: Combination</td>
+    </tr>
+    <tr>
+      <th>1632</th>
+      <td>AB12345-CHN-5-id-160</td>
+      <td>WEIGHT</td>
+      <td>46.529763</td>
+      <td>0</td>
+      <td>Y</td>
+      <td>F</td>
+      <td>21</td>
+      <td>C: Combination</td>
+    </tr>
+    <tr>
+      <th>1633</th>
+      <td>AB12345-CHN-5-id-160</td>
+      <td>WEIGHT</td>
+      <td>55.107222</td>
+      <td>1</td>
+      <td>Y</td>
+      <td>F</td>
+      <td>21</td>
+      <td>C: Combination</td>
+    </tr>
+    <tr>
+      <th>1634</th>
+      <td>AB12345-CHN-5-id-160</td>
+      <td>WEIGHT</td>
+      <td>51.847507</td>
+      <td>2</td>
+      <td>Y</td>
+      <td>F</td>
+      <td>21</td>
+      <td>C: Combination</td>
+    </tr>
+    <tr>
+      <th>1635</th>
+      <td>AB12345-CHN-5-id-160</td>
+      <td>WEIGHT</td>
+      <td>53.882043</td>
+      <td>3</td>
+      <td>Y</td>
+      <td>F</td>
+      <td>21</td>
+      <td>C: Combination</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 <section id="derive-baseline-info">
@@ -151,6 +500,112 @@ vs is a longitudinal dataset including a set of vital signs records per each pat
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>USUBJID</th>
+      <th>PARAMCD</th>
+      <th>AVAL</th>
+      <th>AVISITN</th>
+      <th>ITTFL</th>
+      <th>SEX</th>
+      <th>AGE</th>
+      <th>TRT01P</th>
+      <th>base</th>
+      <th>chg</th>
+      <th>pchg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AB12345-CHN-5-id-160</td>
+      <td>WEIGHT</td>
+      <td>48.578366</td>
+      <td>-1</td>
+      <td>Y</td>
+      <td>F</td>
+      <td>21</td>
+      <td>C: Combination</td>
+      <td>46.529763</td>
+      <td>2.048603</td>
+      <td>0.044028</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AB12345-CHN-5-id-160</td>
+      <td>WEIGHT</td>
+      <td>46.529763</td>
+      <td>0</td>
+      <td>Y</td>
+      <td>F</td>
+      <td>21</td>
+      <td>C: Combination</td>
+      <td>46.529763</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AB12345-CHN-5-id-160</td>
+      <td>WEIGHT</td>
+      <td>55.107222</td>
+      <td>1</td>
+      <td>Y</td>
+      <td>F</td>
+      <td>21</td>
+      <td>C: Combination</td>
+      <td>46.529763</td>
+      <td>8.577459</td>
+      <td>0.184343</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AB12345-CHN-5-id-160</td>
+      <td>WEIGHT</td>
+      <td>51.847507</td>
+      <td>2</td>
+      <td>Y</td>
+      <td>F</td>
+      <td>21</td>
+      <td>C: Combination</td>
+      <td>46.529763</td>
+      <td>5.317745</td>
+      <td>0.114287</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AB12345-CHN-5-id-160</td>
+      <td>WEIGHT</td>
+      <td>53.882043</td>
+      <td>3</td>
+      <td>Y</td>
+      <td>F</td>
+      <td>21</td>
+      <td>C: Combination</td>
+      <td>46.529763</td>
+      <td>7.352281</td>
+      <td>0.158012</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 <section id="generate-line-plots-for-longitudinal-data">
@@ -161,6 +616,15 @@ vs is a longitudinal dataset including a set of vital signs records per each pat
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vis</span><span class="o">.</span><span class="n">longitudinal_graph</span><span class="p">(</span><span class="n">outcome</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;chg&quot;</span><span class="p">,</span> <span class="s2">&quot;pchg&quot;</span><span class="p">],</span> <span class="n">time</span><span class="o">=</span><span class="s2">&quot;AVISITN&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;TRT01P&quot;</span><span class="p">,</span> <span class="n">input_data</span><span class="o">=</span><span class="n">test</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;Figure size 1080x648 with 1 Axes&gt;, &lt;Figure size 1080x648 with 1 Axes&gt;],
+ [&lt;AxesSubplot: title={&#39;center&#39;: &#39;Line plot and summary table for Chg&#39;}, ylabel=&#39;chg&#39;&gt;,
+  &lt;AxesSubplot: title={&#39;center&#39;: &#39;Line plot and summary table for Pchg&#39;}, ylabel=&#39;pchg&#39;&gt;])
+</pre></div>
+</div>
+<img alt="_images/9295a0df3195f3a26077118c2f57dc4111498b51bdd395e5241a1acc25a37b4b.png" src="_images/9295a0df3195f3a26077118c2f57dc4111498b51bdd395e5241a1acc25a37b4b.png" />
+<img alt="_images/49e5d708e517953deca9450feec9e6435927281288c2703dfe08d663cdbbb748.png" src="_images/49e5d708e517953deca9450feec9e6435927281288c2703dfe08d663cdbbb748.png" />
 </div>
 </div>
 </section>
@@ -175,6 +639,343 @@ vs is a longitudinal dataset including a set of vital signs records per each pat
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>USUBJID</th>
+      <th>PARAM</th>
+      <th>PARAMCD</th>
+      <th>AVAL</th>
+      <th>AVALU</th>
+      <th>ADTM</th>
+      <th>ADY</th>
+      <th>ATPTN</th>
+      <th>AVISIT</th>
+      <th>AVISITN</th>
+      <th>last_flag</th>
+      <th>max_flag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Diastolic Blood Pressure</td>
+      <td>DIABP</td>
+      <td>39.038337</td>
+      <td>Pa</td>
+      <td>2020/10/15 1:00</td>
+      <td>221</td>
+      <td>1</td>
+      <td>SCREENING</td>
+      <td>-1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Diastolic Blood Pressure</td>
+      <td>DIABP</td>
+      <td>55.497804</td>
+      <td>Pa</td>
+      <td>2021/12/6 0:00</td>
+      <td>638</td>
+      <td>1</td>
+      <td>BASELINE</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Diastolic Blood Pressure</td>
+      <td>DIABP</td>
+      <td>50.438759</td>
+      <td>Pa</td>
+      <td>2020/12/19 0:00</td>
+      <td>286</td>
+      <td>1</td>
+      <td>WEEK 1 DAY 8</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Diastolic Blood Pressure</td>
+      <td>DIABP</td>
+      <td>54.408067</td>
+      <td>Pa</td>
+      <td>2020/11/28 0:00</td>
+      <td>265</td>
+      <td>1</td>
+      <td>WEEK 2 DAY 15</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Diastolic Blood Pressure</td>
+      <td>DIABP</td>
+      <td>45.341591</td>
+      <td>Pa</td>
+      <td>2021/7/10 1:00</td>
+      <td>489</td>
+      <td>1</td>
+      <td>WEEK 3 DAY 22</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Diastolic Blood Pressure</td>
+      <td>DIABP</td>
+      <td>50.297668</td>
+      <td>Pa</td>
+      <td>2022/2/4 0:00</td>
+      <td>698</td>
+      <td>1</td>
+      <td>WEEK 4 DAY 29</td>
+      <td>4</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Diastolic Blood Pressure</td>
+      <td>DIABP</td>
+      <td>59.269864</td>
+      <td>Pa</td>
+      <td>2020/7/5 1:00</td>
+      <td>119</td>
+      <td>1</td>
+      <td>WEEK 5 DAY 36</td>
+      <td>5</td>
+      <td>Y</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Pulse Rate</td>
+      <td>PULSE</td>
+      <td>38.809968</td>
+      <td>beats/min</td>
+      <td>2021/12/31 0:00</td>
+      <td>663</td>
+      <td>1</td>
+      <td>SCREENING</td>
+      <td>-1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Pulse Rate</td>
+      <td>PULSE</td>
+      <td>67.889859</td>
+      <td>beats/min</td>
+      <td>2021/9/9 1:00</td>
+      <td>550</td>
+      <td>1</td>
+      <td>BASELINE</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Pulse Rate</td>
+      <td>PULSE</td>
+      <td>45.968851</td>
+      <td>beats/min</td>
+      <td>2020/12/16 0:00</td>
+      <td>283</td>
+      <td>1</td>
+      <td>WEEK 1 DAY 8</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Pulse Rate</td>
+      <td>PULSE</td>
+      <td>54.551328</td>
+      <td>beats/min</td>
+      <td>2020/9/12 1:00</td>
+      <td>188</td>
+      <td>1</td>
+      <td>WEEK 2 DAY 15</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Pulse Rate</td>
+      <td>PULSE</td>
+      <td>51.229417</td>
+      <td>beats/min</td>
+      <td>2021/11/23 0:00</td>
+      <td>625</td>
+      <td>1</td>
+      <td>WEEK 3 DAY 22</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Pulse Rate</td>
+      <td>PULSE</td>
+      <td>43.133770</td>
+      <td>beats/min</td>
+      <td>2020/6/29 1:00</td>
+      <td>113</td>
+      <td>1</td>
+      <td>WEEK 4 DAY 29</td>
+      <td>4</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Pulse Rate</td>
+      <td>PULSE</td>
+      <td>58.700283</td>
+      <td>beats/min</td>
+      <td>2020/6/20 1:00</td>
+      <td>104</td>
+      <td>1</td>
+      <td>WEEK 5 DAY 36</td>
+      <td>5</td>
+      <td>Y</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Respiratory Rate</td>
+      <td>RESP</td>
+      <td>38.392288</td>
+      <td>breaths/min</td>
+      <td>2020/11/22 0:00</td>
+      <td>259</td>
+      <td>1</td>
+      <td>SCREENING</td>
+      <td>-1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Respiratory Rate</td>
+      <td>RESP</td>
+      <td>51.254081</td>
+      <td>breaths/min</td>
+      <td>2021/6/14 1:00</td>
+      <td>463</td>
+      <td>1</td>
+      <td>BASELINE</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Respiratory Rate</td>
+      <td>RESP</td>
+      <td>63.115384</td>
+      <td>breaths/min</td>
+      <td>2020/10/20 1:00</td>
+      <td>226</td>
+      <td>1</td>
+      <td>WEEK 1 DAY 8</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>Y</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Respiratory Rate</td>
+      <td>RESP</td>
+      <td>53.073852</td>
+      <td>breaths/min</td>
+      <td>2021/9/5 1:00</td>
+      <td>546</td>
+      <td>1</td>
+      <td>WEEK 2 DAY 15</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Respiratory Rate</td>
+      <td>RESP</td>
+      <td>34.650623</td>
+      <td>breaths/min</td>
+      <td>2020/11/4 0:00</td>
+      <td>241</td>
+      <td>1</td>
+      <td>WEEK 3 DAY 22</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>AB12345-BRA-1-id-105</td>
+      <td>Respiratory Rate</td>
+      <td>RESP</td>
+      <td>55.551606</td>
+      <td>breaths/min</td>
+      <td>2021/11/16 0:00</td>
+      <td>618</td>
+      <td>1</td>
+      <td>WEEK 4 DAY 29</td>
+      <td>4</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 <section id="survival-analysis">
@@ -182,9 +983,192 @@ vs is a longitudinal dataset including a set of vital signs records per each pat
 <p>using <code class="docutils literal notranslate"><span class="pre">time_to_event()</span></code> in data_manipulation to process the time to event variable and using <code class="docutils literal notranslate"><span class="pre">survival_analysis()</span></code> in visualization to generate the KM plot</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm2</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">time_to_event</span><span class="p">(</span><span class="n">input_data</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;TRTSDTM&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;DTHDT&quot;</span><span class="p">,</span> <span class="n">censor_date</span><span class="o">=</span><span class="s2">&quot;TRTEDTM&quot;</span><span class="p">,</span>
+                       <span class="n">new_var</span><span class="o">=</span><span class="s1">&#39;time_to_death&#39;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+<span class="n">dm2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>STUDYID</th>
+      <th>USUBJID</th>
+      <th>SUBJID</th>
+      <th>SITEID</th>
+      <th>AGE</th>
+      <th>AGEU</th>
+      <th>SEX</th>
+      <th>RACE</th>
+      <th>ETHNIC</th>
+      <th>...</th>
+      <th>DTHCAT</th>
+      <th>LDDTHELD</th>
+      <th>LDDTHGR1</th>
+      <th>LSTALVDT</th>
+      <th>DTHADY</th>
+      <th>ADTHAUT</th>
+      <th>study_duration_secs</th>
+      <th>time_to_death</th>
+      <th>censor_status</th>
+      <th>unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-3-id-128</td>
+      <td>id-128</td>
+      <td>CHN-3</td>
+      <td>32</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>ASIAN</td>
+      <td>HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>ADVERSE EVENT</td>
+      <td>22.0</td>
+      <td>&lt;=30</td>
+      <td>2022-03-06</td>
+      <td>1106.0</td>
+      <td>Yes</td>
+      <td>63113904</td>
+      <td>3.03</td>
+      <td>1</td>
+      <td>year</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-15-id-262</td>
+      <td>id-262</td>
+      <td>CHN-15</td>
+      <td>35</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>BLACK OR AFRICAN AMERICAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-03-17</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63113904</td>
+      <td>3.00</td>
+      <td>0</td>
+      <td>year</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>AB12345</td>
+      <td>AB12345-RUS-3-id-378</td>
+      <td>id-378</td>
+      <td>RUS-3</td>
+      <td>30</td>
+      <td>YEARS</td>
+      <td>F</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-03-11</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63113904</td>
+      <td>3.00</td>
+      <td>0</td>
+      <td>year</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-11-id-220</td>
+      <td>id-220</td>
+      <td>CHN-11</td>
+      <td>26</td>
+      <td>YEARS</td>
+      <td>F</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-03-26</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63113904</td>
+      <td>3.00</td>
+      <td>0</td>
+      <td>year</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>AB12345</td>
+      <td>AB12345-CHN-7-id-267</td>
+      <td>id-267</td>
+      <td>CHN-7</td>
+      <td>40</td>
+      <td>YEARS</td>
+      <td>M</td>
+      <td>ASIAN</td>
+      <td>NOT HISPANIC OR LATINO</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2022-03-15</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63113904</td>
+      <td>3.00</td>
+      <td>0</td>
+      <td>year</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 60 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vis</span><span class="o">.</span><span class="n">survival_analysis</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s2">&quot;time_to_death&quot;</span><span class="p">,</span> <span class="n">censor_status</span><span class="o">=</span><span class="s2">&quot;censor_status&quot;</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;TRT01P&quot;</span><span class="p">,</span> <span class="n">input_data</span><span class="o">=</span><span class="n">dm2</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 576x432 with 1 Axes&gt;,
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;Survival of different TRT01P&#39;}, xlabel=&#39;timeline&#39;&gt;)
+</pre></div>
+</div>
+<img alt="_images/1205265604c2dd33833e66edca2b07847fd8b1eb4a292f71130e388f80d5fe2f.png" src="_images/1205265604c2dd33833e66edca2b07847fd8b1eb4a292f71130e388f80d5fe2f.png" />
 </div>
 </div>
 </section>

@@ -95,17 +95,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hypehd</span> <span class="kn">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
 <span class="kn">from</span> <span class="nn">hypehd</span> <span class="kn">import</span> <span class="n">data_manipulation</span> <span class="k">as</span> <span class="n">da</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">pg</span><span class="o">/</span><span class="n">bn92l6gx4bv7nvjqk8mjnhp80000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_2973</span><span class="o">/</span><span class="mf">2644166443.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">hypehd</span> <span class="kn">import</span> <span class="n">visualization</span> <span class="k">as</span> <span class="n">vis</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">hypehd</span> <span class="kn">import</span> <span class="n">data_manipulation</span> <span class="k">as</span> <span class="n">da</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;hypehd&#39;
+<span class="kn">import</span> <span class="nn">hypehd</span>
 </pre></div>
 </div>
 </div>
@@ -115,7 +105,9 @@
 <h2>Reading the data<a class="headerlink" href="#reading-the-data" title="Permalink to this headline"></a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span><span class="s2">&quot;data/demographic.csv&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read into dataframe dm from package</span>
+<span class="n">my_file</span> <span class="o">=</span> <span class="n">hypehd</span><span class="o">.</span><span class="n">PACKAGEDIR</span> <span class="o">/</span> <span class="s1">&#39;data&#39;</span> <span class="o">/</span> <span class="s1">&#39;demographic.csv&#39;</span>
+<span class="n">dm</span><span class="o">=</span><span class="n">da</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;csv&quot;</span><span class="p">,</span> <span class="n">my_file</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -300,8 +292,7 @@ Here, we have checked the columns for too much missing data, in other words, col
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Demographics:
-Columns with too many null values: 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Columns with too many null values: 
  [[&#39;TRTEDTM&#39;, 73], [&#39;TRT01EDTM&#39;, 73], [&#39;TRT02SDTM&#39;, 73], [&#39;TRT02EDTM&#39;, 73], [&#39;AP01EDTM&#39;, 73], [&#39;AP02SDTM&#39;, 73], [&#39;AP02EDTM&#39;, 73], [&#39;EOSDT&#39;, 73], [&#39;EOSDY&#39;, 73], [&#39;DCSREAS&#39;, 280], [&#39;DTHDT&#39;, 330], [&#39;DTHCAUS&#39;, 330], [&#39;DTHCAT&#39;, 330], [&#39;LDDTHELD&#39;, 330], [&#39;LDDTHGR1&#39;, 330], [&#39;LSTALVDT&#39;, 73], [&#39;DTHADY&#39;, 330], [&#39;ADTHAUT&#39;, 343]]
 </pre></div>
 </div>
@@ -685,11 +676,11 @@ You can replace the previous column or create a new column for your categorical 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.patches.Wedge at 0x1a24edaa90&gt;,
-  &lt;matplotlib.patches.Wedge at 0x1a24eb1690&gt;,
-  &lt;matplotlib.patches.Wedge at 0x1a24ef1b50&gt;,
-  &lt;matplotlib.patches.Wedge at 0x1a24ef1850&gt;,
-  &lt;matplotlib.patches.Wedge at 0x1a24efeb90&gt;],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.patches.Wedge at 0x7fd12d458520&gt;,
+  &lt;matplotlib.patches.Wedge at 0x7fd12d458a90&gt;,
+  &lt;matplotlib.patches.Wedge at 0x7fd12d474160&gt;,
+  &lt;matplotlib.patches.Wedge at 0x7fd12d4747f0&gt;,
+  &lt;matplotlib.patches.Wedge at 0x7fd12d474e80&gt;],
  [Text(0.5320908144466622, 0.9627457427490853, &#39;(35,40]&#39;),
   Text(-1.084458100654201, 0.18425696167440575, &#39;(,30]&#39;),
   Text(-0.30451921808270677, -1.0570090093363902, &#39;(30,35]&#39;),
@@ -702,7 +693,7 @@ You can replace the previous column or create a new column for your categorical 
   Text(0.5915225991806061, -0.10050380419974143, &#39;5.4%\n3&#39;)])
 </pre></div>
 </div>
-<img alt="_images/b1a264c669383094fa115209b6da01e00e6159a2732844db55abf1fdeed155ad.png" src="_images/b1a264c669383094fa115209b6da01e00e6159a2732844db55abf1fdeed155ad.png" />
+<img alt="_images/629a6af5e80ea6cdf7be51fce04da0e752efa746403f180ef527068101bac1f5.png" src="_images/629a6af5e80ea6cdf7be51fce04da0e752efa746403f180ef527068101bac1f5.png" />
 </div>
 </div>
 </section>
@@ -717,12 +708,12 @@ Here we have plotted <strong><em>AGE</em></strong> by <strong><em>SEX</em></stro
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/nic/opt/anaconda3/lib/python3.7/site-packages/seaborn/axisgrid.py:728: UserWarning: Using the boxplot function without specifying `order` is likely to produce an incorrect plot.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/wangjiayi/opt/anaconda3/lib/python3.9/site-packages/seaborn/axisgrid.py:670: UserWarning: Using the boxplot function without specifying `order` is likely to produce an incorrect plot.
   warnings.warn(warning)
 </pre></div>
 </div>
-<img alt="_images/67715c13232ddc5c63fa01ee859280903b80c5e94f338a6715e919fc4d79d1e6.png" src="_images/67715c13232ddc5c63fa01ee859280903b80c5e94f338a6715e919fc4d79d1e6.png" />
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x1a24f0af50&gt;
+<img alt="_images/9cafdf87f003c569daa43746d66185f63ced479e138729db10908b1e9bae8cb1.png" src="_images/9cafdf87f003c569daa43746d66185f63ced479e138729db10908b1e9bae8cb1.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fd12dc94490&gt;
 </pre></div>
 </div>
 </div>
@@ -736,6 +727,15 @@ Here we have plotted <strong><em>AGE</em></strong> by <strong><em>SEX</em></stro
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vis</span><span class="o">.</span><span class="n">demo_graph</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;AGE&quot;</span><span class="p">,</span> <span class="s2">&quot;SEX&quot;</span><span class="p">],</span> <span class="n">input_data</span><span class="o">=</span><span class="n">dm</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s1">&#39;TRT01P&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;Figure size 1080x720 with 1 Axes&gt;, &lt;Figure size 1080x720 with 1 Axes&gt;],
+ [&lt;AxesSubplot: title={&#39;center&#39;: &#39;Plot and summary table for Age&#39;}, ylabel=&#39;AGE&#39;&gt;,
+  &lt;AxesSubplot: title={&#39;center&#39;: &#39;Plot and summary table for Sex&#39;}, ylabel=&#39;SEX&#39;&gt;])
+</pre></div>
+</div>
+<img alt="_images/a45ff239beeaeeb5dfada09926acc55371e4126ba7f2ad1c08e4609a8c5387f3.png" src="_images/a45ff239beeaeeb5dfada09926acc55371e4126ba7f2ad1c08e4609a8c5387f3.png" />
+<img alt="_images/53104f91eb5d829a80d7741bd4dc9587574091ca4c9a081ff3a736c3da3f75d4.png" src="_images/53104f91eb5d829a80d7741bd4dc9587574091ca4c9a081ff3a736c3da3f75d4.png" />
 </div>
 </div>
 </section>
@@ -753,10 +753,10 @@ If you only want a 3D graph without the clustering, you can use the <code class=
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 864x864 with 1 Axes&gt;,
- &lt;Axes3DSubplot:xlabel=&#39;Age&#39;, ylabel=&#39;BMRKR1&#39;&gt;)
+ &lt;Axes3DSubplot: xlabel=&#39;Age&#39;, ylabel=&#39;BMRKR1&#39;, zlabel=&#39;Study duration (s)&#39;&gt;)
 </pre></div>
 </div>
-<img alt="_images/b69665a5b07a0671df59357a291ed00e7afd57b2de633cd17367e9dc43a79ef1.png" src="_images/b69665a5b07a0671df59357a291ed00e7afd57b2de633cd17367e9dc43a79ef1.png" />
+<img alt="_images/a90e6dc0ed97b83f4b23e4ba7b80cb85eff13132372c8a3b4a9cbc31e39a04bc.png" src="_images/a90e6dc0ed97b83f4b23e4ba7b80cb85eff13132372c8a3b4a9cbc31e39a04bc.png" />
 </div>
 </div>
 </section>
@@ -772,10 +772,10 @@ We have plotted a two dimentional cluster graph of <strong><em>AGE</em></strong>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 864x864 with 1 Axes&gt;,
- &lt;AxesSubplot:xlabel=&#39;AGE&#39;, ylabel=&#39;BMRKR1&#39;&gt;)
+ &lt;AxesSubplot: xlabel=&#39;AGE&#39;, ylabel=&#39;BMRKR1&#39;&gt;)
 </pre></div>
 </div>
-<img alt="_images/0de1cb663b100f46199618c4a3964e9dd268de47d950c3580b207f0dc12e207e.png" src="_images/0de1cb663b100f46199618c4a3964e9dd268de47d950c3580b207f0dc12e207e.png" />
+<img alt="_images/cd81088e47197e2af2853fc22cede87e3ff1c3396772031063dfd46972a52508.png" src="_images/cd81088e47197e2af2853fc22cede87e3ff1c3396772031063dfd46972a52508.png" />
 </div>
 </div>
 </section>
@@ -824,9 +824,9 @@ Here, we have removed columns with too many null values and have used the <code 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6332a791041c54413bd16ebf7572d99cdd00a0f96addf851b1974b6f5fe51744.png" src="_images/6332a791041c54413bd16ebf7572d99cdd00a0f96addf851b1974b6f5fe51744.png" />
-<img alt="_images/95e14b79f5ce18e2f96020e13f4d3778d3d73aeafccd12bcf04663b015efdd0c.png" src="_images/95e14b79f5ce18e2f96020e13f4d3778d3d73aeafccd12bcf04663b015efdd0c.png" />
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&lt;Figure size 1008x1008 with 2 Axes&gt;, &lt;AxesSubplot:&gt;], &lt;AxesSubplot:&gt;]
+<img alt="_images/9a36261d56357a33928b1a4698f085606c9e57768813397374082f4325d5e68b.png" src="_images/9a36261d56357a33928b1a4698f085606c9e57768813397374082f4325d5e68b.png" />
+<img alt="_images/c7a42743d85289e6c651ba323613ed8da74dc4d5be4ba711bf7ca3b56fbcd18b.png" src="_images/c7a42743d85289e6c651ba323613ed8da74dc4d5be4ba711bf7ca3b56fbcd18b.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&lt;Figure size 1008x1008 with 2 Axes&gt;, &lt;AxesSubplot: &gt;], &lt;AxesSubplot: &gt;]
 </pre></div>
 </div>
 </div>
