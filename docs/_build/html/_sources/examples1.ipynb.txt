@@ -83,14 +83,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 2,
    "outputs": [
     {
      "data": {
       "text/plain": "   Unnamed: 0  STUDYID                USUBJID  SUBJID  SITEID  AGE   AGEU SEX  \\\n0           1  AB12345   AB12345-CHN-3-id-128  id-128   CHN-3   32  YEARS   M   \n1           2  AB12345  AB12345-CHN-15-id-262  id-262  CHN-15   35  YEARS   M   \n2           3  AB12345   AB12345-RUS-3-id-378  id-378   RUS-3   30  YEARS   F   \n3           4  AB12345  AB12345-CHN-11-id-220  id-220  CHN-11   26  YEARS   F   \n4           5  AB12345   AB12345-CHN-7-id-267  id-267   CHN-7   40  YEARS   M   \n\n                        RACE                  ETHNIC  ... DCSREAS       DTHDT  \\\n0                      ASIAN      HISPANIC OR LATINO  ...   DEATH  2022-03-06   \n1  BLACK OR AFRICAN AMERICAN  NOT HISPANIC OR LATINO  ...     NaN         NaN   \n2                      ASIAN  NOT HISPANIC OR LATINO  ...     NaN         NaN   \n3                      ASIAN  NOT HISPANIC OR LATINO  ...     NaN         NaN   \n4                      ASIAN  NOT HISPANIC OR LATINO  ...     NaN         NaN   \n\n         DTHCAUS         DTHCAT LDDTHELD LDDTHGR1    LSTALVDT  DTHADY ADTHAUT  \\\n0  ADVERSE EVENT  ADVERSE EVENT     22.0     <=30  2022-03-06  1106.0     Yes   \n1            NaN            NaN      NaN      NaN  2022-03-17     NaN     NaN   \n2            NaN            NaN      NaN      NaN  2022-03-11     NaN     NaN   \n3            NaN            NaN      NaN      NaN  2022-03-26     NaN     NaN   \n4            NaN            NaN      NaN      NaN  2022-03-15     NaN     NaN   \n\n  study_duration_secs  \n0            63113904  \n1            63113904  \n2            63113904  \n3            63113904  \n4            63113904  \n\n[5 rows x 57 columns]",
       "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>Unnamed: 0</th>\n      <th>STUDYID</th>\n      <th>USUBJID</th>\n      <th>SUBJID</th>\n      <th>SITEID</th>\n      <th>AGE</th>\n      <th>AGEU</th>\n      <th>SEX</th>\n      <th>RACE</th>\n      <th>ETHNIC</th>\n      <th>...</th>\n      <th>DCSREAS</th>\n      <th>DTHDT</th>\n      <th>DTHCAUS</th>\n      <th>DTHCAT</th>\n      <th>LDDTHELD</th>\n      <th>LDDTHGR1</th>\n      <th>LSTALVDT</th>\n      <th>DTHADY</th>\n      <th>ADTHAUT</th>\n      <th>study_duration_secs</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>1</td>\n      <td>AB12345</td>\n      <td>AB12345-CHN-3-id-128</td>\n      <td>id-128</td>\n      <td>CHN-3</td>\n      <td>32</td>\n      <td>YEARS</td>\n      <td>M</td>\n      <td>ASIAN</td>\n      <td>HISPANIC OR LATINO</td>\n      <td>...</td>\n      <td>DEATH</td>\n      <td>2022-03-06</td>\n      <td>ADVERSE EVENT</td>\n      <td>ADVERSE EVENT</td>\n      <td>22.0</td>\n      <td>&lt;=30</td>\n      <td>2022-03-06</td>\n      <td>1106.0</td>\n      <td>Yes</td>\n      <td>63113904</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>2</td>\n      <td>AB12345</td>\n      <td>AB12345-CHN-15-id-262</td>\n      <td>id-262</td>\n      <td>CHN-15</td>\n      <td>35</td>\n      <td>YEARS</td>\n      <td>M</td>\n      <td>BLACK OR AFRICAN AMERICAN</td>\n      <td>NOT HISPANIC OR LATINO</td>\n      <td>...</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>2022-03-17</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>63113904</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>3</td>\n      <td>AB12345</td>\n      <td>AB12345-RUS-3-id-378</td>\n      <td>id-378</td>\n      <td>RUS-3</td>\n      <td>30</td>\n      <td>YEARS</td>\n      <td>F</td>\n      <td>ASIAN</td>\n      <td>NOT HISPANIC OR LATINO</td>\n      <td>...</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>2022-03-11</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>63113904</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>4</td>\n      <td>AB12345</td>\n      <td>AB12345-CHN-11-id-220</td>\n      <td>id-220</td>\n      <td>CHN-11</td>\n      <td>26</td>\n      <td>YEARS</td>\n      <td>F</td>\n      <td>ASIAN</td>\n      <td>NOT HISPANIC OR LATINO</td>\n      <td>...</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>2022-03-26</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>63113904</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>5</td>\n      <td>AB12345</td>\n      <td>AB12345-CHN-7-id-267</td>\n      <td>id-267</td>\n      <td>CHN-7</td>\n      <td>40</td>\n      <td>YEARS</td>\n      <td>M</td>\n      <td>ASIAN</td>\n      <td>NOT HISPANIC OR LATINO</td>\n      <td>...</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>2022-03-15</td>\n      <td>NaN</td>\n      <td>NaN</td>\n      <td>63113904</td>\n    </tr>\n  </tbody>\n</table>\n<p>5 rows × 57 columns</p>\n</div>"
      },
-     "execution_count": 3,
+     "execution_count": 2,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -190,14 +190,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 7,
    "outputs": [
     {
      "data": {
       "text/plain": "                USUBJID PARAMCD       AVAL  AVISITN ITTFL SEX  AGE  \\\n0  AB12345-CHN-5-id-160  WEIGHT  48.578366       -1     Y   F   21   \n1  AB12345-CHN-5-id-160  WEIGHT  46.529763        0     Y   F   21   \n2  AB12345-CHN-5-id-160  WEIGHT  55.107222        1     Y   F   21   \n3  AB12345-CHN-5-id-160  WEIGHT  51.847507        2     Y   F   21   \n4  AB12345-CHN-5-id-160  WEIGHT  53.882043        3     Y   F   21   \n\n           TRT01P       base       chg      pchg  \n0  C: Combination  46.529763  2.048603  0.044028  \n1  C: Combination  46.529763  0.000000  0.000000  \n2  C: Combination  46.529763  8.577459  0.184343  \n3  C: Combination  46.529763  5.317745  0.114287  \n4  C: Combination  46.529763  7.352281  0.158012  ",
       "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>USUBJID</th>\n      <th>PARAMCD</th>\n      <th>AVAL</th>\n      <th>AVISITN</th>\n      <th>ITTFL</th>\n      <th>SEX</th>\n      <th>AGE</th>\n      <th>TRT01P</th>\n      <th>base</th>\n      <th>chg</th>\n      <th>pchg</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>AB12345-CHN-5-id-160</td>\n      <td>WEIGHT</td>\n      <td>48.578366</td>\n      <td>-1</td>\n      <td>Y</td>\n      <td>F</td>\n      <td>21</td>\n      <td>C: Combination</td>\n      <td>46.529763</td>\n      <td>2.048603</td>\n      <td>0.044028</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>AB12345-CHN-5-id-160</td>\n      <td>WEIGHT</td>\n      <td>46.529763</td>\n      <td>0</td>\n      <td>Y</td>\n      <td>F</td>\n      <td>21</td>\n      <td>C: Combination</td>\n      <td>46.529763</td>\n      <td>0.000000</td>\n      <td>0.000000</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>AB12345-CHN-5-id-160</td>\n      <td>WEIGHT</td>\n      <td>55.107222</td>\n      <td>1</td>\n      <td>Y</td>\n      <td>F</td>\n      <td>21</td>\n      <td>C: Combination</td>\n      <td>46.529763</td>\n      <td>8.577459</td>\n      <td>0.184343</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>AB12345-CHN-5-id-160</td>\n      <td>WEIGHT</td>\n      <td>51.847507</td>\n      <td>2</td>\n      <td>Y</td>\n      <td>F</td>\n      <td>21</td>\n      <td>C: Combination</td>\n      <td>46.529763</td>\n      <td>5.317745</td>\n      <td>0.114287</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>AB12345-CHN-5-id-160</td>\n      <td>WEIGHT</td>\n      <td>53.882043</td>\n      <td>3</td>\n      <td>Y</td>\n      <td>F</td>\n      <td>21</td>\n      <td>C: Combination</td>\n      <td>46.529763</td>\n      <td>7.352281</td>\n      <td>0.158012</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
      },
-     "execution_count": 6,
+     "execution_count": 7,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -229,13 +229,13 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 8,
    "outputs": [
     {
      "data": {
       "text/plain": "([<Figure size 1500x900 with 1 Axes>, <Figure size 1500x900 with 1 Axes>],\n [<AxesSubplot: title={'center': 'Line plot and summary table for Chg'}, ylabel='chg'>,\n  <AxesSubplot: title={'center': 'Line plot and summary table for Pchg'}, ylabel='pchg'>])"
      },
-     "execution_count": 7,
+     "execution_count": 8,
      "metadata": {},
      "output_type": "execute_result"
     },
