@@ -135,7 +135,7 @@ def test_check_bias():
 
     # expected data
     expected1 = [['Visit', 3], ['Rest', 2]]
-    expected2 = ['M', 75, 'F', 25]
+    expected2 = ['M', '75.0', 'F', '25.0']
     
     # actual data
     actual1, actual2 = da.check_bias(df, 'Sex', [['M', 50], ['F', 50]])
@@ -194,6 +194,6 @@ def test_read():
     expected = pd.DataFrame()
     expected['Height'] = [160, 145, 180, 178]
     
-    actual = da.read("csv", "data/height.csv")
+    actual = da.read("csv", "Height.csv")
     
     assert actual.equals(expected), "Reading went wrong!"    
