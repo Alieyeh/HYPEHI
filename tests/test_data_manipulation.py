@@ -135,7 +135,7 @@ def test_check_bias():
 
     # expected data
     expected1 = [['Visit', 3], ['Rest', 2]]
-    expected2 = ['M', '75.0', 'F', '25.0']
+    expected2 = ['M', 75.0, 'F', 25.0]
     
     # actual data
     actual1, actual2 = da.check_bias(df, 'Sex', [['M', 50], ['F', 50]])
