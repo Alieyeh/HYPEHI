@@ -436,7 +436,7 @@ def check_bias(df, col=None, real_dist=None, n_marg=10, marg=5):
         for i in skew:
             print(str(i['vals'].values[0]) + " : " + str(i['dist'].values[0]))
             skewed.append(str(i['vals'].values[0]))
-            skewed.append(str(i['dist'].values[0]))
+            skewed.append(i['dist'].values[0])
     return too_nul, skewed
 
 

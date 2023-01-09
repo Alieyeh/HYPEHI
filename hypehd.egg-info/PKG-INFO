@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: hypehd
-Version: 0.1.8
+Version: 0.1.9
 Summary: This package aims to be a tool for real-world and practical data analysis, assisting in reaching a quicker understanding of various health related data.
 Home-page: https://github.com/Alieyeh/hypehd
 Author: Jiayi Wang, Alieyeh Sarabandi Moghaddam
@@ -83,7 +83,7 @@ HYPEHD is a Python package that provides easy to use functions, designed to make
 - Python 3.7 (with the following packages)
     - numpy 1.19.4
     - matplotlib 3.5.3
-    - seaborn 0.10.0
+    - seaborn 0.11.0
     - pandas 1.0.1
     - scipy.stats 1.4.1
     - sklearn.cluster 0.22.1
