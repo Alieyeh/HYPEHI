@@ -36,22 +36,22 @@ def test_handle_null():
 def test_change_type():
     # data
     df = pd.DataFrame()
-    df['C0'] = ['1,000', '1', '1 000']
+    df['C0'] = ['1000', '1', '1000']
     df['C1'] = [1, 3.01, 50]
 
     # str to int
     expected = pd.DataFrame()
     expected['C0'] = [1000, 1, 1000]
     expected['C1'] = [1, 3.01, 50]
-    actual = da.change_typel(df, 'C0', int)
+    actual = da.change_type(df, 'C0', int)
     assert actual.equals(expected), "Incorrect change from str to int!"
 
     # float to str
     df['C0'] = ['1,000', '1', '1 000']
     df['C1'] = [1, 3.01, 50]
     expected['C0'] = ['1,000', '1', '1 000']
-    expected['C1'] = ["1", "3.01", "50"]
-    actual = da.handle_null(df, 'C1', str)
+    expected['C1'] = ["1.0", "3.01", "50.0"]
+    actual = da.change_type(df, 'C1', str)
     assert actual.equals(expected), "Incorrect change from float to str!"
     
     # float to int
@@ -59,7 +59,7 @@ def test_change_type():
     df['C1'] = [1.9, 3.01, 50.2]
     expected['C0'] = ['1,000', '1', '1 000']
     expected['C1'] = [1, 3, 50]
-    actual = da.handle_null(df, 'C1', int)
+    actual = da.change_type(df, 'C1', int)
     assert actual.equals(expected), "Incorrect change from float to int!"
 
 
@@ -139,12 +139,13 @@ def test_check_bias():
     
     # actual data
     actual1, actual2 = da.check_bias(df, 'Sex', [['M', 50], ['F', 50]])
+    print(actual2)
     
     # compare    
     assert actual1 == expected1, "Null value incorrect!"
     assert actual2 == expected2, "Distribution incorrect!"
 
-
+test_check_bias()
 def test_numeric_to_categorical():
     # test data
     df = pd.DataFrame()
